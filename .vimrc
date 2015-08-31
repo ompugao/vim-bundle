@@ -1,126 +1,6 @@
 scriptencoding utf8
 
-"neobundle(https://github.com/Shougo/neobundle.vim.git)
-"set nocompatible              " Be Improved
-if has('vim_starting')
-  set runtimepath+=~/dotfiles/neobundle.vim/
-endif
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" NeoBundles {{{
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gregsexton/gitv', {
-      \ 'depends': ['tpope/vim-fugitive'],
-      \ }
-NeoBundle 'Shougo/vimproc.git' , {
-              \ 'build' : {
-              \     'windows' : 'echo "Sorry, cannot update vimproc."',
-              \     'cygwin' : 'make -f make_cygwin.mak',
-              \     'mac' : 'make -f make_mac.mak',
-              \     'unix' : 'make -f make_unix.mak',
-              \    },
-              \ }
-NeoBundleLazy "Shougo/unite.vim", {
-      \   'autoload' : {
-      \       'commands' : [
-      \           {"name" : "Unite",
-      \            "complete" : "customlist,unite#complete_source"
-      \           },
-      \       ]}}
-NeoBundleLazy 'Shougo/unite-outline', {
-      \ "autoload": {
-      \   "unite_sources": ["outline"],
-      \ }}
-NeoBundle 'sudo.vim'
-NeoBundle 'junegunn/vim-easy-align'
-NeoBundle 'thinca/vim-quickrun.git'
-NeoBundle 'mattn/quickrunex-vim'
-NeoBundle 'kana/vim-operator-user'
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'kana/vim-operator-replace'
-NeoBundle 'rhysd/vim-operator-surround'
-NeoBundle 'thinca/vim-textobj-between'
-NeoBundle 'ujihisa/neco-look'
-NeoBundle 'vim-ruby/vim-ruby.git'
-NeoBundle 'tpope/vim-dispatch'
-NeoBundleLazy 'alpaca-tc/alpaca_tags', {
-      \ 'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
-      \ 'autoload' : {
-      \   'commands' : ['AlpacaTagsSet', 'AlpacaTagsCleanCache', 'AlpacaTagsDisable', 'AlpacaTagsEnable', 'AlpacaTagsEnable', 'AlpacaTagsKillProcess', 'AlpacaTagsProcessStatus'],
-      \   'unite_sources' : ['tags']
-      \ }}
-function! s:has_neocomplete_required()
-    return has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
-endfunction
-if s:has_neocomplete_required()
-    NeoBundle 'Shougo/neocomplete.vim'
-endif
-"NeoBundle 'mattn/sonictemplate-vim'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-" python {{{
-NeoBundleLazy 'Python-3.x-Standard-Library-Reference'
-NeoBundleLazy 'Python-2.x-Standard-Library-Reference'
-NeoBundleLazy 'davidhalter/jedi-vim' , {
-            \ "autoload": {
-            \   "filetypes": ["python", "python3", "djangohtml"],
-            \ },
-            \}
-NeoBundle 'hdima/python-syntax'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'rking/ag.vim'
-NeoBundle 'haya14busa/incsearch.vim'
-NeoBundle 'haya14busa/incsearch-migemo.vim'
-NeoBundle 'haya14busa/incsearch-fuzzy.vim'
-NeoBundle 'haya14busa/vim-asterisk'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'ompugao/vim-airline-cwd'
-NeoBundle "ctrlpvim/ctrlp.vim"
-NeoBundle "ompugao/ctrlp-history"
-NeoBundle "ompugao/ctrlp-locate"
-NeoBundle "tacahiroy/ctrlp-funky"
-NeoBundle 'DavidEGx/ctrlp-smarttabs'
-NeoBundle 'ompugao/uncrustify-vim'
-NeoBundle 'haya14busa/vim-migemo'
-NeoBundle 'tyru/eskk.vim.git'
-NeoBundle 'kshenoy/vim-signature'
-NeoBundleLazy 'Shougo/vinarise', {
-            \ 'autoload' : {
-            \   'commands': [ "Vinarise", "VinariseDump",
-            \                 "VinarisePluginBitmapView",
-            \                 "VinarisePluginDump",
-            \                 "VinariseScript2Hex"]
-            \ }}
-NeoBundle 'justinmk/vim-dirvish'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'mattn/gist-vim'
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'tyru/open-browser.vim'
-"twitter"{{{
-NeoBundleLazy 'ompugao/TweetVim', {
-      \ "rev" : "ctrlp-support",
-      \ "depends" : [ 'basyura/twibill.vim', 'basyura/bitly.vim', 'yomi322/neco-tweetvim'],
-      \ "autoload": {
-      \   "filetypes": ["tweetvim", "tweetvim_say" ],
-      \   "commands" : [ "TweetVimAccessToken", "TweetVimBitly",
-      \                  "TweetVimCurrentLineSay", "TweetVimListStatuses",
-      \                  "TweetVimSay", "TweetVimSwitchAccount", "TweetVimUserTimeline",
-      \                  "TweetVimAddAccount", "TweetVimCommandSay", "TweetVimHomeTimeline",
-      \                  "TweetVimMentions", "TweetVimSearch",
-      \                  "TweetVimUserStream", "TweetVimVersion"]
-      \ }}
-""}}}
-NeoBundle 'kannokanno/previm', {
-      \ 'depends': ['tyru/open-browser.vim'],
-      \}
-"}}}
-NeoBundle "plasticboy/vim-markdown"
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'mopp/autodirmake.vim'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'vim-jp/vital.vim'
-call neobundle#end()
-"}}}
+runtime vim-unbundle/plugin/unbundle.vim
 
 " 文字コード関連  {{{
 if &encoding !=# 'utf-8'
@@ -382,47 +262,40 @@ if has('autocmd')
 endif
 "}}}
 " unite {{{
-let bundle = neobundle#get('unite.vim')
-function! bundle.hooks.on_source(bundle)
-  call unite#filters#matcher_default#use(['matcher_fuzzy'])
-  let g:unite_source_grep_command = 'ag --nogroup --nobreak --noheading --nocolor -g "" %s '
-  call unite#custom#profile('default', 'context', {
-              \   'start_insert': 1,
-              \   'winheight': 10,
-              \   'direction': 'botright',
-              \ })
-  let g:unite_source_file_mru_long_limit = 1000000
-  let g:unite_source_grep_max_candidates = 1000000
-  let g:unite_source_find_max_candidates = 1000000
-  autocmd FileType unite call s:unite_my_settings()
-  function! s:unite_my_settings() "{{{
-    imap <silent> <buffer> <C-c> <Plug>(unite_exit)
-    nmap <silent> <buffer> <C-c> <Plug>(unite_exit)
-    imap <buffer><expr> S    unite#mappings#set_current_sorters(
-                \ empty(unite#mappings#get_current_sorters()) ?
-                \ ['sorter_reverse'] : [])
-  endfunction "}}}
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+let g:unite_source_grep_command = 'ag --nogroup --nobreak --noheading --nocolor -g "" %s '
+call unite#custom#profile('default', 'context', {
+          \   'start_insert': 1,
+          \   'winheight': 10,
+          \   'direction': 'botright',
+          \ })
+let g:unite_source_file_mru_long_limit = 1000000
+let g:unite_source_grep_max_candidates = 1000000
+let g:unite_source_find_max_candidates = 1000000
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings() "{{{
+imap <silent> <buffer> <C-c> <Plug>(unite_exit)
+nmap <silent> <buffer> <C-c> <Plug>(unite_exit)
+imap <buffer><expr> S    unite#mappings#set_current_sorters(
+            \ empty(unite#mappings#get_current_sorters()) ?
+            \ ['sorter_reverse'] : [])
+endfunction "}}}
 
-  nnoremap [Unite] <Nop>
-  nmap     <C-s>   [Unite]
-  nnoremap <silent> [Unite]<C-s> :<C-u>Unite file<CR>
-  nnoremap <silent> [Unite]<C-p> :<C-u>Unite file_rec/async<CR>
-  nnoremap <silent> [Unite]<C-m> :<C-u>Unite file_mru<CR>
-  nnoremap <silent> [Unite]<C-d> :<C-u>Unite directory<CR>
-  nnoremap <silent> [Unite]<C-g> :<C-u>Unite line<CR>
-  nnoremap <silent> [Unite]<C-h> :<C-u>Unite history/command<CR>
-  nnoremap <silent> [Unite]/     :<C-u>Unite history/search<CR>
-  nnoremap <silent> [Unite]<C-t> :<C-u>Unite locate<CR>
-endfunction
-unlet bundle
+nnoremap [Unite] <Nop>
+nmap     <C-s>   [Unite]
+nnoremap <silent> [Unite]<C-s> :<C-u>Unite file<CR>
+nnoremap <silent> [Unite]<C-p> :<C-u>Unite file_rec/async<CR>
+nnoremap <silent> [Unite]<C-m> :<C-u>Unite file_mru<CR>
+nnoremap <silent> [Unite]<C-d> :<C-u>Unite directory<CR>
+nnoremap <silent> [Unite]<C-g> :<C-u>Unite line<CR>
+nnoremap <silent> [Unite]<C-h> :<C-u>Unite history/command<CR>
+nnoremap <silent> [Unite]/     :<C-u>Unite history/search<CR>
+nnoremap <silent> [Unite]<C-t> :<C-u>Unite locate<CR>
 " }}}
 " vimshell {{{
 "vimshell-history の default action を変更する
-"let bundle = neobundle#get('vimshell')
-"function! bundle.hooks.on_source(bundle)
-"  call unite#custom_default_action("vimshell/history", "insert")
-"  let g:unite_cursor_line_highlight="PMenuThumb"
-"endfunction
+"call unite#custom_default_action("vimshell/history", "insert")
+"let g:unite_cursor_line_highlight="PMenuThumb"
 "}}}
 " quickrun {{{
 let g:quickrun_config = {}
@@ -475,6 +348,9 @@ augroup AlpacaTags
 augroup END
 "}}}
 "neocomplete {{{
+function! s:has_neocomplete_required()
+    return has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
+endfunction
 if s:has_neocomplete_required()
   " neocomplete settings
   let g:acp_enableAtStartup = 0
@@ -588,27 +464,23 @@ endif
 " }}}
 " python {{{
 " jedi-vim
-let bundle = neobundle#get_hooks("jedi-vim")
-function! bundle.on_source(bundle)
-  if s:has_neocomplete_required() && !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-	autocmd FileType python setlocal omnifunc=jedi#completions
-    let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-  endif
+if s:has_neocomplete_required() && !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+  autocmd FileType python setlocal omnifunc=jedi#completions
+  let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+endif
 
-  " jediにvimの設定を任せると'completeopt+=preview'するので
-  " 自動設定機能をOFFにし手動で設定を行う
-  let g:jedi#auto_vim_configuration = 0
-  " 補完の最初の項目が選択された状態だと使いにくいためオフにする
-  let g:jedi#popup_select_first = 0
-  let g:jedi#popup_on_dot = 0
-  " quickrunと被るため大文字に変更
-  let g:jedi#rename_command = '<Leader>R'
-  " 自動定義表示させない
-  "let g:jedi#show_function_definition = "0"
-  let g:jedi#show_call_signatures = "0"
-endfunction
-unlet bundle
+" jediにvimの設定を任せると'completeopt+=preview'するので
+" 自動設定機能をOFFにし手動で設定を行う
+let g:jedi#auto_vim_configuration = 0
+" 補完の最初の項目が選択された状態だと使いにくいためオフにする
+let g:jedi#popup_select_first = 0
+let g:jedi#popup_on_dot = 0
+" quickrunと被るため大文字に変更
+let g:jedi#rename_command = '<Leader>R'
+" 自動定義表示させない
+"let g:jedi#show_function_definition = "0"
+let g:jedi#show_call_signatures = "0"
 "autocmd FileType python let b:did_ftplugin = 1
 let python_highlight_all = 1
 "}}}
@@ -678,7 +550,7 @@ noremap <Space>af :<C-u>AgFile<Space>
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_theme='serene' "'simple' 'wombat'
+let g:airline_theme='serene'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇'
@@ -862,6 +734,7 @@ endfunction
 " previm {{{
 let g:previm_enable_realtime = 1
 "}}}
+"{{{
 vnoremap <expr> I  <SID>force_blockwise_visual('I')
 vnoremap <expr> A  <SID>force_blockwise_visual('A')
 function! s:force_blockwise_visual(next_key)
