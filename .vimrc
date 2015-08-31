@@ -122,10 +122,6 @@ if has('clipboard')
   endif
 endif
 set wildmode=longest:list,full "commandline補完 :help wildmode
-"if v:version >= 703
-"    set number
-"    set relativenumber
-"end
 set showmatch
 set matchtime=1
 set matchpairs=(:),{:},[:],<:>
@@ -156,8 +152,6 @@ au BufRead,BufNewFile *.m set filetype=octave
 "}}}
 " 配色設定"{{{
 set t_Co=256
-colorscheme Tomorrow-Night-Blue
-"colorscheme luna
 " 90 ... purple which we can use only when 256-colors is enabled
 hi Pmenu        ctermfg=White   ctermbg=90  cterm=NONE
 hi PmenuSel     ctermfg=90   ctermbg=White  cterm=NONE
@@ -173,7 +167,8 @@ highlight MatchParen term=standout ctermbg=LightGrey ctermfg=lightcyan guibg=Lig
 " make background transparent
 highlight Normal ctermbg=none
 let g:netrw_liststyle = 3 "netrw(Explorer)を常にツリー表示する
-let lisp_rainbow = 1 "lispをcolorfulに"}}}
+let lisp_rainbow = 1 "lispをcolorfulに
+"}}}
 set shellslash
 set grepprg=grep\ -nH\ $*
 let g:tex_conceal = ""
@@ -550,7 +545,7 @@ noremap <Space>af :<C-u>AgFile<Space>
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_theme='serene'
+let g:airline_theme='serene' "'simple' 'wombat'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇'
@@ -632,6 +627,10 @@ let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler\|unite\|vimshell'
 let g:ctrlp_lazy_update = 0
 let g:ctrlp_key_loop = 0
+if exists(':CtrlPtjump')
+    nnoremap <c-]> :CtrlPtjump<cr>
+    vnoremap <c-]> :CtrlPtjumpVisual<cr>
+endif
 "}}}
 "openbrowser"{{{
 "let g:netrw_nogx = 1 " disable netrw's gx mapping.
@@ -688,11 +687,6 @@ let g:operator#surround#blocks = {
 " sonictemplate {{{
 let g:sonictemplate_vim_template_dir = ['$HOME/.vim/templates',]
 "}}}
-" visualstar{{{
-"let g:visualstar_no_default_key_mappings=1
-"silent! xmap <unique> <C-s> <Plug>(visualstar-*)
-"silent! xmap <unique> <C-r> <Plug>(visualstar-#)
-" }}}
 " incsearch.vim {{{
 set hlsearch
 map /  <Plug>(incsearch-forward)
@@ -773,4 +767,6 @@ let g:eskk#large_dictionary = {
             \	'encoding': 'euc-jp',
             \}
 "}}}
-filetype plugin indent on "this line must be set to the last of .vimrc.
+
+colorscheme Tomorrow-Night-Blue
+filetype plugin indent on
