@@ -1,0 +1,17 @@
+include c.snip
+snippet inc
+	#include <${1:#:header}>${2:}
+
+# main function.
+snippet main
+	int main(int argc, char * argv[])
+	{
+		${0}
+		return 0;
+	}
+
+snippet cout
+    std::cout << ${0} << std::endl;
+
+snippet cerr
+    std::cerr << ${0} << std::endl;

@@ -1,0 +1,11 @@
+snippet     coding
+abbr        coding
+    ${1} -*- coding: ${2:#:coding} -*-${0}
+
+snippet     vimset
+abbr        vimset
+    ${1} vim: set ft=${2:#:filetype} ts=${3:#:tabshift} sw=${4:#:shiftwidth}:${0}
+
+snippet     vimsetlong
+abbr        vimsetlong
+    ${1} vim: set fileencoding=${2:#:fileencoding} ts=${3:#:tabshift} sw=${4:#:shiftwidth} ft=${5:filetype}:${0}

@@ -1,0 +1,11 @@
+snippet ipython1
+    from IPython.terminal import embed; ipshell=embed.InteractiveShellEmbed(config=embed.load_default_config())(local_ns=locals())
+    ${0}
+
+snippet ipython2
+    from IPython.Shell import IPShellEmbed; IPShellEmbed(argv='')(local_ns=locals())
+    ${0}
+
+snippet ipython3
+    import IPython; from IPython.config.loader import Config; cfg = Config(); cfg.InteractiveShellEmbed.local_ns = locals(); cfg.InteractiveShellEmbed.global_ns = globals(); IPython.embed(config=cfg)
+    ${0}

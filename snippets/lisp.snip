@@ -1,0 +1,44 @@
+snippet defp
+        (defparameter ${1:#:param} ${2:#:init})${3}
+snippet defv
+        (defvar ${1:#:var} ${2:#:init ~optional~})${3}
+snippet defun
+        (defun ${1:#:symbol} (${2:#:params})
+            ${3:#:body})
+snippet defc
+        (defclass ${1:#:classname}
+            ${2:#:body})
+snippet defm
+        (defmethod ${1:#:classname} 
+            (${2:#:method})
+            )
+snippet let
+        (let ((${1:#:param} ${2:#:value})${3:#:etc params})
+            ${4:#:body})
+snippet flet
+        (flet ((${1:#:funcname} (${2:#:params})
+            ${3:#:lambda-list})${4:#:body})
+            ${5:#:form})
+snippet labels
+        (labels ((${1:#:funcname} (${2:#:params})
+            ${3:#:lambda-list})${4:#:body})
+            ${5:#:form})
+snippet when
+        (when ${1:#:condition}
+              ${2:#:body})
+snippet while
+        (while ${1:#:condition}
+               ${2:#:body})
+snippet unless
+        (unless ${1:#:condition}
+                ${2:#:body})
+snippet if
+        (if ${1:#:condition}
+            ${2:#:body})
+snippet cond
+        (cond (${1:#:test} ${2:#:form})
+              ${3:#:next})
+snippet case
+        (case ${1:#:key}
+            (${2:#:label} ${3:#:lab})
+            ${4:#:form})
