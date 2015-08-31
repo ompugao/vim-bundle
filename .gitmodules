@@ -157,3 +157,9 @@
 [submodule "bundle/emmet-vim"]
 	path = bundle/emmet-vim
 	url = https://github.com/mattn/emmet-vim
+[submodule "vim-unbundle"]
+	path = vim-unbundle
+	url = https://github.com/sunaku/vim-unbundle
+[submodule "bundle/vim-ctrlp-tjump"]
+	path = bundle/vim-ctrlp-tjump
+	url = https://github.com/ivalkeen/vim-ctrlp-tjump
