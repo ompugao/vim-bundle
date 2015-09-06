@@ -21,5 +21,3 @@ set guioptions-=T
 "メニューを削除
 set guioptions-=m
 set vb t_vb=
-
-let g:nerdtree_tabs_open_on_gui_startup=0
