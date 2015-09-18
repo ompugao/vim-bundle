@@ -142,7 +142,7 @@ au BufNewFile,BufRead *.ctp setfiletype php
 au BufNewFile,BufRead *.c setfiletype c
 au BufNewFile,BufRead *.py setfiletype python
 au BufNewFile,BufRead *.rb setfiletype ruby
-au BufNewFile,BufRead *.launch setfiletype xml
+au BufNewFile,BufRead *.launch set filetype=launch syntax=xml
 au BufNewFile,BufRead *.page set filetype=markdown
 au BufNewFile,BufRead *.mkd set filetype=markdown
 au BufNewFile,BufRead *.md set filetype=markdown
