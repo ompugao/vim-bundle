@@ -601,6 +601,7 @@ let g:ctrlp_lazy_update = 0
 let g:ctrlp_key_loop = 0
 let g:ctrlp_tjump_only_silent = 1
 if exists(':CtrlPtjump')
+    let g:ctrlp_tjump_only_silent=1
     nnoremap <c-]> :CtrlPtjump<cr>
     vnoremap <c-]> :CtrlPtjumpVisual<cr>
 endif
