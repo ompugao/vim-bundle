@@ -135,6 +135,7 @@ autocmd BufNewFile,BufRead *.py setlocal commentstring=\ \#%s
 autocmd BufNewFile,BufRead *.rb setlocal commentstring=\ \#%s
 autocmd BufNewFile,BufRead *.mkd setlocal commentstring=\ <!--\ %s\ -->
 autocmd BufNewFile,BufRead *.md setlocal commentstring=\ <!--\ %s\ -->
+autocmd BufNewFile,BufRead *.launch setlocal commentstring=\ <!--\ %s\ -->
 "}}}
 " set filetypes {{{
 au BufNewFile,BufRead *.thtml setfiletype php
