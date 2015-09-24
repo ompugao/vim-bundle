@@ -6,7 +6,7 @@ cd $HOME/.vim
 git submodule update --init
 cd bundle/vimproc && make
 cd -
-ln -s .vimrc $HOME/.vimrc
-ln -s .gvimrc $HOME/.gvimrc
-ln -s .ctags $HOME/.ctags
+ln -s $HOME/.vim/.vimrc $HOME/.vimrc
+ln -s $HOME/.vim/.gvimrc $HOME/.gvimrc
+ln -s $HOME/.vim/.ctags $HOME/.ctags
 ````
