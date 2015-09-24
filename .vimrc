@@ -599,6 +599,7 @@ let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler\|unite\|vimshell'
 let g:ctrlp_lazy_update = 0
 let g:ctrlp_key_loop = 0
+let g:ctrlp_tjump_only_silent = 1
 if exists(':CtrlPtjump')
     nnoremap <c-]> :CtrlPtjump<cr>
     vnoremap <c-]> :CtrlPtjumpVisual<cr>
