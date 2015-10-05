@@ -48,7 +48,7 @@
 	url = https://github.com/tpope/vim-dispatch
 [submodule "bundle/alpaca_tags"]
 	path = bundle/alpaca_tags
-	url = https://github.com/alpaca-tc/alpaca_tags
+	url = https://github.com/ompugao/alpaca_tags
 [submodule "bundle/neocomplete.vim"]
 	path = bundle/neocomplete.vim
 	url = https://github.com/Shougo/neocomplete.vim
@@ -169,3 +169,6 @@
 [submodule "bundle/vim-speeddating"]
 	path = bundle/vim-speeddating
 	url = https://github.com/tpope/vim-speeddating
+[submodule "bundle/vim-airline-alpaca-tags"]
+	path = bundle/vim-airline-alpaca-tags
+	url = https://github.com/ompugao/vim-airline-alpaca-tags
