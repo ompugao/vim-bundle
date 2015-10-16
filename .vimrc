@@ -705,6 +705,9 @@ endfunction
 " previm {{{
 let g:previm_enable_realtime = 1
 "}}}
+" vim-markdown {{{
+let g:vim_markdown_folding_disabled=1
+" }}}
 "{{{
 vnoremap <expr> I  <SID>force_blockwise_visual('I')
 vnoremap <expr> A  <SID>force_blockwise_visual('A')
