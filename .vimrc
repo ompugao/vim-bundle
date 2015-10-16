@@ -221,6 +221,8 @@ let g:markdown_fenced_languages = [
 nnoremap <Space>t :<C-u>tabedit 
 nnoremap <silent> <C-n> :<C-u>bnext<CR>
 nnoremap <silent> <C-p> :<C-u>bprevious<CR>
+nnoremap <silent> <Space>n :<C-u>tabnext<CR>
+nnoremap <silent> <Space>p  :<C-u>tabprevious<CR>
 "nnoremap <Space>c :<C-u>new<CR>:r! 
 nnoremap <Space>d :<C-u>bd<CR>
 nnoremap <Space>p :<C-u>pwd<CR>
