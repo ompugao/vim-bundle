@@ -1,3 +1,4 @@
+if 0 | finish | endif
 scriptencoding utf8
 
 runtime vim-unbundle/plugin/unbundle.vim
