@@ -676,8 +676,8 @@ map m/ <Plug>(incsearch-migemo-/)
 map m? <Plug>(incsearch-migemo-?)
 map mg/ <Plug>(incsearch-migemo-stay)
 let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)zzzv
-map N  <Plug>(incsearch-nohl-N)zzzv
+"map n  <Plug>(incsearch-nohl-n)zzzv
+"map N  <Plug>(incsearch-nohl-N)zzzv
 "map *  <Plug>(incsearch-nohl-*)zzzv
 "map #  <Plug>(incsearch-nohl-#)zzzv
 "map g* <Plug>(incsearch-nohl-g*)zzzv
