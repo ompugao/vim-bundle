@@ -554,6 +554,7 @@ let g:airline_mode_map = {
             \ '' : '^',
             \ }
 " }}}
+colorscheme Tomorrow-Night-Blue
 " ctrlp {{{
 nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
 nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
@@ -677,8 +678,8 @@ map m/ <Plug>(incsearch-migemo-/)
 map m? <Plug>(incsearch-migemo-?)
 map mg/ <Plug>(incsearch-migemo-stay)
 let g:incsearch#auto_nohlsearch = 1
-"map n  <Plug>(incsearch-nohl-n)zzzv
-"map N  <Plug>(incsearch-nohl-N)zzzv
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
 "map *  <Plug>(incsearch-nohl-*)zzzv
 "map #  <Plug>(incsearch-nohl-#)zzzv
 "map g* <Plug>(incsearch-nohl-g*)zzzv
@@ -749,5 +750,4 @@ let g:eskk#large_dictionary = {
             \}
 "}}}
 
-colorscheme Tomorrow-Night-Blue
 filetype plugin indent on
