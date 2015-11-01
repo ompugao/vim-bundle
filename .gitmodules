@@ -172,3 +172,6 @@
 [submodule "bundle/vim-airline-alpaca-tags"]
 	path = bundle/vim-airline-alpaca-tags
 	url = https://github.com/ompugao/vim-airline-alpaca-tags
+[submodule "bundle/harlequin"]
+	path = bundle/harlequin
+	url = https://github.com/ompugao/harlequin
