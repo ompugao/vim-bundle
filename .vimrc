@@ -554,7 +554,8 @@ let g:airline_mode_map = {
             \ '' : '^',
             \ }
 " }}}
-colorscheme Tomorrow-Night-Blue
+"colorscheme Tomorrow-Night-Blue
+colorscheme harlequin
 " ctrlp {{{
 nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
 nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
