@@ -7,3 +7,46 @@ snippet     valgrind
 abbr        valgrind
 options     head
     launch-prefix="xterm -fn 10x20 -geometry 1000x700+40+40 -e valgrind -v --error-limit=no --leak-check=full --show-reachable=no "
+
+snippet     node
+abbr        node
+options     head
+    <node pkg="${1:pkg}" type="${2:type}" name="${3:$(anon $2)}">
+    </node>
+
+snippet     group
+abbr        group
+options     head
+    <group ns="$(arg ${0})">
+    </group>
+
+snippet     include
+abbr        include
+options     head
+    <include file="$(find ${1:pkg})/${0}"/>
+
+snippet     param
+abbr        param
+options     head
+  <param name="${1}" value="${2}"/>
+
+snippet     arg
+abbr        arg
+options     head
+  <arg name="${1}" ${2:value|default}="${3}"/>
+
+snippet     env
+abbr        env
+options     head
+  <env name="${1}" value="${2}"/>
+
+snippet     remap
+abbr        remap
+options     head
+  <remap from="${1:from}" to="${2:to}"/>
+
+
+snippet     machine
+abbr        machine
+options     head
+    <machine name="${1:name}" address="${2:willowgarage.com}" env-loader="/opt/ros/${3:$(env ROS_DISTRO)}/env.sh" ${4:default="${5:true|false|never\}"} user="${6:user}" ${7:timeout="${8\}"}/>
