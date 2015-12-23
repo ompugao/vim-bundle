@@ -524,6 +524,8 @@ noremap <Space>af :<C-u>AgFile<Space>
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+let g:airline_extensions = ['branch', 'ctrlp', 'ctrlspace', 'quickfix', 'tabline', 'unite', 'wordcount', 'alpaca_tags', 'cwd']
+"'hunks', 'nrrwrgn', 'syntastic', 'tagbar', 'undotree', 'windowswap', 'whitespace'
 let g:airline_theme='serene' "'simple' 'wombat'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
@@ -534,6 +536,7 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
+let airline#extensions#hunks#non_zero_only = 1
 let g:airline#extensions#disable_rtp_load = 0
 let g:airline#extensions#cwd#enabled = 1
 let g:airline#extensions#alpaca_tags#enabled = 1
