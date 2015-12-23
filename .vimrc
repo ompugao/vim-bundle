@@ -322,9 +322,12 @@ let g:quickrun_config['cpp/clang++11'] = {
             \ 'type': 'cpp/clang++'
             \ }
 let g:quickrun_config['cpp/g++11'] = {
-            \ 'command': 'g++',
-            \ 'cmdopt': '-std=c++11'
-            \ } 
+      \   'command': 'g++',
+      \   'exec': ['%c %o %s -o %s:p:r', '%s:p:r %a'],
+      \   'tempfile': '%{tempname()}.cpp',
+      \   'hook/sweep/files': '%S:p:r',
+      \   'cmdopt':  '-std=c++11 '
+      \ }
 let g:quickrun_config.octave = {
             \ 'command': 'octave',
             \ } 
