@@ -1,13 +1,12 @@
 snippet     gdb
 abbr        gdb
 options     head
-    launch-prefix="xterm -fn 10x20 -e gdb --args "
+    launch-prefix="xterm -fn 12x24 -e gdb --args "
 
 snippet     valgrind
 abbr        valgrind
 options     head
-    launch-prefix="xterm -fn 10x20 -e valgrind -v --error-limit=no --leak-check=full --show-reachable=no "
-
+    launch-prefix="xterm -fn 12x24 -e valgrind -v --error-limit=no --leak-check=full --show-reachable=no " --log-file='$(env HOME)/log.txt'
 snippet     node
 alias       node <node
 options     head
