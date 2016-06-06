@@ -113,6 +113,7 @@ syntax enable  " 構文配色を有効にする
 set showtabline=2 "常にタブを表示
 set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバッファを開く
 set infercase           " 補完時に大文字小文字を区別しない
+set hidden
 set vb t_vb= "disable visualbell
 set virtualedit+=block "矩形選択で自由に移動
 if has('clipboard')
