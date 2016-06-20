@@ -141,7 +141,7 @@
 	url = https://github.com/yomi322/neco-tweetvim
 [submodule "bundle/TweetVim"]
 	path = bundle/TweetVim
-	url = https://github.com/ompugao/TweetVim
+	url = https://github.com/basyura/TweetVim
 [submodule "bundle/previm"]
 	path = bundle/previm
 	url = https://github.com/kannokanno/previm
