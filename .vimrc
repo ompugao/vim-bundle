@@ -221,6 +221,7 @@ let g:markdown_fenced_languages = [
 
 " mappings {{{
 nnoremap <Space>t :<C-u>tabedit 
+nnoremap <Space>e :<C-u>edit 
 nnoremap <silent> <C-n> :<C-u>bnext<CR>
 nnoremap <silent> <C-p> :<C-u>bprevious<CR>
 nnoremap <silent> <Space>n :<C-u>tabnext<CR>
@@ -630,7 +631,7 @@ vmap <space>os <Plug>(openbrowser-smart-search)
 "}}}
 " dirvish {{{
 let g:dirvish_hijack_netrw=1
-nnoremap <silent> <space>e :<C-u>Dirvish<CR>
+"nnoremap <space>e :<C-u>Dirvish<space>
 nnoremap <silent> <space>E :<C-u>Dirvish %<CR>
 " }}}
 " tweetvim {{{
