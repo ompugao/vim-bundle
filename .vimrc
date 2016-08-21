@@ -123,7 +123,8 @@ if has('clipboard')
     set clipboard+=unnamed "無名レジスタだけでなく、*レジスタにもヤンク
   endif
 endif
-set wildmode=longest:list,full "commandline補完 :help wildmode
+set wildmode=full "commandline補完 :help wildmode
+set wildmenu
 set showmatch
 set matchtime=1
 set matchpairs=(:),{:},[:],<:>
