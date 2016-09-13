@@ -302,14 +302,26 @@ command! Outline execute ":Unite outline -vertical -no-quit -no-auto-quit -winwi
 "}}}
 " quickrun {{{
 let g:quickrun_config = {}
-let g:quickrun_config = { 
-            \ "_" : { 
-            \ "outputter/buffer/split" : ":botright", 
-            \ "outputter/buffer/close_on_empty" : 1 ,
-            \ "runner" : "vimproc",
-            \ "runner/vimproc/updatetime" : 60
-            \ }, 
-            \}
+if has('job')
+  let g:quickrun_config = { 
+           \ "_" : { 
+           \ "outputter/buffer/split" : ":botright", 
+           \ "outputter/buffer/close_on_empty" : 1 ,
+           \ "runner" : "job",
+           \ "runner/job/interval" : 60
+           \ }, 
+           \}
+elseif g:loaded_vimproc
+  let g:quickrun_config = { 
+           \ "_" : { 
+           \ "outputter/buffer/split" : ":botright", 
+           \ "outputter/buffer/close_on_empty" : 1 ,
+           \ "runner" : "vimproc",
+           \ "runner/vimproc/updatetime" : 60
+           \ }, 
+           \}
+endif
+
 let g:quickrun_config.markdown = {
       \ 'type': 'markdown/pandoc',
       \ 'outputter': 'browser',
