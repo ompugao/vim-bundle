@@ -123,7 +123,8 @@ if has('clipboard')
     set clipboard+=unnamed "無名レジスタだけでなく、*レジスタにもヤンク
   endif
 endif
-set wildmode=longest:list,full "commandline補完 :help wildmode
+set wildmode=full "commandline補完 :help wildmode
+set wildmenu
 set showmatch
 set matchtime=1
 set matchpairs=(:),{:},[:],<:>
@@ -221,6 +222,7 @@ let g:markdown_fenced_languages = [
 
 " mappings {{{
 nnoremap <Space>t :<C-u>tabedit 
+nnoremap <Space>e :<C-u>edit 
 nnoremap <silent> <C-n> :<C-u>bnext<CR>
 nnoremap <silent> <C-p> :<C-u>bprevious<CR>
 nnoremap <silent> <Space>n :<C-u>tabnext<CR>
@@ -300,14 +302,26 @@ command! Outline execute ":Unite outline -vertical -no-quit -no-auto-quit -winwi
 "}}}
 " quickrun {{{
 let g:quickrun_config = {}
-let g:quickrun_config = { 
-            \ "_" : { 
-            \ "outputter/buffer/split" : ":botright", 
-            \ "outputter/buffer/close_on_empty" : 1 ,
-            \ "runner" : "vimproc",
-            \ "runner/vimproc/updatetime" : 60
-            \ }, 
-            \}
+if has('job')
+  let g:quickrun_config = { 
+           \ "_" : { 
+           \ "outputter/buffer/split" : ":botright", 
+           \ "outputter/buffer/close_on_empty" : 1 ,
+           \ "runner" : "job",
+           \ "runner/job/interval" : 60
+           \ }, 
+           \}
+elseif g:loaded_vimproc
+  let g:quickrun_config = { 
+           \ "_" : { 
+           \ "outputter/buffer/split" : ":botright", 
+           \ "outputter/buffer/close_on_empty" : 1 ,
+           \ "runner" : "vimproc",
+           \ "runner/vimproc/updatetime" : 60
+           \ }, 
+           \}
+endif
+
 let g:quickrun_config.markdown = {
       \ 'type': 'markdown/pandoc',
       \ 'outputter': 'browser',
@@ -630,7 +644,7 @@ vmap <space>os <Plug>(openbrowser-smart-search)
 "}}}
 " dirvish {{{
 let g:dirvish_hijack_netrw=1
-nnoremap <silent> <space>e :<C-u>Dirvish<CR>
+"nnoremap <space>e :<C-u>Dirvish<space>
 nnoremap <silent> <space>E :<C-u>Dirvish %<CR>
 " }}}
 " tweetvim {{{
@@ -749,7 +763,35 @@ if has('autocmd')
   autocmd BufWrite *.tex call s:TexReplaceChars()
 endif
 " }}}
-
+"{{{ ros
+if has('python')
+function! s:_ros_setup(package, fullpath)
+  let prg='cd ' . a:fullpath . '; catkin build -DCMAKE_BUILD_TYPE=RelWithDebInfo ' . a:package . ' ; cd -'
+  if executable('catkin')
+    let &l:makeprg=prg
+  endif
+  unlet prg
+endfunction
+function! s:ros_setup(filename)
+python << PYTHON
+try:
+    import rospkg
+    import vim
+except Exception as e:
+    import sys
+    sys.exit(1)
+package = rospkg.get_package_name(vim.eval('a:filename'))
+if package is not None:
+    fullpath = rospkg.RosPack().get_path(package)
+    vim.command('call s:_ros_setup("{0}", "{1}")'.format(package, fullpath))
+PYTHON
+endfunction
+augroup ros
+  autocmd!
+  autocmd BufRead * call s:ros_setup(expand("<afile>:p"))
+augroup END
+endif
+"}}}
 " eskk{{{
 let g:eskk#show_annotation=1
 let g:eskk#large_dictionary = {

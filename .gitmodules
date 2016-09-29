@@ -181,3 +181,6 @@
 [submodule "bundle/ctrlp-tweetvim"]
 	path = bundle/ctrlp-tweetvim
 	url = https://github.com/ompugao/ctrlp-tweetvim
+[submodule "bundle/vim-dispatch-vimproc"]
+	path = bundle/vim-dispatch-vimproc
+	url = https://github.com/ompugao/vim-dispatch-vimproc
