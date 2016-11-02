@@ -1,4 +1,4 @@
-if 0 | finish | endif
+"if 0 | finish | endif
 scriptencoding utf8
 
 runtime vim-unbundle/plugin/unbundle.vim
@@ -113,7 +113,6 @@ syntax enable  " 構文配色を有効にする
 set showtabline=2 "常にタブを表示
 set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバッファを開く
 set infercase           " 補完時に大文字小文字を区別しない
-set hidden
 set vb t_vb= "disable visualbell
 set virtualedit+=block "矩形選択で自由に移動
 if has('clipboard')
@@ -123,8 +122,7 @@ if has('clipboard')
     set clipboard+=unnamed "無名レジスタだけでなく、*レジスタにもヤンク
   endif
 endif
-set wildmode=longest:full,full
-set wildmenu
+set wildmode=longest:list,full "commandline補完 :help wildmode
 set showmatch
 set matchtime=1
 set matchpairs=(:),{:},[:],<:>
@@ -153,25 +151,6 @@ au BufNewFile,BufRead *.md set filetype=markdown
 au BufNewFile,BufRead *.l set ft=lisp
 au BufRead,BufNewFile *.go set filetype=go
 au BufRead,BufNewFile *.m set filetype=octave
-"}}}
-" 配色設定"{{{
-set t_Co=256
-" 90 ... purple which we can use only when 256-colors is enabled
-hi Pmenu        ctermfg=White   ctermbg=90  cterm=NONE
-hi PmenuSel     ctermfg=90   ctermbg=White  cterm=NONE
-hi PmenuSbar    ctermfg=90   ctermbg=White  cterm=NONE
-hi PmenuThumb   ctermfg=White   ctermbg=90  cterm=NONE
-
-highlight LineNr ctermfg=40
-highlight Visual term=reverse ctermbg=90 guibg=LightGrey
-" 全角スペースの表示
-"highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=white
-highlight MatchParen term=standout ctermbg=LightGrey ctermfg=lightcyan guibg=LightGrey guifg=lightcyan
-"match ZenkakuSpace /　/
-" make background transparent
-highlight Normal ctermbg=none
-let g:netrw_liststyle = 3 "netrw(Explorer)を常にツリー表示する
-let lisp_rainbow = 1 "lispをcolorfulに
 "}}}
 set shellslash
 set grepprg=grep\ -nH\ $*
@@ -222,7 +201,6 @@ let g:markdown_fenced_languages = [
 
 " mappings {{{
 nnoremap <Space>t :<C-u>tabedit 
-nnoremap <Space>e :<C-u>edit 
 nnoremap <silent> <C-n> :<C-u>bnext<CR>
 nnoremap <silent> <C-p> :<C-u>bprevious<CR>
 nnoremap <silent> <Space>n :<C-u>tabnext<CR>
@@ -302,26 +280,14 @@ command! Outline execute ":Unite outline -vertical -no-quit -no-auto-quit -winwi
 "}}}
 " quickrun {{{
 let g:quickrun_config = {}
-if has('job')
-  let g:quickrun_config = { 
-           \ "_" : { 
-           \ "outputter/buffer/split" : ":botright", 
-           \ "outputter/buffer/close_on_empty" : 1 ,
-           \ "runner" : "job",
-           \ "runner/job/interval" : 60
-           \ }, 
-           \}
-elseif g:loaded_vimproc
-  let g:quickrun_config = { 
-           \ "_" : { 
-           \ "outputter/buffer/split" : ":botright", 
-           \ "outputter/buffer/close_on_empty" : 1 ,
-           \ "runner" : "vimproc",
-           \ "runner/vimproc/updatetime" : 60
-           \ }, 
-           \}
-endif
-
+let g:quickrun_config = { 
+            \ "_" : { 
+            \ "outputter/buffer/split" : ":botright", 
+            \ "outputter/buffer/close_on_empty" : 1 ,
+            \ "runner" : "vimproc",
+            \ "runner/vimproc/updatetime" : 60
+            \ }, 
+            \}
 let g:quickrun_config.markdown = {
       \ 'type': 'markdown/pandoc',
       \ 'outputter': 'browser',
@@ -337,12 +303,9 @@ let g:quickrun_config['cpp/clang++11'] = {
             \ 'type': 'cpp/clang++'
             \ }
 let g:quickrun_config['cpp/g++11'] = {
-      \   'command': 'g++',
-      \   'exec': ['%c %o %s -o %s:p:r', '%s:p:r %a'],
-      \   'tempfile': '%{tempname()}.cpp',
-      \   'hook/sweep/files': '%S:p:r',
-      \   'cmdopt':  '-std=c++11 '
-      \ }
+            \ 'command': 'g++',
+            \ 'cmdopt': '-std=c++11'
+            \ } 
 let g:quickrun_config.octave = {
             \ 'command': 'octave',
             \ } 
@@ -539,8 +502,6 @@ noremap <Space>af :<C-u>AgFile<Space>
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_extensions = ['branch', 'ctrlp', 'ctrlspace', 'quickfix', 'tabline', 'unite', 'wordcount', 'alpaca_tags', 'cwd']
-"'hunks', 'nrrwrgn', 'syntastic', 'tagbar', 'undotree', 'windowswap', 'whitespace'
 let g:airline_theme='serene' "'simple' 'wombat'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
@@ -550,9 +511,7 @@ let g:airline_symbols.linenr = 'LF'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#ignore_bufadd_pat='\c\vgundo|undotree|vimfiler|tagbar|nerd_tree|tweetvim_say'
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline#extensions#disable_rtp_load = 0
 let g:airline#extensions#cwd#enabled = 1
 let g:airline#extensions#alpaca_tags#enabled = 1
@@ -576,8 +535,26 @@ let g:airline_mode_map = {
             \ '' : '^',
             \ }
 " }}}
+" colors "{{{
+set t_Co=256
 "colorscheme Tomorrow-Night-Blue
 colorscheme harlequin
+" 90 ... purple which we can use only when 256-colors is enabled
+hi Pmenu        ctermfg=White   ctermbg=90  cterm=NONE
+hi PmenuSel     ctermfg=90   ctermbg=White  cterm=NONE
+hi PmenuSbar    ctermfg=90   ctermbg=White  cterm=NONE
+hi PmenuThumb   ctermfg=White   ctermbg=90  cterm=NONE
+
+highlight LineNr ctermfg=40
+highlight Visual term=reverse ctermbg=90 guibg=LightGrey
+" 全角スペースの表示
+"highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=white
+highlight MatchParen term=standout ctermbg=LightGrey ctermfg=lightcyan guibg=LightGrey guifg=lightcyan
+"match ZenkakuSpace /　/
+"highlight Normal ctermbg=none
+let g:netrw_liststyle = 3 "netrw(Explorer)を常にツリー表示する
+let lisp_rainbow = 1 "lispをcolorfulに
+"}}}
 " ctrlp {{{
 nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
 nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
@@ -590,14 +567,14 @@ nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
 nnoremap <silent><C-l><C-r> :<C-u>CtrlPRegister<CR>
 "nnoremap <silent><C-l><C-f> :<C-u>CtrlPF<CR>
 "nnoremap <silent><C-l><C-z> :<C-u>CtrlPZ<CR>
-nnoremap <silent><C-l>rc    :<C-u>CtrlPRoscd<CR>
-nnoremap <silent><C-l>re    :<C-u>CtrlPRosed<CR>
+"nnoremap <silent><C-l>rc    :<C-u>CtrlPRoscd<CR>
+"nnoremap <silent><C-l>re    :<C-u>CtrlPRosed<CR>
 nnoremap <silent><C-l>f     :<C-u>CtrlPFunky<Cr>
 nnoremap <silent><C-l><C-h> :<C-u>CtrlPCmdHistory<CR>
 nnoremap <silent><C-l>/     :<C-u>CtrlPSearchHistory<CR>
 nnoremap <silent><C-l>l     :<C-u>CtrlPLocate<CR>
 nnoremap <silent><C-l><C-t> :<C-u>CtrlPSmartTabs<CR>
-"nnoremap <silent><C-l><C-f> :<C-u>CtrlPFiler<CR>
+nnoremap <silent><C-l><C-j> :<C-u>CtrlPCodic<CR>
 "let g:ctrlp_filer_menu = {
 "      \ "execute": 'ctrlp#filer#op#execute',
 "      \ "open":    'ctrlp#filer#op#open',
@@ -628,6 +605,8 @@ let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler\|unite\|vimshell'
 let g:ctrlp_lazy_update = 0
 let g:ctrlp_key_loop = 0
 let g:ctrlp_tjump_only_silent = 1
+let g:ctrlp_locate_lazy_update = 700
+let g:ctrlp_locate_min_chars = 3
 if exists(':CtrlPtjump')
     let g:ctrlp_tjump_only_silent=1
     nnoremap <c-]> :CtrlPtjump<cr>
@@ -644,7 +623,7 @@ vmap <space>os <Plug>(openbrowser-smart-search)
 "}}}
 " dirvish {{{
 let g:dirvish_hijack_netrw=1
-"nnoremap <space>e :<C-u>Dirvish<space>
+nnoremap <silent> <space>e :<C-u>Dirvish<CR>
 nnoremap <silent> <space>E :<C-u>Dirvish %<CR>
 " }}}
 " tweetvim {{{
@@ -712,8 +691,10 @@ map g* <Plug>(incsearch-nohl)<Plug>(asterisk-g*)
 map #  <Plug>(incsearch-nohl)<Plug>(asterisk-#)
 map g# <Plug>(incsearch-nohl)<Plug>(asterisk-g#)
 let g:incsearch#separate_highlight = 1
-highlight Search cterm=underline ctermfg=white ctermbg=74 guibg=white
-highlight IncSearchCursor ctermfg=lightmagenta ctermbg=darkgray guifg=lightmagenta guibg=darkgray
+highlight Search cterm=underline ctermfg=lightgreen ctermbg=darkgrey gui=underline guifg=lightblue guibg=black
+"highlight IncSearchMatchReverse cterm=underline ctermfg=darkblue ctermbg=lightgrey gui=underline guifg=darkblue guibg=darkgrey
+"highlight IncSearchCursor ctermfg=darkcyan ctermbg=darkgray guifg=darkcyan guibg=darkgray
+"highlight IncSearchOnCursor ctermfg=darkmagenta ctermbg=darkgrey guifg=darkmagenta guibg=darkgray
 augroup incsearch-keymap
     autocmd!
     autocmd VimEnter * call s:incsearch_keymap()
@@ -763,35 +744,7 @@ if has('autocmd')
   autocmd BufWrite *.tex call s:TexReplaceChars()
 endif
 " }}}
-"{{{ ros
-if has('python')
-function! s:_ros_setup(package, fullpath)
-  let prg='cd ' . a:fullpath . '; catkin build -DCMAKE_BUILD_TYPE=RelWithDebInfo ' . a:package . ' ; cd -'
-  if executable('catkin')
-    let &l:makeprg=prg
-  endif
-  unlet prg
-endfunction
-function! s:ros_setup(filename)
-python << PYTHON
-try:
-    import rospkg
-    import vim
-except Exception as e:
-    import sys
-    sys.exit(1)
-package = rospkg.get_package_name(vim.eval('a:filename'))
-if package is not None:
-    fullpath = rospkg.RosPack().get_path(package)
-    vim.command('call s:_ros_setup("{0}", "{1}")'.format(package, fullpath))
-PYTHON
-endfunction
-augroup ros
-  autocmd!
-  autocmd BufRead * call s:ros_setup(expand("<afile>:p"))
-augroup END
-endif
-"}}}
+
 " eskk{{{
 let g:eskk#show_annotation=1
 let g:eskk#large_dictionary = {
