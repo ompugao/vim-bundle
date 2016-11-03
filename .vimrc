@@ -764,33 +764,33 @@ if has('autocmd')
 endif
 " }}}
 "{{{ ros
-if has('python')
-function! s:_ros_setup(package, fullpath)
-  let prg='cd ' . a:fullpath . '; catkin build -DCMAKE_BUILD_TYPE=RelWithDebInfo ' . a:package . ' ; cd -'
-  if executable('catkin')
-    let &l:makeprg=prg
-  endif
-  unlet prg
-endfunction
-function! s:ros_setup(filename)
-python << PYTHON
-try:
-    import rospkg
-    import vim
-except Exception as e:
-    import sys
-    sys.exit(1)
-package = rospkg.get_package_name(vim.eval('a:filename'))
-if package is not None:
-    fullpath = rospkg.RosPack().get_path(package)
-    vim.command('call s:_ros_setup("{0}", "{1}")'.format(package, fullpath))
-PYTHON
-endfunction
-augroup ros
-  autocmd!
-  autocmd BufRead * call s:ros_setup(expand("<afile>:p"))
-augroup END
-endif
+"if has('python')
+"function! s:_ros_setup(package, fullpath)
+"  let prg='cd ' . a:fullpath . '; catkin build -DCMAKE_BUILD_TYPE=RelWithDebInfo ' . a:package . ' ; cd -'
+"  if executable('catkin')
+"    let &l:makeprg=prg
+"  endif
+"  unlet prg
+"endfunction
+"function! s:ros_setup(filename)
+"python << PYTHON
+"try:
+"    import rospkg
+"    import vim
+"except Exception as e:
+"    import sys
+"    sys.exit(1)
+"package = rospkg.get_package_name(vim.eval('a:filename'))
+"if package is not None:
+"    fullpath = rospkg.RosPack().get_path(package)
+"    vim.command('call s:_ros_setup("{0}", "{1}")'.format(package, fullpath))
+"PYTHON
+"endfunction
+"augroup ros
+"  autocmd!
+"  autocmd BufRead * call s:ros_setup(expand("<afile>:p"))
+"augroup END
+"endif
 "}}}
 " eskk{{{
 let g:eskk#show_annotation=1
