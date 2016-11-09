@@ -184,3 +184,6 @@
 [submodule "bundle/vim-dispatch-vimproc"]
 	path = bundle/vim-dispatch-vimproc
 	url = https://github.com/ompugao/vim-dispatch-vimproc
+[submodule "ftbundle/octave/vim-octave"]
+	path = ftbundle/octave/vim-octave
+	url = https://github.com/jvirtanen/vim-octave
