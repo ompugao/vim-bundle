@@ -3,3 +3,43 @@ abbr        for () {}
     for (${1} ${2} = 0; $2 < ${3}; $2++) {
         ${0:#:TARGET}
     }
+
+
+snippet comment_fileheader
+abbr    comment file
+    /**
+     * @file ${1:filename}
+     * @brief ${2:description}
+     * @author ${3:author}
+     * @date ${4:date}
+     */
+
+
+snippet comment_function
+abbr    comment function
+    /**
+     * @fn
+     * ${1:description}
+     * @brief ${2:brief}
+     * @param ${3:param}
+     * @return ${4:return}
+     * @sa ${5:reference_function}
+     * @detail ${6:detailed_description}
+     */
+
+snippet comment_variable
+abbr    comment variable
+    //! ${1:comment}
+
+snippet comment_macro
+abbr    comment macro
+    /** @def
+     * {1:comment}
+     */
+
+snippet comment_enum
+abbr    comment enum
+    /**
+     * @enum ${1:enum_name}
+     * ${2:comment}
+     */
