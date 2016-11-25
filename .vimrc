@@ -800,5 +800,7 @@ let g:eskk#large_dictionary = {
             \	'encoding': 'euc-jp',
             \}
 "}}}
-
+" slime"{{{
+let g:slime_target="tmux"
+""}}}
 filetype plugin indent on
