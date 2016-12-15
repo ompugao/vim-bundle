@@ -108,6 +108,11 @@ set smarttab   "use shiftwidth when inserts <tab>
 set expandtab  " タブをスペースに展開
 set incsearch  "incremental search
 set wrap  "長い行を折り返し
+if has('linebreak')
+  set breakindent
+  set breakindentopt=shift:2,sbr
+  set showbreak=>
+endif
 set display=lastline   "as much as possible of the last linein a window will be displayed
 syntax enable  " 構文配色を有効にする
 set showtabline=2 "常にタブを表示
