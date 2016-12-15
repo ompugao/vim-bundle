@@ -253,6 +253,7 @@ function! s:GetBufferDirectory()
   let path = expand('%:p:h')
   return path . (exists('+shellslash') && !&shellslash ? '\' : '/')
 endfunction
+cabbr w!! w !sudo tee > /dev/null %
 "}}}
 " fugitive "{{{
 if has('autocmd')
