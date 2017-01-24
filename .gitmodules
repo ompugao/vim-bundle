@@ -187,6 +187,3 @@
 [submodule "ftbundle/octave/vim-octave"]
 	path = ftbundle/octave/vim-octave
 	url = https://github.com/jvirtanen/vim-octave
-[submodule "bundle/vim-slime"]
-	path = bundle/vim-slime
-	url = https://github.com/jpalardy/vim-slime
