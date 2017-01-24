@@ -642,6 +642,20 @@ endif
 "}}}
 "openbrowser"{{{
 "let g:netrw_nogx = 1 " disable netrw's gx mapping.
+function! s:enable_lemonade() abort
+    "let g:openbrowser_browser_commands_default = get(g:, 'openbrowser_browser_commands', '')
+    if executable('lemonade')
+        let g:openbrowser_browser_commands = [
+                    \   {'name': 'lemonade',
+                    \    'args': ['{browser}', 'open', '{uri}'],
+                    \    'background': 1}
+                    \]
+        echomsg "lemonade client enabled"
+    else
+        echomsg "lemonade is not on the path?"
+    endif
+endfunction
+command! EnableLemonade call s:enable_lemonade()
 nmap <space>ob <Plug>(openbrowser-open)
 vmap <space>ob <Plug>(openbrowser-open)
 nmap <space>ow <Plug>(openbrowser-search)
