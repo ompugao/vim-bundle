@@ -681,10 +681,6 @@ nmap <silent> g<ESC> <Plug>(tweetvim_notify)
 "let g:tweetvim_display_username = 1
 nmap <silent> g<ESC> <Plug>(tweetvim_notify)
 " }}}
-" {{{
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-" }}}
 " vim-easy-align{{{
 vnoremap <silent> <Enter> :LiveEasyAlign<cr>
 " }}}
@@ -706,9 +702,6 @@ let g:operator#surround#blocks = {
             \ ]
             \ }
 " }}}
-" sonictemplate {{{
-let g:sonictemplate_vim_template_dir = ['$HOME/.vim/templates',]
-"}}}
 " incsearch.vim {{{
 set hlsearch
 map /  <Plug>(incsearch-forward)
@@ -820,7 +813,4 @@ let g:eskk#large_dictionary = {
             \	'encoding': 'euc-jp',
             \}
 "}}}
-" slime"{{{
-let g:slime_target="tmux"
-""}}}
 filetype plugin indent on
