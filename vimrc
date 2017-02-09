@@ -299,7 +299,7 @@ nnoremap <silent> [Unite]<C-g> :<C-u>Unite line<CR>
 nnoremap <silent> [Unite]<C-h> :<C-u>Unite history/command<CR>
 nnoremap <silent> [Unite]/     :<C-u>Unite history/search<CR>
 nnoremap <silent> [Unite]<C-t> :<C-u>Unite locate<CR>
-command! Outline execute ":Unite outline -vertical -no-quit -no-auto-quit -winwidth=50<CR>"
+command! Outline execute ":Unite outline -no-start-insert -vertical -no-quit -no-auto-quit -winwidth=50<CR>"
 " }}}
 " vimshell {{{
 "vimshell-history の default action を変更する
