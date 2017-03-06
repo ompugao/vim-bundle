@@ -187,3 +187,6 @@
 [submodule "bundle/agit.vim"]
 	path = bundle/agit.vim
 	url = https://github.com/cohama/agit.vim
+[submodule "bundle/ctrlp-grep"]
+	path = bundle/ctrlp-grep
+	url = https://github.com/ompugao/ctrlp-grep

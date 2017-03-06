@@ -591,7 +591,7 @@ nnoremap <silent><C-l><C-b> :<C-u>CtrlPBuffer<CR>
 nnoremap <silent><C-l><C-m> :<C-u>CtrlPMRU<CR>
 nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
 nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
-nnoremap <silent><C-l><C-g> :<C-u>CtrlPLine<CR>
+"nnoremap <silent><C-l><C-g> :<C-u>CtrlPLine<CR>
 nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
 nnoremap <silent><C-l><C-r> :<C-u>CtrlPRegister<CR>
 "nnoremap <silent><C-l><C-f> :<C-u>CtrlPF<CR>
@@ -603,6 +603,7 @@ nnoremap <silent><C-l><C-h> :<C-u>CtrlPCmdHistory<CR>
 nnoremap <silent><C-l>/     :<C-u>CtrlPSearchHistory<CR>
 nnoremap <silent><C-l>l     :<C-u>CtrlPLocate<CR>
 nnoremap <silent><C-l><C-t> :<C-u>CtrlPSmartTabs<CR>
+nnoremap <silent><C-l><C-g> :<C-u>CtrlPGrep<CR>
 "nnoremap <silent><C-l><C-f> :<C-u>CtrlPFiler<CR>
 "let g:ctrlp_filer_menu = {
 "      \ "execute": 'ctrlp#filer#op#execute',
