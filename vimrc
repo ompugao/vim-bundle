@@ -583,7 +583,14 @@ let g:airline_mode_map = {
             \ }
 " }}}
 "colorscheme Tomorrow-Night-Blue
-colorscheme harlequin
+"colorscheme harlequin
+set background=dark
+let g:solarized_termcolors=256
+let g:solarized_termtrans =   1
+let g:solarized_degrade   =   1
+let g:solarized_contrast  =   "high" 
+let g:solarized_visibility=   "high"
+colorscheme solarized
 " ctrlp {{{
 nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
 nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'

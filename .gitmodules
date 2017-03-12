@@ -190,3 +190,6 @@
 [submodule "bundle/ctrlp-grep"]
 	path = bundle/ctrlp-grep
 	url = https://github.com/ompugao/ctrlp-grep
+[submodule "bundle/vim-colors-solarized"]
+	path = bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized
