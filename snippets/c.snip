@@ -43,3 +43,11 @@ abbr    comment enum
      * @enum ${1:enum_name}
      * ${2:comment}
      */
+
+snippet		include_guard
+alias		incguard
+abbr		#ifndef HOGE #define HOGE #endif
+	#ifndef `"_" . toupper( substitute( expand('%:p:h:t') . "_" . expand("%:t"), "[^a-zA-Z0-9]", "_", "g" ) )."_"`
+	#define `"_" . toupper( substitute( expand('%:p:h:t') . "_" . expand("%:t"), "[^a-zA-Z0-9]", "_", "g" ) )."_"`
+	${0}
+	#endif    // `"_" . toupper( substitute( expand('%:p:h:t') . "_" . expand("%:t"), "[^a-zA-Z0-9]", "_", "g" ) )."_"`
