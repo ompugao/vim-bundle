@@ -115,9 +115,6 @@
 [submodule "bundle/vinarise"]
 	path = bundle/vinarise
 	url = https://github.com/Shougo/vinarise
-[submodule "bundle/vim-dirvish"]
-	path = bundle/vim-dirvish
-	url = https://github.com/justinmk/vim-dirvish
 [submodule "bundle/nerdcommenter"]
 	path = bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter
@@ -193,3 +190,6 @@
 [submodule "bundle/vim-colors-solarized"]
 	path = bundle/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized
+[submodule "bundle/vaffle.vim"]
+	path = bundle/vaffle.vim
+	url = https://github.com/cocopon/vaffle.vim
