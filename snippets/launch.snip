@@ -1,3 +1,9 @@
+snippet     launch
+alias       launch <launch
+options     head
+  <launch>
+  </launch>
+
 snippet     gdb
 abbr        gdb
 options     head
@@ -7,16 +13,17 @@ snippet     valgrind
 abbr        valgrind
 options     head
     launch-prefix="xterm -fn 12x24 -e valgrind -v --error-limit=no --leak-check=full --show-reachable=no --log-file='$(env HOME)/log.txt' "
+
 snippet     node
 alias       node <node
 options     head
-    <node pkg="${1:pkg}" type="${2:type}" name="${3:$(anon $2)}">
+    <node pkg="${1:pkg}" type="${2:type}" name="${3:$(anon $2)}">${0}
     </node>
 
 snippet     group
 alias       group <group
 options     head
-    <group ns="$(arg ${0})">
+    <group ${1:ns}="${2}">${0}
     </group>
 
 snippet     if
@@ -40,25 +47,25 @@ options     head
 snippet     param
 alias       param <param
 options     head
-  <param name="${1}" value="${2}"/>
+  <param name="${1}" value="${2}"/>${0}
 
 snippet     arg
 alias       arg <arg
 options     head
-  <arg name="${1}" ${2:value|default}="${3}"/>
+  <arg name="${1}" ${2:value|default}="${3}"/>${0}
 
 snippet     env
 alias       env <env
 options     head
-  <env name="${1}" value="${2}"/>
+  <env name="${1}" value="${2}"/>${0}
 
 snippet     remap
 alias       remap <remap
 options     head
-  <remap from="${1:from}" to="${2:to}"/>
+  <remap from="${1:from}" to="${2:to}"/>${0}
 
 
 snippet     machine
 alias       machine <machine
 options     head
-    <machine name="${1:name}" address="${2:willowgarage.com}" env-loader="/opt/ros/${3:$(env ROS_DISTRO)}/env.sh" ${4:default="${5:true|false|never\}"} user="${6:user}" ${7:timeout="${8\}"}/>
+    <machine name="${1:name}" address="${2:willowgarage.com}" env-loader="/opt/ros/${3:$(env ROS_DISTRO)}/env.sh" ${4:default="${5:true|false|never\}"} user="${6:user}" ${7:timeout="${8\}"}/>${0}
