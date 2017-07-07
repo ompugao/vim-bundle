@@ -115,13 +115,14 @@ set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバ
 set infercase           " 補完時に大文字小文字を区別しない
 set vb t_vb= "disable visualbell
 set virtualedit+=block "矩形選択で自由に移動
-if has('clipboard')
-  if has('unnamedplus')
-    set clipboard=unnamedplus,autoselect 
-  else
-    set clipboard+=unnamed "無名レジスタだけでなく、*レジスタにもヤンク
-  endif
-endif
+"if has('clipboard')
+"  if has('unnamedplus')
+"    set clipboard=unnamedplus,autoselect 
+"  else
+"    set clipboard+=unnamed "無名レジスタだけでなく、*レジスタにもヤンク
+"  endif
+"endif
+set clipboard+=unnamedplus
 set wildmode=longest:list,full "commandline補完 :help wildmode
 set showmatch
 set matchtime=1
