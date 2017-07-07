@@ -1,9 +1,6 @@
 [submodule "bundle/vim-fugitive"]
 	path = bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
-[submodule "bundle/gitv"]
-	path = bundle/gitv
-	url = https://github.com/gregsexton/gitv
 [submodule "bundle/vimproc"]
 	path = bundle/vimproc
 	url = https://github.com/Shougo/vimproc.git
@@ -118,9 +115,6 @@
 [submodule "bundle/vinarise"]
 	path = bundle/vinarise
 	url = https://github.com/Shougo/vinarise
-[submodule "bundle/vim-dirvish"]
-	path = bundle/vim-dirvish
-	url = https://github.com/justinmk/vim-dirvish
 [submodule "bundle/nerdcommenter"]
 	path = bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter
@@ -184,3 +178,18 @@
 [submodule "bundle/vim-dispatch-vimproc"]
 	path = bundle/vim-dispatch-vimproc
 	url = https://github.com/ompugao/vim-dispatch-vimproc
+[submodule "ftbundle/octave/vim-octave"]
+	path = ftbundle/octave/vim-octave
+	url = https://github.com/jvirtanen/vim-octave
+[submodule "bundle/agit.vim"]
+	path = bundle/agit.vim
+	url = https://github.com/cohama/agit.vim
+[submodule "bundle/ctrlp-grep"]
+	path = bundle/ctrlp-grep
+	url = https://github.com/ompugao/ctrlp-grep
+[submodule "bundle/vim-colors-solarized"]
+	path = bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized
+[submodule "bundle/vim-dirvish"]
+	path = bundle/vim-dirvish
+	url = https://github.com/justinmk/vim-dirvish
