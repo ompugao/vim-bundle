@@ -193,3 +193,6 @@
 [submodule "bundle/vaffle.vim"]
 	path = bundle/vaffle.vim
 	url = https://github.com/cocopon/vaffle.vim
+[submodule "bundle/vim-dirvish"]
+	path = bundle/vim-dirvish
+	url = https://github.com/justinmk/vim-dirvish
