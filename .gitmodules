@@ -196,3 +196,6 @@
 [submodule "bundle/ale"]
 	path = bundle/ale
 	url = https://github.com/w0rp/ale
+[submodule "ftbundle/rust/rust.vim"]
+	path = ftbundle/rust/rust.vim
+	url = https://github.com/rust-lang/rust.vim
