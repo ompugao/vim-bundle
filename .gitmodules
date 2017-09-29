@@ -40,9 +40,6 @@
 [submodule "ftbundle/ruby/vim-ruby"]
 	path = ftbundle/ruby/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
-[submodule "bundle/vim-dispatch"]
-	path = bundle/vim-dispatch
-	url = https://github.com/tpope/vim-dispatch
 [submodule "bundle/alpaca_tags"]
 	path = bundle/alpaca_tags
 	url = https://github.com/alpaca-tc/alpaca_tags
@@ -175,9 +172,6 @@
 [submodule "bundle/ctrlp-tweetvim"]
 	path = bundle/ctrlp-tweetvim
 	url = https://github.com/ompugao/ctrlp-tweetvim
-[submodule "bundle/vim-dispatch-vimproc"]
-	path = bundle/vim-dispatch-vimproc
-	url = https://github.com/ompugao/vim-dispatch-vimproc
 [submodule "ftbundle/octave/vim-octave"]
 	path = ftbundle/octave/vim-octave
 	url = https://github.com/jvirtanen/vim-octave
@@ -199,3 +193,6 @@
 [submodule "ftbundle/rust/rust.vim"]
 	path = ftbundle/rust/rust.vim
 	url = https://github.com/rust-lang/rust.vim
+[submodule "bundle/asyncrun.vim"]
+	path = bundle/asyncrun.vim
+	url = https://github.com/skywind3000/asyncrun.vim
