@@ -1,6 +1,7 @@
 if 0 | finish | endif
 scriptencoding utf8
 
+set hidden "for vim-ctrlspace
 runtime vim-unbundle/plugin/unbundle.vim
 
 " 文字コード関連  {{{
