@@ -202,3 +202,6 @@
 [submodule "bundle/vim-ctrlspace"]
 	path = bundle/vim-ctrlspace
 	url = https://github.com/vim-ctrlspace/vim-ctrlspace
+[submodule "bundle/harlequin"]
+	path = bundle/harlequin
+	url = https://github.com/ompugao/harlequin/commits/master
