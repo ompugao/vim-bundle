@@ -1,7 +1,6 @@
 if 0 | finish | endif
 scriptencoding utf8
 
-set hidden "for vim-ctrlspace
 runtime vim-unbundle/plugin/unbundle.vim
 
 " 文字コード関連  {{{
@@ -546,7 +545,7 @@ noremap <Space>af :<C-u>AgFile<Space>
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_extensions = ['branch', 'ctrlp', 'ctrlspace', 'quickfix', 'tabline', 'unite', 'wordcount', 'alpaca_tags', 'cwd']
+let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'unite', 'wordcount', 'alpaca_tags', 'cwd']
 "'hunks', 'nrrwrgn', 'syntastic', 'tagbar', 'undotree', 'windowswap', 'whitespace'
 let g:airline_theme='serene' "'simple' 'wombat'
 let g:airline_left_sep = ''
