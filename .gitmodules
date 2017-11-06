@@ -199,9 +199,6 @@
 [submodule "ftbundle/rust/vim-racer"]
 	path = ftbundle/rust/vim-racer
 	url = https://github.com/racer-rust/vim-racer
-[submodule "bundle/vim-ctrlspace"]
-	path = bundle/vim-ctrlspace
-	url = https://github.com/vim-ctrlspace/vim-ctrlspace
 [submodule "bundle/harlequin"]
 	path = bundle/harlequin
 	url = https://github.com/ompugao/harlequin
