@@ -2,6 +2,7 @@ snippet     launch
 alias       launch <launch
 options     head
   <launch>
+    ${0}
   </launch>
 
 snippet     gdb
@@ -29,20 +30,22 @@ options     head
 snippet     if
 alias       if <if
 options     head
-    <group if="$(${0})">
+    <group if="$(${1})">
+      ${0}
     </group>
 
 snippet     unless
 alias       unless <unless
 options     head
-    <group unless="$(${0})">
+    <group unless="$(${1})">
+      ${0}
     </group>
 
 
 snippet     include
 alias       include <include
 options     head
-    <include file="$(find ${1:pkg})/${0}"/>
+    <include file="$(find ${1:pkg})/${2}"/>${0}
 
 snippet     param
 alias       param <param
