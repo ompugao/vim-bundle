@@ -223,6 +223,9 @@ let g:markdown_fenced_languages = [
 \  'sass',
 \  'xml',
 \]
+if has('patch-7.4.146') 
+  command! Oldfiles execute ":new +setl\\ buftype=nofile | 0put =v:oldfiles | nnoremap <buffer> <CR> :e <C-r>=getline('.')<CR><CR>"
+endif
 "}}}
 
 " mappings {{{
