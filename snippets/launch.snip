@@ -18,7 +18,7 @@ options     head
 snippet     node
 alias       node <node
 options     head
-    <node pkg="${1:pkg}" type="${2:type}" name="${3:$(anon $2)}">${0}
+    <node pkg="${1:pkg}" type="${2:type}" name="${3:$(anon ${4:#:type\})}">${0}
     </node>
 
 snippet     group
@@ -55,7 +55,7 @@ options     head
 snippet     arg
 alias       arg <arg
 options     head
-  <arg name="${1}" ${2:value|default}="${3}"/>${0}
+  <arg name="${1}" ${2:#:value|default}="${3}"/>${0}
 
 snippet     env
 alias       env <env
@@ -65,10 +65,10 @@ options     head
 snippet     remap
 alias       remap <remap
 options     head
-  <remap from="${1:from}" to="${2:to}"/>${0}
+  <remap from="${1:#:from}" to="${2:#:to}"/>${0}
 
 
 snippet     machine
 alias       machine <machine
 options     head
-    <machine name="${1:name}" address="${2:willowgarage.com}" env-loader="/opt/ros/${3:$(env ROS_DISTRO)}/env.sh" ${4:default="${5:true|false|never\}"} user="${6:user}" ${7:timeout="${8\}"}/>${0}
+    <machine name="${1:name}" address="${2:#:willowgarage.com}" env-loader="/opt/ros/${3:$(env ROS_DISTRO)}/env.sh" ${4:default="${5:#:true|false|never\}"} user="${6:#:user}" ${7:timeout="${8\}"}/>${0}
