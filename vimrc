@@ -571,6 +571,7 @@ let g:airline#extensions#default#section_truncate_width = {
       \ 'y': 88,
       \ 'z': 60,
       \ }
+let g:airline#extensions#whitespace#enabled = 1
 let g:airline_mode_map = {
             \ '__' : '-',
             \ 'n'  : 'N',
