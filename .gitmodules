@@ -202,3 +202,6 @@
 [submodule "bundle/harlequin"]
 	path = bundle/harlequin
 	url = https://github.com/ompugao/harlequin
+[submodule "bundle/papercolor-theme"]
+	path = bundle/papercolor-theme
+	url = https://github.com/NLKNguyen/papercolor-theme

@@ -550,7 +550,7 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'unite', 'wordcount', 'alpaca_tags', 'cwd']
 "'hunks', 'nrrwrgn', 'syntastic', 'tagbar', 'undotree', 'windowswap', 'whitespace'
-let g:airline_theme='serene' "'simple' 'wombat'
+let g:airline_theme='minimalist' "'serene' 'simple' 'wombat''papercolor'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇'
@@ -585,15 +585,17 @@ let g:airline_mode_map = {
             \ '' : '^',
             \ }
 " }}}
+set background=dark
 "colorscheme Tomorrow-Night-Blue
 "colorscheme harlequin
-set background=dark
-let g:solarized_termcolors=256
-let g:solarized_termtrans =   1
-let g:solarized_degrade   =   1
-let g:solarized_contrast  =   "high" 
-let g:solarized_visibility=   "high"
-colorscheme solarized
+"let g:solarized_termcolors=256
+"let g:solarized_termtrans =   1
+"let g:solarized_degrade   =   1
+"let g:solarized_contrast  =   "high" 
+"let g:solarized_visibility=   "high"
+"colorscheme solarized
+colorscheme PaperColor
+
 " ctrlp {{{
 nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
 nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
