@@ -159,25 +159,6 @@ au BufNewFile,BufRead *.l set ft=lisp
 au BufRead,BufNewFile *.go set filetype=go
 au BufRead,BufNewFile *.m set filetype=octave
 "}}}
-" 配色設定"{{{
-set t_Co=256
-" 90 ... purple which we can use only when 256-colors is enabled
-hi Pmenu        ctermfg=White   ctermbg=90  cterm=NONE
-hi PmenuSel     ctermfg=90   ctermbg=White  cterm=NONE
-hi PmenuSbar    ctermfg=90   ctermbg=White  cterm=NONE
-hi PmenuThumb   ctermfg=White   ctermbg=90  cterm=NONE
-
-highlight LineNr ctermfg=40
-highlight Visual term=reverse ctermbg=90 guibg=LightGrey
-" 全角スペースの表示
-"highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=white
-highlight MatchParen term=standout ctermbg=LightGrey ctermfg=lightcyan guibg=LightGrey guifg=lightcyan
-"match ZenkakuSpace /　/
-" make background transparent
-highlight Normal ctermbg=none
-let g:netrw_liststyle = 3 "netrw(Explorer)を常にツリー表示する
-let lisp_rainbow = 1 "lispをcolorfulに
-"}}}
 set shellslash
 set grepprg=grep\ -nH\ $*
 let g:tex_conceal = ""
@@ -550,7 +531,7 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'unite', 'wordcount', 'alpaca_tags', 'cwd']
 "'hunks', 'nrrwrgn', 'syntastic', 'tagbar', 'undotree', 'windowswap', 'whitespace'
-let g:airline_theme='minimalist' "'serene' 'simple' 'wombat''papercolor'
+let g:airline_theme='ravenpower' "'minimalist' 'serene' 'simple' 'wombat''papercolor'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇'
@@ -596,6 +577,25 @@ set background=dark
 "let g:solarized_visibility=   "high"
 "colorscheme solarized
 colorscheme PaperColor
+" 配色設定"{{{
+set t_Co=256
+" 90 ... purple which we can use only when 256-colors is enabled
+hi Pmenu        ctermfg=White   ctermbg=90  cterm=NONE
+hi PmenuSel     ctermfg=90   ctermbg=White  cterm=NONE
+hi PmenuSbar    ctermfg=90   ctermbg=White  cterm=NONE
+hi PmenuThumb   ctermfg=White   ctermbg=90  cterm=NONE
+
+highlight LineNr ctermfg=40
+" highlight Visual term=reverse ctermbg=90 guibg=LightGrey
+" 全角スペースの表示
+"highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=white
+highlight MatchParen term=standout ctermbg=LightGrey ctermfg=lightcyan guibg=LightGrey guifg=lightcyan
+"match ZenkakuSpace /　/
+" make background transparent
+highlight Normal ctermbg=none
+let g:netrw_liststyle = 3 "netrw(Explorer)を常にツリー表示する
+let lisp_rainbow = 1 "lispをcolorfulに
+"}}}
 
 " ctrlp {{{
 nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
