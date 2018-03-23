@@ -522,6 +522,7 @@ function! g:ref_source_webdict_sites.antonym.filter(output)
 endfunction
 "}}}
 " ag {{{
+let g:ag_prg="ag --vimgrep --ignore='*__pycache__*' "
 noremap <Space>ag :<C-u>Ag<Space>
 noremap <Space>af :<C-u>AgFile<Space>
 "}}}
