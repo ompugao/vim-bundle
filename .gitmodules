@@ -40,9 +40,6 @@
 [submodule "ftbundle/ruby/vim-ruby"]
 	path = ftbundle/ruby/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
-[submodule "bundle/alpaca_tags"]
-	path = bundle/alpaca_tags
-	url = https://github.com/alpaca-tc/alpaca_tags
 [submodule "bundle/neocomplete.vim"]
 	path = bundle/neocomplete.vim
 	url = https://github.com/Shougo/neocomplete.vim
@@ -160,9 +157,6 @@
 [submodule "bundle/vim-speeddating"]
 	path = bundle/vim-speeddating
 	url = https://github.com/tpope/vim-speeddating
-[submodule "bundle/vim-airline-alpaca-tags"]
-	path = bundle/vim-airline-alpaca-tags
-	url = https://github.com/ompugao/vim-airline-alpaca-tags
 [submodule "bundle/vim-airline-themes"]
 	path = bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes
@@ -205,3 +199,6 @@
 [submodule "bundle/papercolor-theme"]
 	path = bundle/papercolor-theme
 	url = https://github.com/NLKNguyen/papercolor-theme
+[submodule "bundle/vim-gutentags"]
+	path = bundle/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags/

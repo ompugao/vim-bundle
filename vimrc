@@ -530,7 +530,7 @@ noremap <Space>af :<C-u>AgFile<Space>
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'unite', 'wordcount', 'alpaca_tags', 'cwd']
+let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'unite', 'wordcount', 'gutentags', 'cwd']
 "'hunks', 'nrrwrgn', 'syntastic', 'tagbar', 'undotree', 'windowswap', 'whitespace'
 let g:airline_theme='ravenpower' "'minimalist' 'serene' 'simple' 'wombat''papercolor'
 let g:airline_left_sep = ''
