@@ -495,7 +495,8 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline#extensions#disable_rtp_load = 0
 let g:airline#extensions#cwd#enabled = 1
-let g:airline#extensions#alpaca_tags#enabled = 1
+"let g:airline#extensions#alpaca_tags#enabled = 1
+let g:airline#extensions#gutentags#enabled = 1
 let g:airline#extensions#default#section_truncate_width = {
       \ 'b': 79,
       \ 'x': 80,
