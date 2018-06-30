@@ -589,9 +589,11 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_mruf_max = 1000
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.neocon$\|\.cache$\|\.Skype$\|\.fontconfig$\|\.vimbackup$\|\.wine$\|\.thumbnails$\|\.mozilla$\|\.local$\|\.thunderbird$\|\.vimundo$\|\.neocomplcache$\|\.rvm$\|\.cache$\|\.vimswap$|\.rbenv$',
-            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.db$\|\.o$\|\.a$\|\.pyc$\|\.pyo$\|\.pdf$\|\.dvi$\|\.zip$\|\.rar$\|\.tgz$\|\.gz$\|\.tar$\|\.png$\|\.jpg$\|\.JPG$\|\.gif$\|\.mpg$\|\.mp4$\|\.mp3$\|\.bag$\|\.sw[a-z]$',
+            \ 'dir':  '\v[\/]\.(git|hg|svn|neocon|cache|Skype|fontconfig|vimbackup|wine|thumbnail|mozilla|local|thunderbird|vimundo|neocomplcache|rvm|cache|vimswap|rbenv)$',
+            \ 'file': '\v\.(exe|so|dll|db|o|a|pyc|pyo|pdf|dvi|zip|rar|tgz|gz|tar|png|jpg|JPG|gif|mpg|mp4|mp3|bag|sw[a-z])$',
             \ }
+            "\ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.neocon$\|\.cache$\|\.Skype$\|\.fontconfig$\|\.vimbackup$\|\.wine$\|\.thumbnails$\|\.mozilla$\|\.local$\|\.thunderbird$\|\.vimundo$\|\.neocomplcache$\|\.rvm$\|\.cache$\|\.vimswap$|\.rbenv$',
+            "\ 'file': '\.exe$\|\.so$\|\.dll$\|\.db$\|\.o$\|\.a$\|\.pyc$\|\.pyo$\|\.pdf$\|\.dvi$\|\.zip$\|\.rar$\|\.tgz$\|\.gz$\|\.tar$\|\.png$\|\.jpg$\|\.JPG$\|\.gif$\|\.mpg$\|\.mp4$\|\.mp3$\|\.bag$\|\.sw[a-z]$',
 let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler\|unite\|vimshell'
 let g:ctrlp_lazy_update = 0
