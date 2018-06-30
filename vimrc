@@ -18,8 +18,6 @@ if has("autocmd")
 				\   exe "normal g`\"" |
 				\ endif
 endif
-"set hlsearch
-"nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><<C-l>
 set autoindent  " 自動インデント
 set backup  " バックアップを有効にする
 set backupdir=$HOME/.vimbackup  " バックアップ用ディレクトリ
@@ -56,6 +54,7 @@ set sw=4  " シフト幅
 set smarttab   "use shiftwidth when inserts <tab>
 set expandtab  " タブをスペースに展開
 set incsearch  "incremental search
+set hlsearch
 set wrap  "長い行を折り返し
 if has('linebreak')
   set breakindent
@@ -667,42 +666,45 @@ let g:operator#surround#blocks = {
             \ }
 " }}}
 " incsearch.vim {{{
-set hlsearch
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-map z/ <Plug>(incsearch-fuzzy-/)
-map z? <Plug>(incsearch-fuzzy-?)
-map zg/ <Plug>(incsearch-fuzzy-stay)
-map m/ <Plug>(incsearch-migemo-/)
-map m? <Plug>(incsearch-migemo-?)
-map mg/ <Plug>(incsearch-migemo-stay)
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-"map *  <Plug>(incsearch-nohl-*)zzzv
-"map #  <Plug>(incsearch-nohl-#)zzzv
-"map g* <Plug>(incsearch-nohl-g*)zzzv
-"map g# <Plug>(incsearch-nohl-g#)zzzv
-map *  <Plug>(incsearch-nohl)<Plug>(asterisk-*)
-map g* <Plug>(incsearch-nohl)<Plug>(asterisk-g*)
-map #  <Plug>(incsearch-nohl)<Plug>(asterisk-#)
-map g# <Plug>(incsearch-nohl)<Plug>(asterisk-g#)
-let g:incsearch#separate_highlight = 1
-highlight Search cterm=underline ctermfg=white ctermbg=74 guibg=white
-highlight IncSearchCursor ctermfg=lightmagenta ctermbg=darkgray guifg=lightmagenta guibg=darkgray
-augroup incsearch-keymap
-    autocmd!
-    autocmd VimEnter * call s:incsearch_keymap()
-augroup END
-function! s:incsearch_keymap()
-    IncSearchNoreMap <C-f> <Over>(incsearch-scroll-f)
-    IncSearchNoreMap <C-b> <Over>(incsearch-scroll-b)
-    IncSearchNoreMap <C-n> <Over>(incsearch-next) 
-    IncSearchNoreMap <C-p> <Over>(incsearch-prev) 
-    IncSearchNoreMap <Tab> <Over>(buffer-complete)
-    IncSearchNoreMap <S-tab> <Over>(buffer-complete-prev)
-endfunction
+" map /  <Plug>(incsearch-forward)
+" map ?  <Plug>(incsearch-backward)
+" map g/ <Plug>(incsearch-stay)
+" map z/ <Plug>(incsearch-fuzzy-/)
+" map z? <Plug>(incsearch-fuzzy-?)
+" map zg/ <Plug>(incsearch-fuzzy-stay)
+" map m/ <Plug>(incsearch-migemo-/)
+" map m? <Plug>(incsearch-migemo-?)
+" map mg/ <Plug>(incsearch-migemo-stay)
+" let g:incsearch#auto_nohlsearch = 1
+" map n  <Plug>(incsearch-nohl-n)
+" map N  <Plug>(incsearch-nohl-N)
+" "map *  <Plug>(incsearch-nohl-*)zzzv
+" "map #  <Plug>(incsearch-nohl-#)zzzv
+" "map g* <Plug>(incsearch-nohl-g*)zzzv
+" "map g# <Plug>(incsearch-nohl-g#)zzzv
+" map *  <Plug>(incsearch-nohl)<Plug>(asterisk-*)
+" map g* <Plug>(incsearch-nohl)<Plug>(asterisk-g*)
+" map #  <Plug>(incsearch-nohl)<Plug>(asterisk-#)
+" map g# <Plug>(incsearch-nohl)<Plug>(asterisk-g#)
+map *  <Plug>(asterisk-*)
+map g* <Plug>(asterisk-g*)
+map #  <Plug>(asterisk-#)
+map g# <Plug>(asterisk-g#)
+" let g:incsearch#separate_highlight = 1
+" highlight Search cterm=underline ctermfg=white ctermbg=74 guibg=white
+" highlight IncSearchCursor ctermfg=lightmagenta ctermbg=darkgray guifg=lightmagenta guibg=darkgray
+" augroup incsearch-keymap
+"     autocmd!
+"     autocmd VimEnter * call s:incsearch_keymap()
+" augroup END
+" function! s:incsearch_keymap()
+"     IncSearchNoreMap <C-f> <Over>(incsearch-scroll-f)
+"     IncSearchNoreMap <C-b> <Over>(incsearch-scroll-b)
+"     IncSearchNoreMap <C-n> <Over>(incsearch-next) 
+"     IncSearchNoreMap <C-p> <Over>(incsearch-prev) 
+"     IncSearchNoreMap <Tab> <Over>(buffer-complete)
+"     IncSearchNoreMap <S-tab> <Over>(buffer-complete-prev)
+" endfunction
 " }}}
 " previm {{{
 let g:previm_enable_realtime = 1

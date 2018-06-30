@@ -64,15 +64,6 @@
 [submodule "bundle/ag.vim"]
 	path = bundle/ag.vim
 	url = https://github.com/rking/ag.vim
-[submodule "bundle/incsearch.vim"]
-	path = bundle/incsearch.vim
-	url = https://github.com/haya14busa/incsearch.vim
-[submodule "bundle/incsearch-migemo.vim"]
-	path = bundle/incsearch-migemo.vim
-	url = https://github.com/haya14busa/incsearch-migemo.vim
-[submodule "bundle/incsearch-fuzzy.vim"]
-	path = bundle/incsearch-fuzzy.vim
-	url = https://github.com/haya14busa/incsearch-fuzzy.vim
 [submodule "bundle/vim-asterisk"]
 	path = bundle/vim-asterisk
 	url = https://github.com/haya14busa/vim-asterisk
