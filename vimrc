@@ -470,7 +470,8 @@ function! g:ref_source_webdict_sites.antonym.filter(output)
 endfunction
 "}}}
 " ag {{{
-let g:ag_prg="ag --vimgrep --ignore='*__pycache__*' "
+let g:ag_prg="ag --vimgrep --smart-case --ignore='*__pycache__*' --ignore='*.pyc'"
+let g:ag_highlight=1
 noremap <Space>ag :<C-u>Ag<Space>
 noremap <Space>af :<C-u>AgFile<Space>
 "}}}
