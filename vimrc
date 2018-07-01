@@ -281,6 +281,13 @@ let g:quickrun_config['cpp/g++11'] = {
       \   'hook/sweep/files': '%S:p:r',
       \   'cmdopt':  '-std=c++11 '
       \ }
+let g:quickrun_config['cpp/g++14'] = {
+      \   'command': 'g++',
+      \   'exec': ['%c %o %s -o %s:p:r', '%s:p:r %a'],
+      \   'tempfile': '%{tempname()}.cpp',
+      \   'hook/sweep/files': '%S:p:r',
+      \   'cmdopt':  '-std=c++14 '
+      \ }
 let g:quickrun_config.octave = {
             \ 'command': 'octave',
             \ } 
