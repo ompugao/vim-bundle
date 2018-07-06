@@ -525,6 +525,12 @@ let g:airline_mode_map = {
             \ '' : '^',
             \ }
 " }}}
+" gutentags {{{
+let g:gutentags_cache_dir=expand('~') . '/.gutentags'
+if !isdirectory(g:gutentags_cache_dir)
+    call mkdir(g:gutentags_cache_dir, "p")
+endif
+" }}}
 set background=dark
 "colorscheme Tomorrow-Night-Blue
 "colorscheme harlequin
