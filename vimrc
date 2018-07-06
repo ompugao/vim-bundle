@@ -477,7 +477,7 @@ function! g:ref_source_webdict_sites.antonym.filter(output)
 endfunction
 "}}}
 " ag {{{
-let g:ag_prg="ag --vimgrep --smart-case --ignore='*__pycache__*' --ignore='*.pyc'"
+let g:ag_prg="ag --vimgrep --smart-case --ignore='*__pycache__*' --ignore='*.pyc' --ignore='tags' "
 let g:ag_highlight=1
 noremap <Space>ag :<C-u>Ag<Space>
 noremap <Space>af :<C-u>AgFile<Space>
@@ -486,7 +486,7 @@ noremap <Space>af :<C-u>AgFile<Space>
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'unite', 'wordcount', 'alpaca_tags', 'cwd']
+let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'unite', 'wordcount', 'gutentags', 'cwd']
 "'hunks', 'nrrwrgn', 'syntastic', 'tagbar', 'undotree', 'windowswap', 'whitespace'
 let g:airline_theme='ravenpower' "'minimalist' 'serene' 'simple' 'wombat''papercolor'
 let g:airline_left_sep = ''
@@ -502,7 +502,8 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline#extensions#disable_rtp_load = 0
 let g:airline#extensions#cwd#enabled = 1
-let g:airline#extensions#alpaca_tags#enabled = 1
+"let g:airline#extensions#alpaca_tags#enabled = 1
+let g:airline#extensions#gutentags#enabled = 1
 let g:airline#extensions#default#section_truncate_width = {
       \ 'b': 79,
       \ 'x': 80,
@@ -523,6 +524,12 @@ let g:airline_mode_map = {
             \ 'S'  : 'S',
             \ '' : '^',
             \ }
+" }}}
+" gutentags {{{
+let g:gutentags_cache_dir=expand('~') . '/.gutentags'
+if !isdirectory(g:gutentags_cache_dir)
+    call mkdir(g:gutentags_cache_dir, "p")
+endif
 " }}}
 set background=dark
 "colorscheme Tomorrow-Night-Blue
@@ -598,7 +605,7 @@ let g:ctrlp_mruf_max = 1000
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git|hg|svn|neocon|cache|Skype|fontconfig|vimbackup|wine|thumbnail|mozilla|local|thunderbird|vimundo|neocomplcache|rvm|cache|vimswap|rbenv)$',
-            \ 'file': '\v\.(exe|so|dll|db|o|a|pyc|pyo|pdf|dvi|zip|rar|tgz|gz|tar|png|jpg|JPG|gif|mpg|mp4|mp3|bag|sw[a-z])$',
+            \ 'file': '\v(\.(exe|so|dll|db|o|a|pyc|pyo|pdf|dvi|zip|rar|tgz|gz|tar|png|jpg|JPG|gif|mpg|mp4|mp3|bag|sw[a-z])|tags)$',
             \ }
             "\ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.neocon$\|\.cache$\|\.Skype$\|\.fontconfig$\|\.vimbackup$\|\.wine$\|\.thumbnails$\|\.mozilla$\|\.local$\|\.thunderbird$\|\.vimundo$\|\.neocomplcache$\|\.rvm$\|\.cache$\|\.vimswap$|\.rbenv$',
             "\ 'file': '\.exe$\|\.so$\|\.dll$\|\.db$\|\.o$\|\.a$\|\.pyc$\|\.pyo$\|\.pdf$\|\.dvi$\|\.zip$\|\.rar$\|\.tgz$\|\.gz$\|\.tar$\|\.png$\|\.jpg$\|\.JPG$\|\.gif$\|\.mpg$\|\.mp4$\|\.mp3$\|\.bag$\|\.sw[a-z]$',
