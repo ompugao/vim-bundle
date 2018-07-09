@@ -1,67 +1,16 @@
 "if 0 | finish | endif
+set encoding=utf-8
+set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
+set fileformats=unix,dos,mac
 scriptencoding utf8
 
 runtime vim-unbundle/plugin/unbundle.vim
 
-" 文字コード関連  {{{
-if &encoding !=# 'utf-8'
-	set encoding=japan
-	set fileencoding=japan
-endif
-if has('iconv')
-	let s:enc_euc = 'euc-jp'
-	let s:enc_jis = 'iso-2022-jp'
-	" iconvがeucJP-msに対応しているかをチェック
-	if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
-		let s:enc_euc = 'eucjp-ms'
-		let s:enc_jis = 'iso-2022-jp-3'
-	" iconvがJISX0213に対応しているかをチェック
-	elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-		let s:enc_euc = 'euc-jisx0213'
-		let s:enc_jis = 'iso-2022-jp-3'
-	endif
-	" fileencodingsを構築
-	if &encoding ==# 'utf-8'
-		let s:fileencodings_default = &fileencodings
-		let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-		let &fileencodings = &fileencodings .','. s:fileencodings_default
-		unlet s:fileencodings_default
-	else
-		let &fileencodings = &fileencodings .','. s:enc_jis
-		set fileencodings+=utf-8,ucs-2le,ucs-2
-		if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-			set fileencodings+=cp932
-			set fileencodings-=euc-jp
-			set fileencodings-=euc-jisx0213
-			set fileencodings-=eucjp-ms
-			let &encoding = s:enc_euc
-			let &fileencoding = s:enc_euc
-		else
-			let &fileencodings = &fileencodings .','. s:enc_euc
-		endif
-	endif
-	" 定数を処分
-	unlet s:enc_euc
-	unlet s:enc_jis
-endif
-" 日本語を含まない場合は fileencoding に encoding を使うようにする
-if has('autocmd')
-	function! AU_ReCheck_FENC()
-		if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-			let &fileencoding=&encoding
-		endif
-	endfunction
-	autocmd BufReadPost * call AU_ReCheck_FENC()
-endif
-" 改行コードの自動認識
-set fileformats=unix,dos,mac
+" settings(set *** etc.etc...) {{{
 " □とか○の文字があってもカーソル位置がずれないようにする
 if exists('&ambiwidth')
 	set ambiwidth=double
 endif
-"}}}
-
-" settings(set *** etc.etc...) {{{
 if has("autocmd")
 	" カーソル位置を記憶する
 	autocmd BufReadPost *
@@ -69,8 +18,6 @@ if has("autocmd")
 				\   exe "normal g`\"" |
 				\ endif
 endif
-"set hlsearch
-"nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><<C-l>
 set autoindent  " 自動インデント
 set backup  " バックアップを有効にする
 set backupdir=$HOME/.vimbackup  " バックアップ用ディレクトリ
@@ -107,6 +54,7 @@ set sw=4  " シフト幅
 set smarttab   "use shiftwidth when inserts <tab>
 set expandtab  " タブをスペースに展開
 set incsearch  "incremental search
+set hlsearch
 set wrap  "長い行を折り返し
 set display=lastline   "as much as possible of the last linein a window will be displayed
 syntax enable  " 構文配色を有効にする
@@ -307,9 +255,19 @@ let g:quickrun_config['cpp/clang++11'] = {
             \ 'type': 'cpp/clang++'
             \ }
 let g:quickrun_config['cpp/g++11'] = {
-            \ 'command': 'g++',
-            \ 'cmdopt': '-std=c++11'
-            \ } 
+      \   'command': 'g++',
+      \   'exec': ['%c %o %s -o %s:p:r', '%s:p:r %a'],
+      \   'tempfile': '%{tempname()}.cpp',
+      \   'hook/sweep/files': '%S:p:r',
+      \   'cmdopt':  '-std=c++11 '
+      \ }
+let g:quickrun_config['cpp/g++14'] = {
+      \   'command': 'g++',
+      \   'exec': ['%c %o %s -o %s:p:r', '%s:p:r %a'],
+      \   'tempfile': '%{tempname()}.cpp',
+      \   'hook/sweep/files': '%S:p:r',
+      \   'cmdopt':  '-std=c++14 '
+      \ }
 let g:quickrun_config.octave = {
             \ 'command': 'octave',
             \ } 
@@ -499,7 +457,8 @@ function! g:ref_source_webdict_sites.antonym.filter(output)
 endfunction
 "}}}
 " ag {{{
-let g:ag_prg="ag --vimgrep --ignore='*__pycache__*' "
+let g:ag_prg="ag --vimgrep --smart-case --ignore='*__pycache__*' --ignore='*.pyc' --ignore='tags' "
+let g:ag_highlight=1
 noremap <Space>ag :<C-u>Ag<Space>
 noremap <Space>af :<C-u>AgFile<Space>
 "}}}
@@ -507,7 +466,7 @@ noremap <Space>af :<C-u>AgFile<Space>
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'unite', 'wordcount', 'alpaca_tags', 'cwd']
+let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'unite', 'wordcount', 'gutentags', 'cwd']
 "'hunks', 'nrrwrgn', 'syntastic', 'tagbar', 'undotree', 'windowswap', 'whitespace'
 let g:airline_theme='ravenpower' "'minimalist' 'serene' 'simple' 'wombat''papercolor'
 let g:airline_left_sep = ''
@@ -521,7 +480,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#disable_rtp_load = 0
 let g:airline#extensions#cwd#enabled = 1
-let g:airline#extensions#alpaca_tags#enabled = 1
+"let g:airline#extensions#alpaca_tags#enabled = 1
+let g:airline#extensions#gutentags#enabled = 1
 let g:airline#extensions#default#section_truncate_width = {
       \ 'b': 79,
       \ 'x': 80,
@@ -542,6 +502,12 @@ let g:airline_mode_map = {
             \ 'S'  : 'S',
             \ '' : '^',
             \ }
+" }}}
+" gutentags {{{
+let g:gutentags_cache_dir=expand('~') . '/.gutentags'
+if !isdirectory(g:gutentags_cache_dir)
+    call mkdir(g:gutentags_cache_dir, "p")
+endif
 " }}}
 " colors "{{{
 set t_Co=256
@@ -615,9 +581,11 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_mruf_max = 1000
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.neocon$\|\.cache$\|\.Skype$\|\.fontconfig$\|\.vimbackup$\|\.wine$\|\.thumbnails$\|\.mozilla$\|\.local$\|\.thunderbird$\|\.vimundo$\|\.neocomplcache$\|\.rvm$\|\.cache$\|\.vimswap$|\.rbenv$',
-            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.db$\|\.o$\|\.a$\|\.pyc$\|\.pyo$\|\.pdf$\|\.dvi$\|\.zip$\|\.rar$\|\.tgz$\|\.gz$\|\.tar$\|\.png$\|\.jpg$\|\.JPG$\|\.gif$\|\.mpg$\|\.mp4$\|\.mp3$\|\.bag$\|\.sw[a-z]$',
+            \ 'dir':  '\v[\/]\.(git|hg|svn|neocon|cache|Skype|fontconfig|vimbackup|wine|thumbnail|mozilla|local|thunderbird|vimundo|neocomplcache|rvm|cache|vimswap|rbenv)$',
+            \ 'file': '\v(\.(exe|so|dll|db|o|a|pyc|pyo|pdf|dvi|zip|rar|tgz|gz|tar|png|jpg|JPG|gif|mpg|mp4|mp3|bag|sw[a-z])|tags)$',
             \ }
+            "\ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.neocon$\|\.cache$\|\.Skype$\|\.fontconfig$\|\.vimbackup$\|\.wine$\|\.thumbnails$\|\.mozilla$\|\.local$\|\.thunderbird$\|\.vimundo$\|\.neocomplcache$\|\.rvm$\|\.cache$\|\.vimswap$|\.rbenv$',
+            "\ 'file': '\.exe$\|\.so$\|\.dll$\|\.db$\|\.o$\|\.a$\|\.pyc$\|\.pyo$\|\.pdf$\|\.dvi$\|\.zip$\|\.rar$\|\.tgz$\|\.gz$\|\.tar$\|\.png$\|\.jpg$\|\.JPG$\|\.gif$\|\.mpg$\|\.mp4$\|\.mp3$\|\.bag$\|\.sw[a-z]$',
 let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler\|unite\|vimshell'
 let g:ctrlp_lazy_update = 0
@@ -687,44 +655,45 @@ let g:operator#surround#blocks = {
 let g:sonictemplate_vim_template_dir = ['$HOME/.vim/templates',]
 "}}}
 " incsearch.vim {{{
-set hlsearch
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-map z/ <Plug>(incsearch-fuzzy-/)
-map z? <Plug>(incsearch-fuzzy-?)
-map zg/ <Plug>(incsearch-fuzzy-stay)
-map m/ <Plug>(incsearch-migemo-/)
-map m? <Plug>(incsearch-migemo-?)
-map mg/ <Plug>(incsearch-migemo-stay)
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-"map *  <Plug>(incsearch-nohl-*)zzzv
-"map #  <Plug>(incsearch-nohl-#)zzzv
-"map g* <Plug>(incsearch-nohl-g*)zzzv
-"map g# <Plug>(incsearch-nohl-g#)zzzv
-map *  <Plug>(incsearch-nohl)<Plug>(asterisk-*)
-map g* <Plug>(incsearch-nohl)<Plug>(asterisk-g*)
-map #  <Plug>(incsearch-nohl)<Plug>(asterisk-#)
-map g# <Plug>(incsearch-nohl)<Plug>(asterisk-g#)
-let g:incsearch#separate_highlight = 1
-highlight Search cterm=underline ctermfg=lightgreen ctermbg=darkgrey gui=underline guifg=lightblue guibg=black
-"highlight IncSearchMatchReverse cterm=underline ctermfg=darkblue ctermbg=lightgrey gui=underline guifg=darkblue guibg=darkgrey
-"highlight IncSearchCursor ctermfg=darkcyan ctermbg=darkgray guifg=darkcyan guibg=darkgray
-"highlight IncSearchOnCursor ctermfg=darkmagenta ctermbg=darkgrey guifg=darkmagenta guibg=darkgray
-augroup incsearch-keymap
-    autocmd!
-    autocmd VimEnter * call s:incsearch_keymap()
-augroup END
-function! s:incsearch_keymap()
-    IncSearchNoreMap <C-f> <Over>(incsearch-scroll-f)
-    IncSearchNoreMap <C-b> <Over>(incsearch-scroll-b)
-    IncSearchNoreMap <C-n> <Over>(incsearch-next) 
-    IncSearchNoreMap <C-p> <Over>(incsearch-prev) 
-    IncSearchNoreMap <Tab> <Over>(buffer-complete)
-    IncSearchNoreMap <S-tab> <Over>(buffer-complete-prev)
-endfunction
+" map /  <Plug>(incsearch-forward)
+" map ?  <Plug>(incsearch-backward)
+" map g/ <Plug>(incsearch-stay)
+" map z/ <Plug>(incsearch-fuzzy-/)
+" map z? <Plug>(incsearch-fuzzy-?)
+" map zg/ <Plug>(incsearch-fuzzy-stay)
+" map m/ <Plug>(incsearch-migemo-/)
+" map m? <Plug>(incsearch-migemo-?)
+" map mg/ <Plug>(incsearch-migemo-stay)
+" let g:incsearch#auto_nohlsearch = 1
+" map n  <Plug>(incsearch-nohl-n)
+" map N  <Plug>(incsearch-nohl-N)
+" "map *  <Plug>(incsearch-nohl-*)zzzv
+" "map #  <Plug>(incsearch-nohl-#)zzzv
+" "map g* <Plug>(incsearch-nohl-g*)zzzv
+" "map g# <Plug>(incsearch-nohl-g#)zzzv
+" map *  <Plug>(incsearch-nohl)<Plug>(asterisk-*)
+" map g* <Plug>(incsearch-nohl)<Plug>(asterisk-g*)
+" map #  <Plug>(incsearch-nohl)<Plug>(asterisk-#)
+" map g# <Plug>(incsearch-nohl)<Plug>(asterisk-g#)
+map *  <Plug>(asterisk-*)
+map g* <Plug>(asterisk-g*)
+map #  <Plug>(asterisk-#)
+map g# <Plug>(asterisk-g#)
+" let g:incsearch#separate_highlight = 1
+" highlight Search cterm=underline ctermfg=white ctermbg=74 guibg=white
+" highlight IncSearchCursor ctermfg=lightmagenta ctermbg=darkgray guifg=lightmagenta guibg=darkgray
+" augroup incsearch-keymap
+"     autocmd!
+"     autocmd VimEnter * call s:incsearch_keymap()
+" augroup END
+" function! s:incsearch_keymap()
+"     IncSearchNoreMap <C-f> <Over>(incsearch-scroll-f)
+"     IncSearchNoreMap <C-b> <Over>(incsearch-scroll-b)
+"     IncSearchNoreMap <C-n> <Over>(incsearch-next) 
+"     IncSearchNoreMap <C-p> <Over>(incsearch-prev) 
+"     IncSearchNoreMap <Tab> <Over>(buffer-complete)
+"     IncSearchNoreMap <S-tab> <Over>(buffer-complete-prev)
+" endfunction
 " }}}
 " previm {{{
 let g:previm_enable_realtime = 1
