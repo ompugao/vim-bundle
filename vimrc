@@ -155,6 +155,9 @@ let g:markdown_fenced_languages = [
 if has('patch-7.4.146') 
   command! Oldfiles execute ":new +setl\\ buftype=nofile | 0put =v:oldfiles | nnoremap <buffer> <CR> :e <C-r>=getline('.')<CR><CR>"
 endif
+" Copy-Paste in xfce4-terminal adds 0~ and 1~
+" https://unix.stackexchange.com/questions/196098/copy-paste-in-xfce4-terminal-adds-0-and-1
+set t_BE=
 "}}}
 
 " mappings {{{
