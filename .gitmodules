@@ -123,7 +123,7 @@
 	url = https://github.com/basyura/TweetVim
 [submodule "bundle/previm"]
 	path = bundle/previm
-	url = https://github.com/kannokanno/previm
+	url = https://github.com/previm/previm
 [submodule "ftbundle/markdown/vim-markdown"]
 	path = ftbundle/markdown/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown
