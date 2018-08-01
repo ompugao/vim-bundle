@@ -94,18 +94,18 @@ autocmd BufNewFile,BufRead *.md setlocal commentstring=\ <!--\ %s\ -->
 autocmd BufNewFile,BufRead *.launch setlocal commentstring=\ <!--\ %s\ -->
 "}}}
 " set filetypes {{{
-au BufNewFile,BufRead *.thtml setfiletype php
-au BufNewFile,BufRead *.ctp setfiletype php
-au BufNewFile,BufRead *.c setfiletype c
-au BufNewFile,BufRead *.py setfiletype python
-au BufNewFile,BufRead *.rb setfiletype ruby
+au BufNewFile,BufRead *.thtml set filetype=php
+au BufNewFile,BufRead *.ctp set filetype=php
+au BufNewFile,BufRead *.c set filetype=c
+au BufNewFile,BufRead *.py set filetype=python
+au BufNewFile,BufRead *.rb set filetype=ruby
 au BufNewFile,BufRead *.launch set filetype=launch syntax=xml
 au BufNewFile,BufRead *.page set filetype=markdown
 au BufNewFile,BufRead *.mkd set filetype=markdown
 au BufNewFile,BufRead *.md set filetype=markdown
-au BufNewFile,BufRead *.l set ft=lisp
-au BufRead,BufNewFile *.go set filetype=go
-au BufRead,BufNewFile *.m set filetype=octave
+au BufNewFile,BufRead *.l set filetype=lisp
+au BufNewFile,BufRead *.go set filetype=go
+au BufNewFile,BufRead *.m set filetype=octave
 "}}}
 set shellslash
 set grepprg=grep\ -nH\ $*
@@ -236,11 +236,6 @@ nnoremap <silent> [Unite]/     :<C-u>Unite history/search<CR>
 nnoremap <silent> [Unite]<C-t> :<C-u>Unite locate<CR>
 command! Outline execute ":Unite outline -no-start-insert -vertical -no-quit -no-auto-quit -winwidth=50<CR>"
 " }}}
-" vimshell {{{
-"vimshell-history の default action を変更する
-"call unite#custom_default_action("vimshell/history", "insert")
-"let g:unite_cursor_line_highlight="PMenuThumb"
-"}}}
 " quickrun {{{
 let g:quickrun_config = {}
 if has('job')
@@ -297,21 +292,6 @@ let g:quickrun_config.octave = {
 " <C-c> で実行を強制終了させる
 " quickrun.vim が実行していない場合には <C-c> を呼び出す
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-"}}}
-" alpaca_tags (ctags) {{{
-let g:alpaca_tags#config = {
-      \ '_' : '-R --sort=yes --languages=-js,html,css',
-      \ 'ruby': '--languages=+Ruby',
-      \ }
-
-augroup AlpacaTags
-  autocmd!
-  if exists(':AlpacaTagsSet')
-    autocmd BufWritePost * AlpacaTagsUpdate ruby
-    autocmd BufWritePost Gemfile AlpacaTagsBundle
-    autocmd BufEnter * AlpacaTagsSet
-  endif
-augroup END
 "}}}
 "neocomplete {{{
 function! s:has_neocomplete_required()
@@ -397,7 +377,6 @@ vmap <expr><TAB> neosnippet#expandable() ?  \<Plug>(neosnippet_jump_or_expand)" 
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
-
 " }}}
 " python {{{
 " jedi-vim
@@ -428,8 +407,6 @@ nnoremap <Space>rr  :<C-u>Ref refe<Space>
 nnoremap <Space>rm  :<C-u>Ref man<Space>
 nnoremap <Space>rpy :<C-u>Ref pydoc<Space>
 nnoremap <Space>rw  :<C-u>Ref webdict<Space>
-"}}}
-" webdict {{{
 let g:ref_source_webdict_sites = {
 \   'je': {
 \     'url': 'http://dictionary.infoseek.ne.jp/jeword/%s',
@@ -599,8 +576,8 @@ let g:ctrlp_smarttabs_modify_tabline = 1
 let g:ctrlp_map = '<c-l><c-p>'
 let g:ctrlp_cmd='CtrlP'
 let g:ctrlp_use_caching = 1
-if executable('files')
-  let g:ctrlp_user_command = 'files -A %s'
+if executable('files') && executable('grep')
+  let g:ctrlp_user_command = 'files -A %s | grep -v -e ".exe$" -e ".so$" -e ".dll$" -e ".db$" -e ".o$" -e ".a$" -e ".pyc$" -e ".pyo$" -e ".pdf$" -e ".dvi$" -e ".zip$" -e ".rar$" -e ".tgz$" -e ".gz$" -e ".tar$" -e ".png$" -e ".jpg$" -e ".JPG$" -e ".gif$" -e ".mpg$" -e ".mp4$" -e ".mp3$" -e ".bag$"'
 endif
 let g:ctrlp_max_files = 0
 let g:ctrlp_show_hidden = 1
@@ -647,7 +624,6 @@ vmap <space>os <Plug>(openbrowser-smart-search)
 "}}}
 " dirvish {{{
 let g:dirvish_hijack_netrw=1
-"nnoremap <space>e :<C-u>Dirvish<space>
 nnoremap <silent> <space>E :<C-u>Dirvish %<CR>
 " }}}
 " tweetvim {{{
@@ -685,46 +661,11 @@ let g:operator#surround#blocks = {
             \ ]
             \ }
 " }}}
-" incsearch.vim {{{
-" map /  <Plug>(incsearch-forward)
-" map ?  <Plug>(incsearch-backward)
-" map g/ <Plug>(incsearch-stay)
-" map z/ <Plug>(incsearch-fuzzy-/)
-" map z? <Plug>(incsearch-fuzzy-?)
-" map zg/ <Plug>(incsearch-fuzzy-stay)
-" map m/ <Plug>(incsearch-migemo-/)
-" map m? <Plug>(incsearch-migemo-?)
-" map mg/ <Plug>(incsearch-migemo-stay)
-" let g:incsearch#auto_nohlsearch = 1
-" map n  <Plug>(incsearch-nohl-n)
-" map N  <Plug>(incsearch-nohl-N)
-" "map *  <Plug>(incsearch-nohl-*)zzzv
-" "map #  <Plug>(incsearch-nohl-#)zzzv
-" "map g* <Plug>(incsearch-nohl-g*)zzzv
-" "map g# <Plug>(incsearch-nohl-g#)zzzv
-" map *  <Plug>(incsearch-nohl)<Plug>(asterisk-*)
-" map g* <Plug>(incsearch-nohl)<Plug>(asterisk-g*)
-" map #  <Plug>(incsearch-nohl)<Plug>(asterisk-#)
-" map g# <Plug>(incsearch-nohl)<Plug>(asterisk-g#)
+" asterisk {{{
 map *  <Plug>(asterisk-*)
 map g* <Plug>(asterisk-g*)
 map #  <Plug>(asterisk-#)
 map g# <Plug>(asterisk-g#)
-" let g:incsearch#separate_highlight = 1
-" highlight Search cterm=underline ctermfg=white ctermbg=74 guibg=white
-" highlight IncSearchCursor ctermfg=lightmagenta ctermbg=darkgray guifg=lightmagenta guibg=darkgray
-" augroup incsearch-keymap
-"     autocmd!
-"     autocmd VimEnter * call s:incsearch_keymap()
-" augroup END
-" function! s:incsearch_keymap()
-"     IncSearchNoreMap <C-f> <Over>(incsearch-scroll-f)
-"     IncSearchNoreMap <C-b> <Over>(incsearch-scroll-b)
-"     IncSearchNoreMap <C-n> <Over>(incsearch-next) 
-"     IncSearchNoreMap <C-p> <Over>(incsearch-prev) 
-"     IncSearchNoreMap <Tab> <Over>(buffer-complete)
-"     IncSearchNoreMap <S-tab> <Over>(buffer-complete-prev)
-" endfunction
 " }}}
 " previm {{{
 let g:previm_enable_realtime = 1
@@ -762,35 +703,6 @@ if has('autocmd')
   autocmd BufWrite *.tex call s:TexReplaceChars()
 endif
 " }}}
-"{{{ ros
-"if has('python')
-"function! s:_ros_setup(package, fullpath)
-"  let prg='cd ' . a:fullpath . '; catkin build -DCMAKE_BUILD_TYPE=RelWithDebInfo ' . a:package . ' ; cd -'
-"  if executable('catkin')
-"    let &l:makeprg=prg
-"  endif
-"  unlet prg
-"endfunction
-"function! s:ros_setup(filename)
-"python << PYTHON
-"try:
-"    import rospkg
-"    import vim
-"except Exception as e:
-"    import sys
-"    sys.exit(1)
-"package = rospkg.get_package_name(vim.eval('a:filename'))
-"if package is not None:
-"    fullpath = rospkg.RosPack().get_path(package)
-"    vim.command('call s:_ros_setup("{0}", "{1}")'.format(package, fullpath))
-"PYTHON
-"endfunction
-"augroup ros
-"  autocmd!
-"  autocmd BufRead * call s:ros_setup(expand("<afile>:p"))
-"augroup END
-"endif
-"}}}
 " eskk{{{
 let g:eskk#show_annotation=1
 let g:eskk#large_dictionary = {
