@@ -1,6 +1,7 @@
-snippet     for99
+snippet     for2
+alias       for
 abbr        for () {}
-    for (${1} ${2} = 0; $2 < ${3}; $2++) {
+    for (${1:int} ${2:i} = ${3:0}; $2 ${4:<} ${5:#:N}; ${6:$2++}) {
         ${0:#:TARGET}
     }
 
