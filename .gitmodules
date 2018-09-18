@@ -109,18 +109,12 @@
 [submodule "bundle/open-browser.vim"]
 	path = bundle/open-browser.vim
 	url = https://github.com/tyru/open-browser.vim
-[submodule "bundle/twibill.vim"]
-	path = bundle/twibill.vim
-	url = https://github.com/basyura/twibill.vim
 [submodule "bundle/bitly.vim"]
 	path = bundle/bitly.vim
 	url = https://github.com/basyura/bitly.vim
 [submodule "bundle/neco-tweetvim"]
 	path = bundle/neco-tweetvim
 	url = https://github.com/yomi322/neco-tweetvim
-[submodule "bundle/TweetVim"]
-	path = bundle/TweetVim
-	url = https://github.com/basyura/TweetVim
 [submodule "bundle/previm"]
 	path = bundle/previm
 	url = https://github.com/previm/previm
