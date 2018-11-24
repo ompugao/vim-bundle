@@ -722,4 +722,12 @@ let g:clang_format#style_options = {
             \ "SortIncludes" : "false",
             \ "AlwaysBreakTemplateDeclarations" : "true",
             \ "Standard" : "C++11"}
+
+function! s:set_cmake_dictionary() "{{{
+  let s:cmake_dict = printf('%s/dict/cmake.txt', expand('<sfile>:p:h'))
+  if stridx(&l:dictionary, 'cmake\.txt$') == -1 " only when it doesn't contain
+    let &l:dictionary = printf('%s,%s', &l:dictionary, s:cmake_dict)
+  endif
+endfunction 
+autocmd FileType cmake call s:set_cmake_dictionary() "}}}
 filetype plugin indent on
