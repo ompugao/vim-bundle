@@ -712,4 +712,14 @@ let g:eskk#large_dictionary = {
             \}
 "}}}
 let g:ale_enabled=0
+let g:clang_format#style_options = {
+            \ "AccessModifierOffset" : -2,
+            \ "AllowShortIfStatementsOnASingleLine" : "false",
+            \ "AllowShortBlocksOnASingleLine" : "false",
+            \ "AllowShortCaseLabelsOnASingleLine" : "false",
+            \ "AllowShortFunctionsOnASingleLine" : "Empty",
+            \ "ColumnLimit" : "120",
+            \ "SortIncludes" : "false",
+            \ "AlwaysBreakTemplateDeclarations" : "true",
+            \ "Standard" : "C++11"}
 filetype plugin indent on
