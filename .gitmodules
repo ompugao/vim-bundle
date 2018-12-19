@@ -40,9 +40,6 @@
 [submodule "ftbundle/ruby/vim-ruby"]
 	path = ftbundle/ruby/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
-[submodule "bundle/neocomplete.vim"]
-	path = bundle/neocomplete.vim
-	url = https://github.com/Shougo/neocomplete.vim
 [submodule "bundle/neosnippet"]
 	path = bundle/neosnippet
 	url = https://github.com/Shougo/neosnippet
@@ -190,3 +187,18 @@
 [submodule "bundle/vim-clang-format"]
 	path = bundle/vim-clang-format
 	url = https://github.com/rhysd/vim-clang-format
+[submodule "bundle/async.vim"]
+	path = bundle/async.vim
+	url = https://github.com/prabirshrestha/async.vim
+[submodule "bundle/asyncomplete.vim"]
+	path = bundle/asyncomplete.vim
+	url = https://github.com/prabirshrestha/asyncomplete.vim
+[submodule "bundle/asyncomplete-lsp.vim"]
+	path = bundle/asyncomplete-lsp.vim
+	url = https://github.com/prabirshrestha/asyncomplete-lsp.vim
+[submodule "bundle/asyncomplete-neosnippet.vim"]
+	path = bundle/asyncomplete-neosnippet.vim
+	url = https://github.com/prabirshrestha/asyncomplete-neosnippet.vim
+[submodule "bundle/vim-lsp"]
+	path = bundle/vim-lsp
+	url = https://github.com/prabirshrestha/vim-lsp
