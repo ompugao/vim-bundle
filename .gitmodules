@@ -202,3 +202,6 @@
 [submodule "bundle/vim-lsp"]
 	path = bundle/vim-lsp
 	url = https://github.com/prabirshrestha/vim-lsp
+[submodule "bundle/asyncomplete-buffer.vim"]
+	path = bundle/asyncomplete-buffer.vim
+	url = https://github.com/prabirshrestha/asyncomplete-buffer.vim
