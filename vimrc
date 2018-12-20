@@ -42,13 +42,10 @@ if has('persistent_undo')
 endif
 "set list  " 不可視文字の表示
 set scrolloff=4  " スクロール時の余白
-"set textwidth=0         " 自動的に改行が入るのを無効化
-"set colorcolumn=80      " その代わり80文字目にラインを入れる
 set ignorecase
 set smartcase
 set showcmd  " コマンドを表示
 set laststatus=2 " ステータスラインを表示
-"set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%{fugitive#statusline()}\ %l,%c%V%8P " ステータスラインにファイル名・文字コード・改行形式を表示
 set ts=4  " タブ幅
 set sw=4  " シフト幅
 set smarttab   "use shiftwidth when inserts <tab>
@@ -83,7 +80,6 @@ set matchtime=1
 set matchpairs=(:),{:},[:],<:>
 set backspace=indent,eol,start "help i_backspacing
 set history=10000
-" folding {{{
 set foldenable
 set foldmethod=marker
 autocmd BufNewFile,BufRead *.l setlocal commentstring=\;%s
@@ -92,8 +88,6 @@ autocmd BufNewFile,BufRead *.rb setlocal commentstring=\ \#%s
 autocmd BufNewFile,BufRead *.mkd setlocal commentstring=\ <!--\ %s\ -->
 autocmd BufNewFile,BufRead *.md setlocal commentstring=\ <!--\ %s\ -->
 autocmd BufNewFile,BufRead *.launch setlocal commentstring=\ <!--\ %s\ -->
-"}}}
-" set filetypes {{{
 au BufNewFile,BufRead *.thtml set filetype=php
 au BufNewFile,BufRead *.ctp set filetype=php
 au BufNewFile,BufRead *.c set filetype=c
@@ -106,7 +100,6 @@ au BufNewFile,BufRead *.md set filetype=markdown
 au BufNewFile,BufRead *.l set filetype=lisp
 au BufNewFile,BufRead *.go set filetype=go
 au BufNewFile,BufRead *.m set filetype=octave
-"}}}
 set shellslash
 set grepprg=grep\ -nH\ $*
 let g:tex_conceal = ""
@@ -140,7 +133,7 @@ augroup vimrc-auto-cursorline "http://d.hatena.ne.jp/thinca/20090530/1243615055 
   endfunction
 augroup END "}}}
 if exists("&cryptmethod")
-  set cryptmethod=blowfish
+  set cryptmethod=blowfish2
 endif
 let g:markdown_fenced_languages = [
 \  'css',
@@ -167,7 +160,6 @@ nnoremap <silent> <C-n> :<C-u>bnext<CR>
 nnoremap <silent> <C-p> :<C-u>bprevious<CR>
 nnoremap <silent> <Space>n :<C-u>tabnext<CR>
 nnoremap <silent> <Space>p  :<C-u>tabprevious<CR>
-"nnoremap <Space>c :<C-u>new<CR>:r! 
 nnoremap <Space>d :<C-u>bd<CR>
 nnoremap <Space>p :<C-u>pwd<CR>
 nnoremap <Leader>y my:0,$!xsel -iob<CR>u`y
@@ -182,8 +174,7 @@ imap <ESC>OD <Left>
 imap <ESC>OC <Right>
 imap <silent> <c-b> <Left>
 imap <silent> <c-f> <Right>
-
-" tagsジャンプの時に複数ある時は一覧表示                                        
+"tagsジャンプの時に複数ある時は一覧表示
 nnoremap <C-]> g<C-]> 
 
 cnoremap <C-p> <Up>
@@ -205,35 +196,11 @@ if has('autocmd')
 endif
 "}}}
 " unite {{{
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-let g:unite_source_grep_command = 'ag --nogroup --nobreak --noheading --nocolor -g "" %s '
 call unite#custom#profile('default', 'context', {
           \   'start_insert': 1,
           \   'winheight': 10,
           \   'direction': 'botright',
           \ })
-let g:unite_source_file_mru_long_limit = 1000000
-let g:unite_source_grep_max_candidates = 1000000
-let g:unite_source_find_max_candidates = 1000000
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings() "{{{
-imap <silent> <buffer> <C-c> <Plug>(unite_exit)
-nmap <silent> <buffer> <C-c> <Plug>(unite_exit)
-imap <buffer><expr> S    unite#mappings#set_current_sorters(
-            \ empty(unite#mappings#get_current_sorters()) ?
-            \ ['sorter_reverse'] : [])
-endfunction "}}}
-
-nnoremap [Unite] <Nop>
-nmap     <C-s>   [Unite]
-nnoremap <silent> [Unite]<C-s> :<C-u>Unite file<CR>
-nnoremap <silent> [Unite]<C-p> :<C-u>Unite file_rec/async<CR>
-nnoremap <silent> [Unite]<C-m> :<C-u>Unite file_mru<CR>
-nnoremap <silent> [Unite]<C-d> :<C-u>Unite directory<CR>
-nnoremap <silent> [Unite]<C-g> :<C-u>Unite line<CR>
-nnoremap <silent> [Unite]<C-h> :<C-u>Unite history/command<CR>
-nnoremap <silent> [Unite]/     :<C-u>Unite history/search<CR>
-nnoremap <silent> [Unite]<C-t> :<C-u>Unite locate<CR>
 command! Outline execute ":Unite outline -no-start-insert -vertical -no-quit -no-auto-quit -winwidth=50<CR>"
 " }}}
 " quickrun {{{
@@ -338,20 +305,11 @@ let g:lsp_signs_warning = {'text': '!!'}"
 let g:lsp_auto_enable = 1
 "}}}
 " neosnippet {{{
-" snippetの配置場所
 let g:neosnippet#snippets_directory='~/.vim/snippets'
 "set completeopt-=preview
-" Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-"xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
-
-"<TAB>でスニペット補完 
-" imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_jump_or_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>" 
-"スニペットで単語が選択されている場合でも <Tab> で次のプレースホルダへ移動する 
-" vmap <expr><TAB> neosnippet#expandable() ?  \<Plug>(neosnippet_jump_or_expand)" : "\<Tab>"
-
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
@@ -440,17 +398,15 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'unite', 'wordcount', 'gutentags', 'cwd']
-"'hunks', 'nrrwrgn', 'syntastic', 'tagbar', 'undotree', 'windowswap', 'whitespace'
 let g:airline_theme='ravenpower' "'minimalist' 'serene' 'simple' 'wombat''papercolor'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.linenr = 'LF'
-"let g:airline_symbols.linenr = 'NL'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#ignore_bufadd_pat='\c\vgundo|undotree|vimfiler|tagbar|nerd_tree|tweetvim_say'
+let g:airline#extensions#tabline#ignore_bufadd_pat='\c\vgundo|undotree|vimfiler|tagbar|nerd_tree'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline#extensions#disable_rtp_load = 0
@@ -484,17 +440,11 @@ if !isdirectory(g:gutentags_cache_dir)
     call mkdir(g:gutentags_cache_dir, "p")
 endif
 " }}}
+" 配色設定"{{{
 set background=dark
 "colorscheme Tomorrow-Night-Blue
 "colorscheme harlequin
-"let g:solarized_termcolors=256
-"let g:solarized_termtrans =   1
-"let g:solarized_degrade   =   1
-"let g:solarized_contrast  =   "high" 
-"let g:solarized_visibility=   "high"
-"colorscheme solarized
 colorscheme PaperColor
-" 配色設定"{{{
 set t_Co=256
 " 90 ... purple which we can use only when 256-colors is enabled
 hi Pmenu        ctermfg=White   ctermbg=90  cterm=NONE
@@ -534,15 +484,6 @@ nnoremap <silent><C-l>/     :<C-u>CtrlPSearchHistory<CR>
 nnoremap <silent><C-l>l     :<C-u>CtrlPLocate<CR>
 nnoremap <silent><C-l><C-t> :<C-u>CtrlPSmartTabs<CR>
 nnoremap <silent><C-l><C-g> :<C-u>CtrlPGrep<CR>
-"nnoremap <silent><C-l><C-f> :<C-u>CtrlPFiler<CR>
-"let g:ctrlp_filer_menu = {
-"      \ "execute": 'ctrlp#filer#op#execute',
-"      \ "open":    'ctrlp#filer#op#open',
-"      \ "delete":  'ctrlp#filer#op#delete',
-"      \ "rename":  'ctrlp#filer#op#rename',
-"      \ "create":  'ctrlp#filer#op#create'
-"      \}
-"let g:ctrlp_filer_disable_lcd = 1
 let g:ctrlp_funky_sort_reverse=1
 
 let g:ctrlp_smarttabs_modify_tabline = 1
@@ -598,20 +539,6 @@ vmap <space>os <Plug>(openbrowser-smart-search)
 " dirvish {{{
 let g:dirvish_hijack_netrw=1
 nnoremap <silent> <space>E :<C-u>Dirvish %<CR>
-" }}}
-" tweetvim {{{
-let g:tweetvim_display_separator = 0
-let g:tweetvim_async_post = 1
-let g:tweetvim_display_icon = 0
-let g:tweetvim_display_source = 1
-let g:tweetvim_display_time   = 1
-let g:tweetvim_include_rts    = 1
-let g:tweetvim_expand_t_co = 1
-let g:tweetvim_silent_say = 1
-let g:tweetvim_default_account = "ompugao"
-nmap <silent> g<ESC> <Plug>(tweetvim_notify)
-"let g:tweetvim_display_username = 1
-nmap <silent> g<ESC> <Plug>(tweetvim_notify)
 " }}}
 " vim-easy-align{{{
 vnoremap <silent> <Enter> :LiveEasyAlign<cr>
@@ -671,7 +598,6 @@ function! s:TexReplaceChars()
   catch /^Vim\%((\a\+)\)\=:E486/
   endtry
 endfunction
-
 if has('autocmd')
   autocmd BufWrite *.tex call s:TexReplaceChars()
 endif
