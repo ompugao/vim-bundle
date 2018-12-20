@@ -298,20 +298,44 @@ if executable('clangd')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'clangd',
         \ 'cmd': {server_info->['clangd']},
-        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ 'whitelist': ['c', 'h', 'cpp', 'objc', 'objcpp'],
         \ })
 endif
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': ['go'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ }))
+let g:asyncomplete_remove_duplicates = 1
+" let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_popup = 0
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+imap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" let g:lsp_async_completion = 0
+" autocmd FileType cpp setlocal omnifunc=lsp#omni#complete
+" autocmd FileType h setlocal omnifunc=lsp#omni#complete
+" autocmd FileType typescript setlocal omnifunc=lsp#complete
+" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
     \ 'name': 'neosnippet',
     \ 'whitelist': ['*'],
     \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
     \ }))
-let g:lsp_signs_enabled = 1         " enable signs
+let g:lsp_signs_enabled = 0         " enable signs
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
-
 let g:lsp_signs_error = {'text': 'XX'}
 let g:lsp_signs_warning = {'text': '!!'}"
+let g:lsp_auto_enable = 1
 "}}}
 " neosnippet {{{
 " snippetの配置場所
@@ -324,9 +348,9 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 "xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
 
 "<TAB>でスニペット補完 
-imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_jump_or_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>" 
+" imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_jump_or_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>" 
 "スニペットで単語が選択されている場合でも <Tab> で次のプレースホルダへ移動する 
-vmap <expr><TAB> neosnippet#expandable() ?  \<Plug>(neosnippet_jump_or_expand)" : "\<Tab>"
+" vmap <expr><TAB> neosnippet#expandable() ?  \<Plug>(neosnippet_jump_or_expand)" : "\<Tab>"
 
 " For snippet_complete marker.
 if has('conceal')
