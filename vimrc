@@ -267,6 +267,8 @@ if executable('clangd')
         \ 'cmd': {server_info->['clangd']},
         \ 'whitelist': ['c', 'h', 'cpp', 'objc', 'objcpp'],
         \ })
+    autocmd FileType cpp setlocal omnifunc=lsp#omni#complete
+    autocmd FileType h setlocal omnifunc=lsp#omni#complete
 endif
 call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
     \ 'name': 'buffer',
@@ -288,8 +290,6 @@ imap <silent><expr> <TAB>
 imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " let g:lsp_async_completion = 0
-" autocmd FileType cpp setlocal omnifunc=lsp#omni#complete
-" autocmd FileType h setlocal omnifunc=lsp#omni#complete
 " autocmd FileType typescript setlocal omnifunc=lsp#complete
 " autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
