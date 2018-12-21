@@ -277,6 +277,8 @@ call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options
     \ 'completor': function('asyncomplete#sources#buffer#completor'),
     \ }))
 let g:asyncomplete_remove_duplicates = 1
+set completeopt-=preview
+set completeopt+=noselect
 " let g:asyncomplete_auto_popup = 1
 let g:asyncomplete_auto_popup = 0
 function! s:check_back_space() abort
@@ -291,7 +293,7 @@ imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " let g:lsp_async_completion = 0
 " autocmd FileType typescript setlocal omnifunc=lsp#complete
-" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
     \ 'name': 'neosnippet',
@@ -306,7 +308,6 @@ let g:lsp_auto_enable = 1
 "}}}
 " neosnippet {{{
 let g:neosnippet#snippets_directory='~/.vim/snippets'
-"set completeopt-=preview
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
