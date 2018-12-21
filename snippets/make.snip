@@ -1,0 +1,27 @@
+snippet makefile_cp
+options     head
+    .PHONY: all clean
+
+    CXX      ?= g++
+    ifeq "$(CXX)" "g++"
+        CXXFLAGS ?= -std=c++14 -g -Wall -Wextra -Wlogical-op -Wold-style-cast -Wshadow -Wformat=2 -D_GLIBCXX_DEBUG -DDEBUG $(USER_CXXFLAGS)
+    else ifeq "$(CXX)" "clang++"
+        CXXFLAGS ?= -std=c++14 -g -Wall -Wextra -Wnull-dereference -Wold-style-cast -Wshadow -Wformat=2 -D_GLIBCXX_DEBUG -DDEBUG $(USER_CXXFLAGS)
+    endif
+
+    ifneq ($(OS),Windows_NT)
+        CXXFLAGS += -fsanitize=undefined
+    endif
+
+    CPPFLAGS ?=
+
+    SRCS   := $(wildcard *.cpp)
+    TARGET := $(basename $(SRCS))
+
+    %: %.cpp
+        $(CXX) $(CXXFLAGS) $(CPPFLAGS) -o $@ $< $(LDFLAGS)
+
+    all: $(TARGET)
+
+    clean:
+        -$(RM) $(TARGET) $(OBJS)
