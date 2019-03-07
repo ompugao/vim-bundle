@@ -388,11 +388,14 @@ function! g:ref_source_webdict_sites.antonym.filter(output)
   return join(split(a:output, "\n")[49 :], "\n")
 endfunction
 "}}}
-" ag {{{
-let g:ag_prg="ag --vimgrep --smart-case --ignore='*__pycache__*' --ignore='*.pyc' --ignore='tags' "
-let g:ag_highlight=1
-noremap <Space>ag :<C-u>Ag<Space>
-noremap <Space>af :<C-u>AgFile<Space>
+" vim-grepper {{{
+"let g:ag_prg="ag --vimgrep --smart-case --ignore='*__pycache__*' --ignore='*.pyc' --ignore='tags' "
+"let g:ag_highlight=1
+let g:grepper.stop = 10000
+noremap <Space>ga :<C-u>Grepper -tool ag<CR>
+noremap <Space>ag :<C-u>Grepper -tool ag<CR>
+noremap <Space>gg :<C-u>Grepper -tool git<CR>
+noremap <Space>g* :<C-u>Grepper -tool ag -cword -noprompt<CR>
 "}}}
 " airline{{{
 if !exists('g:airline_symbols')

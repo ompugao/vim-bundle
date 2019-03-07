@@ -55,9 +55,6 @@
 [submodule "bundle/vim-ref"]
 	path = bundle/vim-ref
 	url = https://github.com/thinca/vim-ref
-[submodule "bundle/ag.vim"]
-	path = bundle/ag.vim
-	url = https://github.com/rking/ag.vim
 [submodule "bundle/vim-asterisk"]
 	path = bundle/vim-asterisk
 	url = https://github.com/haya14busa/vim-asterisk
