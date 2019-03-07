@@ -151,9 +151,6 @@
 [submodule "bundle/agit.vim"]
 	path = bundle/agit.vim
 	url = https://github.com/cohama/agit.vim
-[submodule "bundle/ctrlp-grep"]
-	path = bundle/ctrlp-grep
-	url = https://github.com/ompugao/ctrlp-grep
 [submodule "bundle/vim-colors-solarized"]
 	path = bundle/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized
@@ -205,3 +202,6 @@
 [submodule "bundle/asyncomplete-buffer.vim"]
 	path = bundle/asyncomplete-buffer.vim
 	url = https://github.com/prabirshrestha/asyncomplete-buffer.vim
+[submodule "bundle/vim-grepper"]
+	path = bundle/vim-grepper
+	url = https://github.com/mhinz/vim-grepper
