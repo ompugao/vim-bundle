@@ -202,3 +202,9 @@
 [submodule "bundle/vim-grepper"]
 	path = bundle/vim-grepper
 	url = https://github.com/mhinz/vim-grepper
+[submodule "bundle/vim-lsp-neosnippet"]
+	path = bundle/vim-lsp-neosnippet
+	url = https://github.com/thomasfaingnaert/vim-lsp-neosnippet
+[submodule "bundle/vim-lsp-snippets"]
+	path = bundle/vim-lsp-snippets
+	url = https://github.com/thomasfaingnaert/vim-lsp-snippets
