@@ -40,8 +40,7 @@ if has('persistent_undo')
     endif
     set undofile "全てのファイルでundo履歴を残す [http://vim-users.jp/2010/07/hack162/]()
 endif
-set list  " 不可視文字の表示
-set listchars=tab:>-
+"set list  " 不可視文字の表示
 set scrolloff=4  " スクロール時の余白
 set ignorecase
 set smartcase
@@ -50,7 +49,7 @@ set laststatus=2 " ステータスラインを表示
 set ts=4  " タブ幅
 set sw=4  " シフト幅
 set smarttab   "use shiftwidth when inserts <tab>
-set noexpandtab  " タブをスペースに展開
+set expandtab  " タブをスペースに展開
 set incsearch  "incremental search
 set hlsearch
 set wrap  "長い行を折り返し
