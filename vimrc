@@ -378,7 +378,7 @@ function! g:ref_source_webdict_sites.wiki.filter(output)
   return join(split(a:output, "\n")[17 :], "\n")
 endfunction
 function! g:ref_source_webdict_sites.alc.filter(output)
-  return join(split(a:output, "\n")[20 :], "\n")
+  return join(split(a:output, "\n")[60 :], "\n")
 endfunction
 function! g:ref_source_webdict_sites.weblio.filter(output)
   return join(split(a:output, "\n")[0 :], "\n")
