@@ -134,3 +134,16 @@ options     head
         return 0;
     }
 
+snippet     rep
+abbr        rep
+options     head
+  rep(${1:i}, ${2:n}) {
+  ${0}
+  }
+
+snippet     rep2
+abbr        rep2
+options     head
+  rep(${1:i}, ${2:0}, ${3:n}) {
+  ${0}
+  }
