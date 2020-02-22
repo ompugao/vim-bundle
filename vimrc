@@ -390,6 +390,9 @@ function! g:ref_source_webdict_sites.antonym.filter(output)
   return join(split(a:output, "\n")[49 :], "\n")
 endfunction
 "}}}
+" quickdict.vim {{{
+nnoremap <Space>rq  :<C-u>QuickDictAppend <C-r><C-w><CR>
+" }}}
 " vim-grepper {{{
 "let g:ag_prg="ag --vimgrep --smart-case --ignore='*__pycache__*' --ignore='*.pyc' --ignore='tags' "
 "let g:ag_highlight=1
