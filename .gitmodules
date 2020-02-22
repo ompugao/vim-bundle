@@ -208,3 +208,6 @@
 [submodule "bundle/vim-lsp-snippets"]
 	path = bundle/vim-lsp-snippets
 	url = https://github.com/thomasfaingnaert/vim-lsp-snippets
+[submodule "bundle/quickdict.vim"]
+	path = bundle/quickdict.vim
+	url = https://github.com/ompugao/quickdict.vim
