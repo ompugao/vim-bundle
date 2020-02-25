@@ -391,7 +391,9 @@ function! g:ref_source_webdict_sites.antonym.filter(output)
 endfunction
 "}}}
 " quickdict.vim {{{
-nnoremap <Space>rq  :<C-u>QuickDictAppend <C-r><C-w><CR>
+nnoremap <Space>rq :<C-u>QuickDictEcho <C-r><C-w><CR>
+nnoremap <Space>ra :<C-u>QuickDictAppend <C-r><C-w><CR>
+nnoremap <Space>rA :<C-u>QuickDictInsertLast <C-r><C-w><CR>
 " }}}
 " vim-grepper {{{
 "let g:ag_prg="ag --vimgrep --smart-case --ignore='*__pycache__*' --ignore='*.pyc' --ignore='tags' "
