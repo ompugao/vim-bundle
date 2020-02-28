@@ -211,3 +211,6 @@
 [submodule "bundle/quickdict.vim"]
 	path = bundle/quickdict.vim
 	url = https://github.com/ompugao/quickdict.vim
+[submodule "bundle/fzf"]
+	path = bundle/fzf
+	url = https://github.com/junegunn/fzf
