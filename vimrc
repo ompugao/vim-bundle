@@ -501,8 +501,8 @@ let g:ctrlp_smarttabs_modify_tabline = 1
 let g:ctrlp_map = '<c-l><c-p>'
 let g:ctrlp_cmd='CtrlP'
 let g:ctrlp_use_caching = 1
-if executable('files') && executable('grep')
-  let g:ctrlp_user_command = 'files -A %s | grep -v -e ".exe$" -e ".so$" -e ".dll$" -e ".db$" -e ".o$" -e ".a$" -e ".pyc$" -e ".pyo$" -e ".pdf$" -e ".dvi$" -e ".zip$" -e ".rar$" -e ".tgz$" -e ".gz$" -e ".tar$" -e ".png$" -e ".jpg$" -e ".JPG$" -e ".gif$" -e ".mpg$" -e ".mp4$" -e ".mp3$" -e ".bag$"'
+if executable('ripgrep') && executable('grep')
+  let g:ctrlp_user_command = 'rg --files %s | grep -v -e ".exe$" -e ".so$" -e ".dll$" -e ".db$" -e ".o$" -e ".a$" -e ".pyc$" -e ".pyo$" -e ".pdf$" -e ".dvi$" -e ".zip$" -e ".rar$" -e ".tgz$" -e ".gz$" -e ".tar$" -e ".png$" -e ".jpg$" -e ".JPG$" -e ".gif$" -e ".mpg$" -e ".mp4$" -e ".mp3$" -e ".bag$"'
 endif
 let g:ctrlp_max_files = 0
 let g:ctrlp_show_hidden = 1
