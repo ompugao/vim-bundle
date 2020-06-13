@@ -399,10 +399,10 @@ nnoremap <Space>rA :<C-u>QuickDictInsertLast <C-r><C-w><CR>
 "let g:ag_prg="ag --vimgrep --smart-case --ignore='*__pycache__*' --ignore='*.pyc' --ignore='tags' "
 "let g:ag_highlight=1
 let g:grepper.stop = 10000
-noremap <Space>ga :<C-u>Grepper -tool ag<CR>
-noremap <Space>ag :<C-u>Grepper -tool ag<CR>
+"noremap <Space>ga :<C-u>Grepper -tool ag<CR>
 noremap <Space>gg :<C-u>Grepper -tool git<CR>
-noremap <Space>g* :<C-u>Grepper -tool ag -cword -noprompt<CR>
+noremap <Space>gi :<C-u>Grepper -tool rg<CR>
+noremap <Space>g* :<C-u>Grepper -tool rg -cword -noprompt<CR>
 "}}}
 " airline{{{
 if !exists('g:airline_symbols')
