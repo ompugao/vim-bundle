@@ -263,50 +263,49 @@ let g:quickrun_config.octave = {
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 "}}}
 "asynccomplete {{{
-if executable('clangd')
+if executable('mdls')
     au User lsp_setup call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': {server_info->['clangd']},
-        \ 'whitelist': ['c', 'h', 'cpp', 'objc', 'objcpp'],
+        \ 'name': 'mdls',
+        \ 'cmd': {server_info->['mdls']},
+        \ 'whitelist': ['md', 'markdown'],
         \ })
-    autocmd FileType cpp setlocal omnifunc=lsp#omni#complete
-    autocmd FileType h setlocal omnifunc=lsp#omni#complete
+    autocmd FileType markdown setlocal omnifunc=lsp#omni#complete
 endif
-call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
-    \ 'blacklist': ['go'],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ }))
-let g:asyncomplete_remove_duplicates = 1
-set completeopt-=preview
-set completeopt+=noselect
-" let g:asyncomplete_auto_popup = 1
-let g:asyncomplete_auto_popup = 0
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-imap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ asyncomplete#force_refresh()
-imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" let g:lsp_async_completion = 0
-" autocmd FileType typescript setlocal omnifunc=lsp#complete
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  setlocal completeopt-=preview
+  "nmap <buffer> gd <plug>(lsp-definition)
+  "nmap <buffer> <f2> <plug>(lsp-rename)
+  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+endfunction
+set completeopt+=noselect
+set pumheight=10 "set the height of completion menu
+
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
 call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
     \ 'name': 'neosnippet',
     \ 'whitelist': ['*'],
     \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
     \ }))
+
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_completeopt = 0
+let g:asyncomplete_popup_delay = 200
+let g:lsp_text_edit_enabled = 1
+let g:asyncomplete_remove_duplicates = 1
 let g:lsp_signs_enabled = 0         " enable signs
-let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
 let g:lsp_signs_error = {'text': 'XX'}
 let g:lsp_signs_warning = {'text': '!!'}"
-let g:lsp_auto_enable = 1
+"let g:lsp_auto_enable = 1
 "}}}
 " neosnippet {{{
 let g:neosnippet#snippets_directory='~/.vim/snippets'
