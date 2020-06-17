@@ -46,9 +46,6 @@
 [submodule "bundle/neosnippet-snippets"]
 	path = bundle/neosnippet-snippets
 	url = https://github.com/Shougo/neosnippet-snippets
-[submodule "bundle/jedi-vim"]
-	path = ftbundle/python/jedi-vim
-	url = https://github.com/davidhalter/jedi-vim
 [submodule "ftbundle/python/python-syntax"]
 	path = ftbundle/python/python-syntax
 	url = https://github.com/hdima/python-syntax
