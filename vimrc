@@ -289,6 +289,19 @@ augroup lsp_install
 augroup END
 command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
+let g:lsp_settings = {
+\  'clangd': {
+\    'cmd': ['clangd', '-compile_args_from=filesystem'],
+\  }
+\}
+" :LspSettingsLocalEdit and put the following text (change the build directory part for your 
+" every project)
+" {
+"     'clangd': {
+"         'initialization_options': {'compilationDatabasePath': 'build'}
+"     }
+" }
+
 call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
     \ 'name': 'neosnippet',
     \ 'whitelist': ['*'],
