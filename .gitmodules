@@ -214,3 +214,6 @@
 [submodule "bundle/vim-lsp-settings"]
 	path = bundle/vim-lsp-settings
 	url = https://github.com/mattn/vim-lsp-settings
+[submodule "bundle/ctrlp-matchfuzzy"]
+	path = bundle/ctrlp-matchfuzzy
+	url = https://github.com/mattn/ctrlp-matchfuzzy/
