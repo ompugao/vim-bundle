@@ -12,7 +12,8 @@ elseif has('mac')
   set guifont=Source\ Code\ Pro\ Bold:h13
 elseif has("unix")
     " unix固有の設定
-    set guifont=Source\ Code\ Pro\ Bold\ 10
+    "set guifont=Source\ Code\ Pro\ Bold\ 10
+    set guifont=Inconsolata\ Medium\ 13
     "set guifont=IPAゴシック\ Bold\ 14
 endif
 

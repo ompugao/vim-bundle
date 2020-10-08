@@ -4,6 +4,10 @@ set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
 scriptencoding utf8
 
+" Strange character since last update (>4;2m) in vim - Stack Overflow https://stackoverflow.com/questions/62148994/strange-character-since-last-update-42m-in-vim
+" https://stackoverflow.com/questions/62148994/strange-character-since-last-update-42m-in-vim
+let &t_TI = ""
+let &t_TE = ""
 runtime vim-unbundle/plugin/unbundle.vim
 
 " settings(set *** etc.etc...) {{{
@@ -96,8 +100,6 @@ au BufNewFile,BufRead *.c set filetype=c
 au BufNewFile,BufRead *.py set filetype=python
 au BufNewFile,BufRead *.rb set filetype=ruby
 au BufNewFile,BufRead *.launch set filetype=launch syntax=xml
-au BufNewFile,BufRead *.page set filetype=markdown
-au BufNewFile,BufRead *.mkd set filetype=markdown
 au BufNewFile,BufRead *.md set filetype=markdown
 au BufNewFile,BufRead *.l set filetype=lisp
 au BufNewFile,BufRead *.go set filetype=go
@@ -263,14 +265,14 @@ let g:quickrun_config.octave = {
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 "}}}
 "asynccomplete {{{
-if executable('mdls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'mdls',
-        \ 'cmd': {server_info->['mdls']},
-        \ 'whitelist': ['md', 'markdown'],
-        \ })
-    autocmd FileType markdown setlocal omnifunc=lsp#omni#complete
-endif
+" if executable('mdls')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'mdls',
+"         \ 'cmd': ['mdls', '-v', '--log-file', './mdls.log'],
+"         \ 'whitelist': ['md', 'markdown'],
+"         \ })
+"     autocmd FileType markdown setlocal omnifunc=lsp#omni#complete
+" endif
 
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
@@ -422,7 +424,7 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'unite', 'wordcount', 'gutentags', 'cwd']
-let g:airline_theme='ravenpower' "'minimalist' 'serene' 'simple' 'wombat''papercolor'
+let g:airline_theme='ayu_mirage' "'minimalist' 'serene' 'simple' 'wombat''papercolor'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇'
@@ -497,7 +499,6 @@ nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
 nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
 "nnoremap <silent><C-l><C-g> :<C-u>CtrlPLine<CR>
 nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
-nnoremap <silent><C-l><C-r> :<C-u>CtrlPRegister<CR>
 "nnoremap <silent><C-l><C-f> :<C-u>CtrlPF<CR>
 "nnoremap <silent><C-l><C-z> :<C-u>CtrlPZ<CR>
 nnoremap <silent><C-l>rc    :<C-u>CtrlPRoscd<CR>
@@ -514,7 +515,7 @@ let g:ctrlp_smarttabs_modify_tabline = 1
 let g:ctrlp_map = '<c-l><c-p>'
 let g:ctrlp_cmd='CtrlP'
 let g:ctrlp_use_caching = 1
-if executable('ripgrep') && executable('grep')
+if executable('rg') && executable('grep')
   let g:ctrlp_user_command = 'rg --files %s | grep -v -e ".exe$" -e ".so$" -e ".dll$" -e ".db$" -e ".o$" -e ".a$" -e ".pyc$" -e ".pyo$" -e ".pdf$" -e ".dvi$" -e ".zip$" -e ".rar$" -e ".tgz$" -e ".gz$" -e ".tar$" -e ".png$" -e ".jpg$" -e ".JPG$" -e ".gif$" -e ".mpg$" -e ".mp4$" -e ".mp3$" -e ".bag$"'
 endif
 let g:ctrlp_max_files = 0
@@ -535,6 +536,7 @@ let g:ctrlp_tjump_only_silent = 1
 if exists('*matchfuzzy')
   let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 endif
+let g:ctrlp_tjump_shortener = ['/home/[^/]*/', '~/']
 if exists(':CtrlPtjump')
     let g:ctrlp_tjump_only_silent=1
     nnoremap <c-]> :CtrlPtjump<cr>
