@@ -217,3 +217,9 @@
 [submodule "bundle/ctrlp-matchfuzzy"]
 	path = bundle/ctrlp-matchfuzzy
 	url = https://github.com/mattn/ctrlp-matchfuzzy/
+[submodule "bundle/indentLine"]
+	path = bundle/indentLine
+	url = https://github.com/Yggdroot/indentLine
+[submodule "bundle/tagbar"]
+	path = bundle/tagbar
+	url = https://github.com/preservim/tagbar
