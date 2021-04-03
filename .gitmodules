@@ -70,9 +70,6 @@
 [submodule "bundle/ctrlp-locate"]
 	path = bundle/ctrlp-locate
 	url = https://github.com/ompugao/ctrlp-locate
-[submodule "bundle/ctrlp-funky"]
-	path = bundle/ctrlp-funky
-	url = https://github.com/tacahiroy/ctrlp-funky
 [submodule "bundle/ctrlp-smarttabs"]
 	path = bundle/ctrlp-smarttabs
 	url = https://github.com/DavidEGx/ctrlp-smarttabs
@@ -127,9 +124,6 @@
 [submodule "bundle/vim-ctrlp-tjump"]
 	path = bundle/vim-ctrlp-tjump
 	url = https://github.com/ivalkeen/vim-ctrlp-tjump
-[submodule "bundle/vim-orgmode"]
-	path = bundle/vim-orgmode
-	url = https://github.com/jceb/vim-orgmode
 [submodule "bundle/vim-speeddating"]
 	path = bundle/vim-speeddating
 	url = https://github.com/tpope/vim-speeddating
