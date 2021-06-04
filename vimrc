@@ -296,11 +296,11 @@ augroup lsp_install
 augroup END
 command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
-let g:lsp_settings = {
-\  'clangd': {
-\    'cmd': ['clangd', '-compile_args_from=filesystem'],
-\  }
-\}
+" let g:lsp_settings = {
+" \  'clangd': {
+" \    'cmd': ['clangd', '-compile_args_from=filesystem'],
+" \  }
+" \}
 " :LspSettingsLocalEdit and put the following text (change the build directory part for your 
 " every project)
 " {
@@ -418,7 +418,7 @@ nnoremap <Space>rA :<C-u>QuickDictInsertLast <C-r><C-w><CR>
 "let g:ag_prg="ag --vimgrep --smart-case --ignore='*__pycache__*' --ignore='*.pyc' --ignore='tags' "
 "let g:ag_highlight=1
 let g:grepper.stop = 10000
-let g:grepper.rg.grepprg .= ' --smart-case'
+let g:grepper.rg.grepprg .= ' --smart-case -g "!tags"'
 "noremap <Space>ga :<C-u>Grepper -tool ag<CR>
 noremap <Space>gg :<C-u>Grepper -tool git<CR>
 noremap <Space>gi :<C-u>Grepper -tool rg<CR>
