@@ -189,6 +189,10 @@ function! s:GetBufferDirectory()
   return path . (exists('+shellslash') && !&shellslash ? '\' : '/')
 endfunction
 cabbr w!! w !sudo tee > /dev/null %
+" yank to clipboard via xsel
+nnoremap <Leader>y my:0,$!xsel -iob<CR>u`y
+" clipper https://github.com/wincent/clipper
+nnoremap <leader>Y :call system('nc -N localhost 8377', @0)<CR>
 "}}}
 " fugitive "{{{
 if has('autocmd')
