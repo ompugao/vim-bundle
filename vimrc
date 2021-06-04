@@ -166,7 +166,6 @@ nnoremap <silent> <Space>n :<C-u>tabnext<CR>
 nnoremap <silent> <Space>p  :<C-u>tabprevious<CR>
 nnoremap <Space>d :<C-u>bd<CR>
 nnoremap <Space>p :<C-u>pwd<CR>
-nnoremap <Leader>y my:0,$!xsel -iob<CR>u`y
 nnoremap <Space><Space> i<Space><Esc>la<Space><Esc>
 nnoremap <S-tab> za
 noremap ; :
