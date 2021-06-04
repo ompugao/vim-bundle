@@ -502,12 +502,7 @@ nnoremap <silent><C-l><C-b> :<C-u>CtrlPBuffer<CR>
 nnoremap <silent><C-l><C-m> :<C-u>CtrlPMRU<CR>
 nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
 nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
-"nnoremap <silent><C-l><C-g> :<C-u>CtrlPLine<CR>
 nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
-"nnoremap <silent><C-l><C-f> :<C-u>CtrlPF<CR>
-"nnoremap <silent><C-l><C-z> :<C-u>CtrlPZ<CR>
-nnoremap <silent><C-l>rc    :<C-u>CtrlPRoscd<CR>
-nnoremap <silent><C-l>re    :<C-u>CtrlPRosed<CR>
 nnoremap <silent><C-l>f     :<C-u>CtrlPFunky<Cr>
 nnoremap <silent><C-l><C-h> :<C-u>CtrlPCmdHistory<CR>
 nnoremap <silent><C-l>/     :<C-u>CtrlPSearchHistory<CR>
@@ -520,8 +515,8 @@ let g:ctrlp_smarttabs_modify_tabline = 1
 let g:ctrlp_map = '<c-l><c-p>'
 let g:ctrlp_cmd='CtrlP'
 let g:ctrlp_use_caching = 1
-if executable('rg') && executable('grep')
-  let g:ctrlp_user_command = 'rg --files %s | grep -v -e ".exe$" -e ".so$" -e ".dll$" -e ".db$" -e ".o$" -e ".a$" -e ".pyc$" -e ".pyo$" -e ".pdf$" -e ".dvi$" -e ".zip$" -e ".rar$" -e ".tgz$" -e ".gz$" -e ".tar$" -e ".png$" -e ".jpg$" -e ".JPG$" -e ".gif$" -e ".mpg$" -e ".mp4$" -e ".mp3$" -e ".bag$"'
+if executable('rg')
+  let g:ctrlp_user_command = 'rg --files %s | rg -v -e ".exe$" -e ".so$" -e ".dll$" -e ".db$" -e ".o$" -e ".a$" -e ".pyc$" -e ".pyo$" -e ".pdf$" -e ".dvi$" -e ".zip$" -e ".rar$" -e ".tgz$" -e ".gz$" -e ".tar$" -e ".png$" -e ".jpg$" -e ".JPG$" -e ".gif$" -e ".mpg$" -e ".mp4$" -e ".mp3$" -e ".bag$"'
 endif
 let g:ctrlp_max_files = 0
 let g:ctrlp_show_hidden = 1
