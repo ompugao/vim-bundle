@@ -214,3 +214,6 @@
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = https://github.com/preservim/tagbar
+[submodule "bundle/gina.vim"]
+	path = bundle/gina.vim
+	url = https://github.com/lambdalisue/gina.vim
