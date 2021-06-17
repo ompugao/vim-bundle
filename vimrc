@@ -26,6 +26,7 @@ set autoindent  " 自動インデント
 set backup  " バックアップを有効にする
 set backupdir=$HOME/.vimbackup  " バックアップ用ディレクトリ
 set directory=$HOME/.vimswap
+set diffopt+=vertical
 if !isdirectory(&backupdir)
     call mkdir(&backupdir, "p")
 endif
