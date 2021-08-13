@@ -196,10 +196,6 @@ nnoremap <leader>Y :call system('nc -N localhost 8377', @0)<CR>
 "}}}
 " fugitive "{{{
 if has('autocmd')
-    autocmd User fugitive
-      \ if get(b:, 'fugitive_type', '') =~# '^\%(tree\|blob\)$' |
-      \   nnoremap <buffer> .. :edit %:h<CR> |
-      \ endif
     autocmd BufReadPost fugitive://* set bufhidden=delete
 endif
 "}}}
