@@ -529,9 +529,11 @@ let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler\|unite\|vimshell'
 let g:ctrlp_lazy_update = 0
 let g:ctrlp_key_loop = 0
 let g:ctrlp_tjump_only_silent = 1
-if exists('*matchfuzzy')
-  let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
-endif
+" if exists('*matchfuzzy')
+"   let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
+" endif
+let g:fruzzy#usenative = 1
+let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
 let g:ctrlp_tjump_shortener = ['/home/[^/]*/', '~/']
 if exists(':CtrlPtjump')
     let g:ctrlp_tjump_only_silent=1

@@ -7,6 +7,7 @@ git submodule update --init
 cd bundle/vimproc && make
 cd -
 vim -c 'call fzf#install()' -c 'quit'
+vim -c 'call fruzzy#install()' -c 'quit'
 ln -s $HOME/.vim/.ctags $HOME/.ctags   # for exuberant-ctags
 mkdir -p $HOME/.ctags.d && ln -s $HOME/.vim/.ctags $HOME/.ctags.d/default.ctags # for universal-ctags
 ````
