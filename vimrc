@@ -200,12 +200,12 @@ if has('autocmd')
 endif
 "}}}
 " unite {{{
-call unite#custom#profile('default', 'context', {
-          \   'start_insert': 1,
-          \   'winheight': 10,
-          \   'direction': 'botright',
-          \ })
-command! Outline execute ":Unite outline -no-start-insert -vertical -no-quit -no-auto-quit -winwidth=50<CR>"
+" call unite#custom#profile('default', 'context', {
+"           \   'start_insert': 1,
+"           \   'winheight': 10,
+"           \   'direction': 'botright',
+"           \ })
+" command! Outline execute ":Unite outline -no-start-insert -vertical -no-quit -no-auto-quit -winwidth=50<CR>"
 " }}}
 " quickrun {{{
 let g:quickrun_config = {}
@@ -424,7 +424,7 @@ noremap <Space>g* :<C-u>Grepper -tool rg -cword -noprompt<CR>
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'unite', 'wordcount', 'gutentags', 'cwd']
+let g:airline_extensions = ['branch', 'ctrlp', 'quickfix', 'tabline', 'wordcount', 'gutentags', 'cwd']
 let g:airline_theme='ayu_mirage' "'minimalist' 'serene' 'simple' 'wombat''papercolor'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''

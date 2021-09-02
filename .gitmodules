@@ -4,12 +4,6 @@
 [submodule "bundle/vimproc"]
 	path = bundle/vimproc
 	url = https://github.com/Shougo/vimproc.git
-[submodule "bundle/unite.vim"]
-	path = bundle/unite.vim
-	url = https://github.com/Shougo/unite.vim
-[submodule "bundle/unite-outline"]
-	path = bundle/unite-outline
-	url = https://github.com/Shougo/unite-outline
 [submodule "bundle/vim-easy-align"]
 	path = bundle/vim-easy-align
 	url = https://github.com/junegunn/vim-easy-align
@@ -34,9 +28,6 @@
 [submodule "bundle/vim-textobj-between"]
 	path = bundle/vim-textobj-between
 	url = https://github.com/thinca/vim-textobj-between
-[submodule "bundle/neco-look"]
-	path = bundle/neco-look
-	url = https://github.com/ujihisa/neco-look
 [submodule "ftbundle/ruby/vim-ruby"]
 	path = ftbundle/ruby/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
@@ -97,12 +88,6 @@
 [submodule "bundle/open-browser.vim"]
 	path = bundle/open-browser.vim
 	url = https://github.com/tyru/open-browser.vim
-[submodule "bundle/bitly.vim"]
-	path = bundle/bitly.vim
-	url = https://github.com/basyura/bitly.vim
-[submodule "bundle/neco-tweetvim"]
-	path = bundle/neco-tweetvim
-	url = https://github.com/yomi322/neco-tweetvim
 [submodule "bundle/previm"]
 	path = bundle/previm
 	url = https://github.com/previm/previm
