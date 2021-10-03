@@ -4,6 +4,13 @@ set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
 scriptencoding utf8
 
+" gutentags {{{
+let g:gutentags_cache_dir=expand('~') . '/.gutentags'
+if !isdirectory(g:gutentags_cache_dir)
+    call mkdir(g:gutentags_cache_dir, "p")
+endif
+" }}}
+
 " Strange character since last update (>4;2m) in vim - Stack Overflow https://stackoverflow.com/questions/62148994/strange-character-since-last-update-42m-in-vim
 " https://stackoverflow.com/questions/62148994/strange-character-since-last-update-42m-in-vim
 let &t_TI = ""
@@ -460,12 +467,6 @@ let g:airline_mode_map = {
             \ 'S'  : 'S',
             \ '' : '^',
             \ }
-" }}}
-" gutentags {{{
-let g:gutentags_cache_dir=expand('~') . '/.gutentags'
-if !isdirectory(g:gutentags_cache_dir)
-    call mkdir(g:gutentags_cache_dir, "p")
-endif
 " }}}
 " 配色設定"{{{
 set background=dark
