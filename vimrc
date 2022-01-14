@@ -76,7 +76,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'mhinz/vim-grepper'
+Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'thomasfaingnaert/vim-lsp-neosnippet'
 Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'ompugao/quickdict.vim'
@@ -494,8 +494,9 @@ nnoremap <Space>rA :<C-u>QuickDictInsertLast <C-r><C-w><CR>
 " vim-grepper {{{
 "let g:ag_prg="ag --vimgrep --smart-case --ignore='*__pycache__*' --ignore='*.pyc' --ignore='tags' "
 "let g:ag_highlight=1
+let g:grepper = {}
 let g:grepper.stop = 10000
-let g:grepper.rg.grepprg .= ' --smart-case -g "!tags"'
+let g:grepper.rg = {'grepprg': 'rg -H --no-heading --vimgrep --smart-case -g "!tags"'}
 "noremap <Space>ga :<C-u>Grepper -tool ag<CR>
 noremap <Space>gg :<C-u>Grepper -tool git<CR>
 noremap <Space>gi :<C-u>Grepper -tool rg<CR>
