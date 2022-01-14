@@ -15,7 +15,81 @@ endif
 " https://stackoverflow.com/questions/62148994/strange-character-since-last-update-42m-in-vim
 let &t_TI = ""
 let &t_TE = ""
-runtime vim-unbundle/plugin/unbundle.vim
+
+" plugins {{{
+call plug#begin()
+Plug 'tpope/vim-fugitive'
+Plug 'Shougo/vimproc', { 'do': 'make' }
+Plug 'junegunn/vim-easy-align'
+Plug 'thinca/vim-quickrun'
+Plug 'mattn/quickrunex-vim'
+Plug 'kana/vim-operator-user'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-operator-replace'
+Plug 'rhysd/vim-operator-surround'
+Plug 'thinca/vim-textobj-between'
+Plug 'vim-ruby/vim-ruby'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'hdima/python-syntax'
+Plug 'thinca/vim-ref'
+Plug 'haya14busa/vim-asterisk'
+Plug 'bling/vim-airline'
+Plug 'ompugao/vim-airline-cwd'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ompugao/ctrlp-history'
+Plug 'ompugao/ctrlp-locate'
+Plug 'DavidEGx/ctrlp-smarttabs'
+Plug 'ompugao/uncrustify-vim'
+Plug 'haya14busa/vim-migemo'
+Plug 'tyru/eskk.vim'
+Plug 'kshenoy/vim-signature'
+Plug 'Shougo/vinarise'
+Plug 'scrooloose/nerdcommenter'
+Plug 'mattn/webapi-vim'
+Plug 'tyru/open-browser.vim'
+Plug 'previm/previm'
+Plug 'plasticboy/vim-markdown'
+Plug 'airblade/vim-gitgutter'
+Plug 'mopp/autodirmake.vim'
+Plug 'mattn/emmet-vim'
+Plug 'sunaku/vim-unbundle'
+Plug 'ivalkeen/vim-ctrlp-tjump'
+Plug 'tpope/vim-speeddating'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ompugao/ctrlp-tweetvim'
+Plug 'jvirtanen/vim-octave'
+Plug 'cohama/agit.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'justinmk/vim-dirvish'
+Plug 'rust-lang/rust.vim'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'cocopon/iceberg.vim'
+Plug 'racer-rust/vim-racer'
+Plug 'ompugao/harlequin'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'rhysd/vim-clang-format'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'mhinz/vim-grepper'
+Plug 'thomasfaingnaert/vim-lsp-neosnippet'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'ompugao/quickdict.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'mattn/vim-lsp-settings'
+Plug 'mattn/ctrlp-matchfuzzy'
+Plug 'Yggdroot/indentLine'
+Plug 'preservim/tagbar'
+Plug 'lambdalisue/gina.vim'
+Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+call plug#end()
+"}}}
 
 " settings(set *** etc.etc...) {{{
 " □とか○の文字があってもカーソル位置がずれないようにする
