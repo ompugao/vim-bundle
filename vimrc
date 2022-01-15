@@ -587,7 +587,7 @@ nnoremap <silent><C-l><C-b> :<C-u>Buffers<CR>
 nnoremap <silent><C-l><C-m> :<C-u>History<CR>
 nnoremap <silent><C-l><C-h> :<C-u>History:<CR>
 nnoremap <silent><C-l>/     :<C-u>History/<CR>
-nnoremap <silent><C-l>l     :<C-u>Locate<CR>
+nnoremap <C-l>l     :<C-u>Locate 
 " }}}
 " ctrlp {{{
 " let g:ctrlp_map = '<c-l><c-p>'
