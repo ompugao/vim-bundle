@@ -572,32 +572,37 @@ let lisp_rainbow = 1 "lispをcolorfulに
 let g:fzf_preview_window = ''
 let g:fzf_preview_window = ['right:40%:hidden', 'ctrl-/']
 let g:fzf_layout = { 'down': '~40%' }
-command! -bang -nargs=? -complete=dir Files
-     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
+let $FZF_DEFAULT_OPTS .= ' --info=inline '
+" command! -bang -nargs=? -complete=dir Files
+"      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
 augroup fzfconf
   autocmd!
   autocmd! FileType fzf set laststatus=0 noshowmode noruler
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
+
+nnoremap <silent><C-l><C-p> :<C-u>Files<CR>
+nnoremap <silent><C-l><C-s> :execute ':<C-u>Files <C-r>=expand('%:h:p')<CR><CR>'
+nnoremap <silent><C-l><C-b> :<C-u>Buffers<CR>
+nnoremap <silent><C-l><C-m> :<C-u>History<CR>
+nnoremap <silent><C-l><C-h> :<C-u>History:<CR>
+nnoremap <silent><C-l>/     :<C-u>History/<CR>
+nnoremap <silent><C-l>l     :<C-u>Locate<CR>
 " }}}
 " ctrlp {{{
-nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
-nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
-nnoremap <silent><C-l><C-b> :<C-u>CtrlPBuffer<CR>
-nnoremap <silent><C-l><C-m> :<C-u>CtrlPMRU<CR>
-nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
-nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
-nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
-nnoremap <silent><C-l>f     :<C-u>CtrlPFunky<Cr>
-nnoremap <silent><C-l><C-h> :<C-u>CtrlPCmdHistory<CR>
-nnoremap <silent><C-l>/     :<C-u>CtrlPSearchHistory<CR>
-nnoremap <silent><C-l>l     :<C-u>CtrlPLocate<CR>
-nnoremap <silent><C-l><C-t> :<C-u>CtrlPSmartTabs<CR>
-nnoremap <silent><C-l><C-g> :<C-u>CtrlPGrep<CR>
-let g:ctrlp_funky_sort_reverse=1
-
-let g:ctrlp_smarttabs_modify_tabline = 1
-let g:ctrlp_map = '<c-l><c-p>'
+" let g:ctrlp_map = '<c-l><c-p>'
+" nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
+" nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
+" nnoremap <silent><C-l><C-b> :<C-u>CtrlPBuffer<CR>
+" nnoremap <silent><C-l><C-m> :<C-u>CtrlPMRU<CR>
+" nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
+" nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
+" nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
+" nnoremap <silent><C-l>f     :<C-u>CtrlPFunky<Cr>
+" nnoremap <silent><C-l><C-h> :<C-u>CtrlPCmdHistory<CR>
+" nnoremap <silent><C-l>/     :<C-u>CtrlPSearchHistory<CR>
+" nnoremap <silent><C-l>l     :<C-u>CtrlPLocate<CR>
+" nnoremap <silent><C-l><C-t> :<C-u>CtrlPSmartTabs<CR>
 let g:ctrlp_cmd='CtrlP'
 let g:ctrlp_use_caching = 1
 if executable('rg')
@@ -617,19 +622,22 @@ let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler\|unite\|vimshell'
 let g:ctrlp_lazy_update = 0
 let g:ctrlp_key_loop = 0
+let g:ctrlp_funky_sort_reverse=1
+let g:ctrlp_smarttabs_modify_tabline = 1
 let g:ctrlp_tjump_only_silent = 1
-if has('python3')
-  let g:fruzzy#usenative = 1
-  let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
-elseif exists('*matchfuzzy')
+"if has('python3')
+"  let g:fruzzy#usenative = 1
+"  let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
+"elseif exists('*matchfuzzy')
+if exists('*matchfuzzy')
   let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 endif
 let g:ctrlp_tjump_shortener = ['/home/[^/]*/', '~/']
-if exists(':CtrlPtjump')
-    let g:ctrlp_tjump_only_silent=1
-    nnoremap <c-]> :CtrlPtjump<cr>
-    vnoremap <c-]> :CtrlPtjumpVisual<cr>
-endif
+"if exists(':CtrlPtjump')
+"  let g:ctrlp_tjump_only_silent=1
+"  nnoremap <c-]> :CtrlPtjump<cr>
+"  vnoremap <c-]> :CtrlPtjumpVisual<cr>
+"endif
 "}}}
 "openbrowser"{{{
 "let g:netrw_nogx = 1 " disable netrw's gx mapping.
