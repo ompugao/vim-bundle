@@ -569,12 +569,19 @@ let lisp_rainbow = 1 "lispをcolorfulに
 "}}}
 
 " fzf {{{
-let g:fzf_preview_window = ''
 let g:fzf_preview_window = ['right:40%:hidden', 'ctrl-/']
 let g:fzf_layout = { 'down': '~40%' }
 let $FZF_DEFAULT_OPTS .= ' --info=inline --keep-right '
-" command! -bang -nargs=? -complete=dir Files
-"     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
+let g:fzf_files_options='--info=inline --preview "basename {}" --preview-window "down:1:noborder"'
+command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, <bang>0)
+function! s:fzfhistory(...)
+  return fzf#run(fzf#wrap('history-files', {
+  \ 'source':  fzf#vim#_recent_files(),
+  \ 'options': ['-m', '--header-lines', !empty(expand('%')), '--prompt', 'Hist> ',
+  \ '--preview', "basename {}", '--preview-window', "down:1:noborder"]
+  \}))
+endfunction
+command! -bang -nargs=? FileHistory call s:fzfhistory(<q-args>, <bang>0)
 augroup fzfconf
   autocmd!
   autocmd! FileType fzf set laststatus=0 noshowmode noruler
