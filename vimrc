@@ -572,9 +572,9 @@ let lisp_rainbow = 1 "lispをcolorfulに
 let g:fzf_preview_window = ''
 let g:fzf_preview_window = ['right:40%:hidden', 'ctrl-/']
 let g:fzf_layout = { 'down': '~40%' }
-let $FZF_DEFAULT_OPTS .= ' --info=inline --keep-right --hscroll-off=10000 '
+let $FZF_DEFAULT_OPTS .= ' --info=inline --keep-right '
 " command! -bang -nargs=? -complete=dir Files
-"      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
+"     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
 augroup fzfconf
   autocmd!
   autocmd! FileType fzf set laststatus=0 noshowmode noruler
@@ -584,7 +584,7 @@ augroup END
 nnoremap <silent><C-l><C-p> :<C-u>Files<CR>
 nnoremap <silent><C-l><C-s> :execute ':<C-u>Files <C-r>=expand('%:h:p')<CR><CR>'
 nnoremap <silent><C-l><C-b> :<C-u>Buffers<CR>
-nnoremap <silent><C-l><C-m> :<C-u>History<CR>
+" nnoremap <silent><C-l><C-m> :<C-u>History<CR>
 nnoremap <silent><C-l><C-h> :<C-u>History:<CR>
 nnoremap <silent><C-l>/     :<C-u>History/<CR>
 nnoremap <C-l>l     :<C-u>Locate 
@@ -594,7 +594,7 @@ nnoremap <C-l>l     :<C-u>Locate
 " nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
 " nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
 " nnoremap <silent><C-l><C-b> :<C-u>CtrlPBuffer<CR>
-" nnoremap <silent><C-l><C-m> :<C-u>CtrlPMRU<CR>
+noremap <silent><C-l><C-m> :<C-u>CtrlPMRU<CR>
 " nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
 " nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
 " nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
