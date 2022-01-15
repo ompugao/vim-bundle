@@ -88,6 +88,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'preservim/tagbar'
 Plug 'lambdalisue/gina.vim'
 Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
+Plug 'stefandtw/quickfix-reflector.vim'
 call plug#end()
 "}}}
 
