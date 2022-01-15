@@ -572,7 +572,7 @@ let lisp_rainbow = 1 "lispをcolorfulに
 let g:fzf_preview_window = ''
 let g:fzf_preview_window = ['right:40%:hidden', 'ctrl-/']
 let g:fzf_layout = { 'down': '~40%' }
-let $FZF_DEFAULT_OPTS .= ' --info=inline '
+let $FZF_DEFAULT_OPTS .= ' --info=inline --keep-right --hscroll-off=10000 '
 " command! -bang -nargs=? -complete=dir Files
 "      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
 augroup fzfconf
