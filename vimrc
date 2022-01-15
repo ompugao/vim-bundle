@@ -81,13 +81,13 @@ Plug 'thomasfaingnaert/vim-lsp-neosnippet'
 Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'ompugao/quickdict.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/ctrlp-matchfuzzy'
 Plug 'Yggdroot/indentLine'
 Plug 'preservim/tagbar'
 Plug 'lambdalisue/gina.vim'
 Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
 call plug#end()
 "}}}
 
@@ -567,6 +567,18 @@ let g:netrw_liststyle = 3 "netrw(Explorer)を常にツリー表示する
 let lisp_rainbow = 1 "lispをcolorfulに
 "}}}
 
+" fzf {{{
+let g:fzf_preview_window = ''
+let g:fzf_preview_window = ['right:40%:hidden', 'ctrl-/']
+let g:fzf_layout = { 'down': '~40%' }
+command! -bang -nargs=? -complete=dir Files
+     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
+augroup fzfconf
+  autocmd!
+  autocmd! FileType fzf set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup END
+" }}}
 " ctrlp {{{
 nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
 nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
