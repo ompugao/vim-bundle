@@ -597,7 +597,7 @@ nnoremap <silent><C-l>/     :<C-u>History/<CR>
 nnoremap <C-l>l     :<C-u>Locate 
 " }}}
 " ctrlp {{{
-" let g:ctrlp_map = '<c-l><c-p>'
+let g:ctrlp_map = '<c-l><c-p>'
 " nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
 " nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
 " nnoremap <silent><C-l><C-b> :<C-u>CtrlPBuffer<CR>
