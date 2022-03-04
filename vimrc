@@ -164,6 +164,9 @@ if has('clipboard')
 endif
 set wildmode=longest:full,full
 set wildmenu
+if has('patch-8.2.4325')
+  set wildoptions=pum
+endif
 set showmatch
 set matchtime=1
 set matchpairs=(:),{:},[:],<:>
