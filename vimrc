@@ -551,12 +551,12 @@ set background=dark
 colorscheme PaperColor
 set t_Co=256
 " 90 ... purple which we can use only when 256-colors is enabled
-hi Pmenu        ctermfg=White   ctermbg=90  cterm=NONE
-hi PmenuSel     ctermfg=90   ctermbg=White  cterm=NONE
-hi PmenuSbar    ctermfg=90   ctermbg=White  cterm=NONE
-hi PmenuThumb   ctermfg=White   ctermbg=90  cterm=NONE
+" hi Pmenu        ctermfg=White   ctermbg=90  cterm=NONE
+" hi PmenuSel     ctermfg=90   ctermbg=White  cterm=NONE
+" hi PmenuSbar    ctermfg=90   ctermbg=White  cterm=NONE
+" hi PmenuThumb   ctermfg=White   ctermbg=90  cterm=NONE
 
-highlight LineNr ctermfg=40
+" highlight LineNr ctermfg=40
 " highlight Visual term=reverse ctermbg=90 guibg=LightGrey
 " 全角スペースの表示
 "highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=white
