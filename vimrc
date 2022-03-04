@@ -475,7 +475,7 @@ function! g:ref_source_webdict_sites.wiki.filter(output)
   return join(split(a:output, "\n")[17 :], "\n")
 endfunction
 function! g:ref_source_webdict_sites.alc.filter(output)
-  return substitute(join(split(a:output, "\n")[60 :], "\n"), '｛.\{-}｝', '', 'g')
+  return substitute(join(split(a:output, "\n")[96 :], "\n"), '｛.\{-}｝', '', 'g')
 endfunction
 function! g:ref_source_webdict_sites.weblio.filter(output)
   return substitute(join(split(a:output, "\n")[0 :], "\n"), '｛.\{-}｝', '', 'g')
