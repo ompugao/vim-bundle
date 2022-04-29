@@ -144,8 +144,10 @@ set hlsearch
 set wrap  "長い行を折り返し
 if has('linebreak')
   set breakindent
-  set breakindentopt=shift:2,sbr
-  set showbreak=>
+  "set breakindentopt=shift:2,sbr
+  set breakindentopt=min:50,shift:4,sbr
+  "set showbreak=>
+  set showbreak=↪
 endif
 set display=lastline   "as much as possible of the last linein a window will be displayed
 syntax enable  " 構文配色を有効にする
