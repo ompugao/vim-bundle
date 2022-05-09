@@ -157,6 +157,7 @@ set infercase           " 補完時に大文字小文字を区別しない
 set hidden
 set vb t_vb= "disable visualbell
 set virtualedit+=block "矩形選択で自由に移動
+set nrformats+=unsigned "increment ignoring `-'
 if has('clipboard')
   if has('unnamedplus')
     set clipboard=unnamedplus,autoselect 
