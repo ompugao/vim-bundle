@@ -87,6 +87,8 @@ Plug 'mattn/ctrlp-matchfuzzy'
 Plug 'Yggdroot/indentLine'
 Plug 'preservim/tagbar'
 Plug 'lambdalisue/gina.vim'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-git-status.vim'
 Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 Plug 'stefandtw/quickfix-reflector.vim'
 call plug#end()
