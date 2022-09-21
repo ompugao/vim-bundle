@@ -282,7 +282,11 @@ cabbr w!! w !sudo tee > /dev/null %
 " yank to clipboard via xsel
 nnoremap <Leader>y my:0,$!xsel -iob<CR>u`y
 " clipper https://github.com/wincent/clipper
-nnoremap <leader>Y :call system('nc -N localhost 8377', @0)<CR>
+if executable('kitty')
+  nnoremap <leader>Y :call system('kitty +kitten clipboard', @0)<CR>
+else
+  nnoremap <leader>Y :call system('nc -N localhost 8377', @0)<CR>
+endif
 "}}}
 " fugitive "{{{
 if has('autocmd')
