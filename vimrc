@@ -91,6 +91,7 @@ Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 call plug#end()
 "}}}
 
@@ -281,12 +282,15 @@ endfunction
 cabbr w!! w !sudo tee > /dev/null %
 " yank to clipboard via xsel
 nnoremap <Leader>y my:0,$!xsel -iob<CR>u`y
-" clipper https://github.com/wincent/clipper
-if executable('kitty')
-  nnoremap <leader>Y :call system('kitty +kitten clipboard', @0)<CR>
-else
-  nnoremap <leader>Y :call system('nc -N localhost 8377', @0)<CR>
-endif
+" "switched to oscyank plugin
+" if executable('kitty')
+"   nnoremap <leader>Y :call system('kitty +kitten clipboard', @0)<CR>
+"   vnoremap <leader>Y :call system('kitty +kitten clipboard', @0)<CR>
+" else
+"   " clipper https://github.com/wincent/clipper
+"   nnoremap <leader>Y :call system('nc -N localhost 8377', @0)<CR>
+"   vnoremap <leader>Y :call system('nc -N localhost 8377', @0)<CR>
+" endif
 "}}}
 " fugitive "{{{
 if has('autocmd')
@@ -754,6 +758,10 @@ let g:eskk#large_dictionary = {
             \	'encoding': 'euc-jp',
             \}
 "}}}
+" oscyank {{{
+vnoremap <leader>Y :OSCYank<CR>
+autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
+" }}}
 let g:ale_enabled=0
 let g:clang_format#style_options = {
             \ "AccessModifierOffset" : -2,
