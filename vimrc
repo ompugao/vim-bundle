@@ -763,6 +763,7 @@ let g:eskk#large_dictionary = {
             \}
 "}}}
 " oscyank {{{
+let g:oscyank_silent = v:true
 vnoremap <leader>Y :OSCYank<CR>
 autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
 " }}}
