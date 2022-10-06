@@ -91,6 +91,7 @@ Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'ompugao/cpsm', { 'branch': 'feature/remove_boost_dependency', 'do': './install.sh' }
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 call plug#end()
 "}}}
@@ -654,6 +655,9 @@ let g:ctrlp_tjump_only_silent = 1
 "elseif exists('*matchfuzzy')
 if exists('*matchfuzzy')
   let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
+endif
+if has('python3')
+  let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
 endif
 let g:ctrlp_tjump_shortener = ['/home/[^/]*/', '~/']
 "if exists(':CtrlPtjump')
