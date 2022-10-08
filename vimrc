@@ -605,32 +605,32 @@ augroup fzfconf
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 
-nnoremap <silent><C-l><C-p> :<C-u>Files<CR>
-nnoremap <silent><C-l><C-s> :execute ':<C-u>Files <C-r>=expand('%:h:p')<CR><CR>'
-nnoremap <silent><C-l><C-b> :<C-u>Buffers<CR>
-" nnoremap <silent><C-l><C-m> :<C-u>History<CR>
-nnoremap <silent><C-l><C-h> :<C-u>History:<CR>
-nnoremap <silent><C-l>/     :<C-u>History/<CR>
-nnoremap <C-l>l     :<C-u>Locate 
+"nnoremap <silent><C-l><C-p> :<C-u>Files<CR>
+"nnoremap <silent><C-l><C-s> :execute ':<C-u>Files <C-r>=expand('%:h:p')<CR><CR>'
+"nnoremap <silent><C-l><C-b> :<C-u>Buffers<CR>
+"nnoremap <silent><C-l><C-m> :<C-u>FileHistory<CR>
+"nnoremap <silent><C-l><C-h> :<C-u>History:<CR>
+"nnoremap <silent><C-l>/     :<C-u>History/<CR>
+"nnoremap <C-l>l     :<C-u>Locate 
 " }}}
 " ctrlp {{{
 let g:ctrlp_map = '<c-l><c-p>'
-" nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
-" nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
-" nnoremap <silent><C-l><C-b> :<C-u>CtrlPBuffer<CR>
+nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
+nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
+nnoremap <silent><C-l><C-b> :<C-u>CtrlPBuffer<CR>
 noremap <silent><C-l><C-m> :<C-u>CtrlPMRU<CR>
-" nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
-" nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
-" nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
-" nnoremap <silent><C-l>f     :<C-u>CtrlPFunky<Cr>
-" nnoremap <silent><C-l><C-h> :<C-u>CtrlPCmdHistory<CR>
-" nnoremap <silent><C-l>/     :<C-u>CtrlPSearchHistory<CR>
-" nnoremap <silent><C-l>l     :<C-u>CtrlPLocate<CR>
-" nnoremap <silent><C-l><C-t> :<C-u>CtrlPSmartTabs<CR>
+nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
+nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
+nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
+nnoremap <silent><C-l>f     :<C-u>CtrlPFunky<Cr>
+nnoremap <silent><C-l><C-h> :<C-u>CtrlPCmdHistory<CR>
+nnoremap <silent><C-l>/     :<C-u>CtrlPSearchHistory<CR>
+nnoremap <silent><C-l>l     :<C-u>CtrlPLocate<CR>
+nnoremap <silent><C-l><C-t> :<C-u>CtrlPSmartTabs<CR>
 let g:ctrlp_cmd='CtrlP'
 let g:ctrlp_use_caching = 1
 if executable('rg')
-  let g:ctrlp_user_command = 'rg --files %s | rg -v -e ".exe$" -e ".so$" -e ".dll$" -e ".db$" -e ".o$" -e ".a$" -e ".pyc$" -e ".pyo$" -e ".pdf$" -e ".dvi$" -e ".zip$" -e ".rar$" -e ".tgz$" -e ".gz$" -e ".tar$" -e ".png$" -e ".jpg$" -e ".JPG$" -e ".gif$" -e ".mpg$" -e ".mp4$" -e ".mp3$" -e ".bag$"'
+  let g:ctrlp_user_command = 'rg --hidden --files %s | rg -v -e "\.exe$" -e "\.so$" -e "\.dll$" -e "\.db$" -e "\.o$" -e "\.a$" -e "\.pyc$" -e "\.pyo$" -e "\.pdf$" -e "\.dvi$" -e "\.zip$" -e "\.rar$" -e "\.tgz$" -e "\.gz$" -e "\.tar$" -e "\.png$" -e "\.jpg$" -e "\.JPG$" -e "\.gif$" -e "\.mpg$" -e "\.mp4$" -e "\.mp3$" -e "\.bag$"'
 endif
 let g:ctrlp_max_files = 0
 let g:ctrlp_show_hidden = 1
