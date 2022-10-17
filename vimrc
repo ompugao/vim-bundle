@@ -39,28 +39,30 @@ Plug 'ompugao/vim-airline-cwd'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ompugao/ctrlp-history'
 Plug 'ompugao/ctrlp-locate'
-Plug 'DavidEGx/ctrlp-smarttabs'
+" Plug 'DavidEGx/ctrlp-smarttabs'
 " Plug 'ompugao/uncrustify-vim'
 " Plug 'haya14busa/vim-migemo'
 Plug 'tyru/eskk.vim'
+"Plug 'vim-denops/denops.vim'
+"Plug 'vim-skk/skkeleton'
 Plug 'kshenoy/vim-signature'
 Plug 'Shougo/vinarise', {'on': 'Vinarize'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'mattn/webapi-vim'
 Plug 'tyru/open-browser.vim'
-Plug 'previm/previm'
+" Plug 'previm/previm'
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'airblade/vim-gitgutter'
 Plug 'mopp/autodirmake.vim'
 Plug 'mattn/emmet-vim'
-Plug 'sunaku/vim-unbundle'
+" Plug 'sunaku/vim-unbundle'
 Plug 'ivalkeen/vim-ctrlp-tjump'
-Plug 'tpope/vim-speeddating'
+" Plug 'tpope/vim-speeddating'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ompugao/ctrlp-tweetvim'
-Plug 'jvirtanen/vim-octave', {'for': 'octave'}
+" Plug 'jvirtanen/vim-octave', {'for': 'octave'}
 Plug 'cohama/agit.vim'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
 Plug 'justinmk/vim-dirvish'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'skywind3000/asyncrun.vim'
@@ -87,11 +89,11 @@ Plug 'mattn/ctrlp-matchfuzzy'
 Plug 'Yggdroot/indentLine'
 Plug 'preservim/tagbar'
 Plug 'lambdalisue/gina.vim'
-Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern.vim', {'branch': 'main'}
 Plug 'lambdalisue/fern-git-status.vim'
-Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
+" Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'ompugao/cpsm', { 'branch': 'feature/remove_boost_dependency', 'do': './install.sh' }
+Plug 'ompugao/cpsm', {'branch': 'feature/remove_boost_dependency', 'do': './install.sh' }
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 call plug#end()
 "}}}
@@ -101,13 +103,14 @@ call plug#end()
 if exists('&ambiwidth')
 	set ambiwidth=double
 endif
-if has("autocmd")
-	" カーソル位置を記憶する
-	autocmd BufReadPost *
-				\ if line("'\"") > 0 && line("'\"") <= line("$") |
-				\   exe "normal g`\"" |
-				\ endif
-endif
+augroup mysettings
+    autocmd!
+    " カーソル位置を記憶する
+    autocmd BufReadPost *
+                \ if line("'\"") > 0 && line("'\"") <= line("$") |
+                \   exe "normal g`\"" |
+                \ endif
+augroup END
 set autoindent  " 自動インデント
 set backup  " バックアップを有効にする
 set backupdir=$HOME/.vimbackup  " バックアップ用ディレクトリ
@@ -284,7 +287,7 @@ nnoremap <Leader>y my:0,$!xsel -iob<CR>u`y
 augroup myfugitive
     autocmd!
     autocmd BufReadPost fugitive://* set bufhidden=delete
-endif
+augroup END
 "}}}
 " quickrun {{{
 let g:quickrun_config = {}
