@@ -136,7 +136,8 @@ set listchars=tab:>-
 set scrolloff=4  " スクロール時の余白
 set ignorecase
 set smartcase
-set showcmd  " コマンドを表示
+"set titlestring=%t  " see :help statusline  or :help titlestring
+set showcmd  " コマンドを表示 
 set laststatus=2 " ステータスラインを表示
 set ts=4  " タブ幅
 set sw=4  " シフト幅
@@ -181,22 +182,17 @@ set backspace=indent,eol,start "help i_backspacing
 set history=10000
 set foldenable
 set foldmethod=marker
-autocmd BufNewFile,BufRead *.l setlocal commentstring=\;%s
-autocmd BufNewFile,BufRead *.py setlocal commentstring=\ \#%s
-autocmd BufNewFile,BufRead *.rb setlocal commentstring=\ \#%s
-autocmd BufNewFile,BufRead *.mkd setlocal commentstring=\ <!--\ %s\ -->
-autocmd BufNewFile,BufRead *.md setlocal commentstring=\ <!--\ %s\ -->
-autocmd BufNewFile,BufRead *.launch setlocal commentstring=\ <!--\ %s\ -->
-au BufNewFile,BufRead *.thtml set filetype=php
-au BufNewFile,BufRead *.ctp set filetype=php
-au BufNewFile,BufRead *.c set filetype=c
-au BufNewFile,BufRead *.py set filetype=python
-au BufNewFile,BufRead *.rb set filetype=ruby
-au BufNewFile,BufRead *.launch set filetype=launch syntax=xml
-au BufNewFile,BufRead *.md set filetype=markdown
-au BufNewFile,BufRead *.l set filetype=lisp
-au BufNewFile,BufRead *.go set filetype=go
-au BufNewFile,BufRead *.m set filetype=octave
+augroup myfiletypes
+    autocmd!
+    autocmd BufNewFile,BufRead *.l setlocal commentstring=\;%s
+    autocmd BufNewFile,BufRead *.py setlocal commentstring=\ \#%s
+    autocmd BufNewFile,BufRead *.rb setlocal commentstring=\ \#%s
+    autocmd BufNewFile,BufRead *.md setlocal commentstring=\ <!--\ %s\ -->
+    autocmd BufNewFile,BufRead *.launch setlocal commentstring=\ <!--\ %s\ -->
+    au BufNewFile,BufRead *.launch set filetype=launch syntax=xml
+    au BufNewFile,BufRead *.l set filetype=lisp
+    "au BufNewFile,BufRead *.m set filetype=octave
+augroup END
 set shellslash
 set grepprg=grep\ -nH\ $*
 let g:tex_conceal = ""
@@ -251,23 +247,14 @@ set t_BE=
 "}}}
 
 " mappings {{{
-nnoremap <Space>t :<C-u>tabedit 
-nnoremap <Space>e :<C-u>edit 
 nnoremap <silent> <C-n> :<C-u>bnext<CR>
 nnoremap <silent> <C-p> :<C-u>bprevious<CR>
-nnoremap <silent> <Space>n :<C-u>tabnext<CR>
-nnoremap <silent> <Space>p  :<C-u>tabprevious<CR>
 nnoremap <Space>d :<C-u>bd<CR>
-nnoremap <Space>p :<C-u>pwd<CR>
 nnoremap <Space><Space> i<Space><Esc>la<Space><Esc>
-nnoremap <S-tab> za
+"nnoremap <S-tab> za
 noremap ; :
 noremap : ;
 
-imap <ESC>OA <Up>
-imap <ESC>OB <Down>
-imap <ESC>OD <Left>
-imap <ESC>OC <Right>
 imap <silent> <c-b> <Left>
 imap <silent> <c-f> <Right>
 "tagsジャンプの時に複数ある時は一覧表示
@@ -294,18 +281,11 @@ nnoremap <Leader>y my:0,$!xsel -iob<CR>u`y
 " endif
 "}}}
 " fugitive "{{{
-if has('autocmd')
+augroup myfugitive
+    autocmd!
     autocmd BufReadPost fugitive://* set bufhidden=delete
 endif
 "}}}
-" unite {{{
-" call unite#custom#profile('default', 'context', {
-"           \   'start_insert': 1,
-"           \   'winheight': 10,
-"           \   'direction': 'botright',
-"           \ })
-" command! Outline execute ":Unite outline -no-start-insert -vertical -no-quit -no-auto-quit -winwidth=50<CR>"
-" }}}
 " quickrun {{{
 let g:quickrun_config = {}
 if has('job')
@@ -432,22 +412,6 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 " }}}
-" python {{{
-" jedi-vim
-" jediにvimの設定を任せると'completeopt+=preview'するので
-" 自動設定機能をOFFにし手動で設定を行う
-let g:jedi#auto_vim_configuration = 0
-" 補完の最初の項目が選択された状態だと使いにくいためオフにする
-let g:jedi#popup_select_first = 0
-let g:jedi#popup_on_dot = 0
-" quickrunと被るため大文字に変更
-let g:jedi#rename_command = '<Leader>R'
-" 自動定義表示させない
-"let g:jedi#show_function_definition = "0"
-let g:jedi#show_call_signatures = "0"
-"autocmd FileType python let b:did_ftplugin = 1
-let python_highlight_all = 1
-"}}}
 " refe {{{
 let g:ref_use_vimproc=1
 let g:ref_refe_version=2
@@ -630,7 +594,7 @@ nnoremap <silent><C-l><C-t> :<C-u>CtrlPSmartTabs<CR>
 let g:ctrlp_cmd='CtrlP'
 let g:ctrlp_use_caching = 1
 if executable('rg')
-  let g:ctrlp_user_command = 'rg --hidden --files %s | rg -v -e "\.exe$" -e "\.so$" -e "\.dll$" -e "\.db$" -e "\.o$" -e "\.a$" -e "\.pyc$" -e "\.pyo$" -e "\.pdf$" -e "\.dvi$" -e "\.zip$" -e "\.rar$" -e "\.tgz$" -e "\.gz$" -e "\.tar$" -e "\.png$" -e "\.jpg$" -e "\.JPG$" -e "\.gif$" -e "\.mpg$" -e "\.mp4$" -e "\.mp3$" -e "\.bag$"'
+  let g:ctrlp_user_command = 'rg --hidden --files %s | rg -v -e "\.git/" -e "\.exe$" -e "\.so$" -e "\.dll$" -e "\.db$" -e "\.o$" -e "\.a$" -e "\.pyc$" -e "\.pyo$" -e "\.pdf$" -e "\.dvi$" -e "\.zip$" -e "\.rar$" -e "\.tgz$" -e "\.gz$" -e "\.tar$" -e "\.png$" -e "\.jpg$" -e "\.JPG$" -e "\.gif$" -e "\.mpg$" -e "\.mp4$" -e "\.mp3$" -e "\.bag$"'
 endif
 let g:ctrlp_max_files = 0
 let g:ctrlp_show_hidden = 1
@@ -649,10 +613,10 @@ let g:ctrlp_key_loop = 0
 let g:ctrlp_funky_sort_reverse=1
 let g:ctrlp_smarttabs_modify_tabline = 1
 let g:ctrlp_tjump_only_silent = 1
-"if has('python3')
-"  let g:fruzzy#usenative = 1
-"  let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
-"elseif exists('*matchfuzzy')
+" if has('python3')
+"   let g:fruzzy#usenative = 1
+"   let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
+" elseif exists('*matchfuzzy')
 if exists('*matchfuzzy')
   let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 endif
@@ -668,20 +632,6 @@ let g:ctrlp_tjump_shortener = ['/home/[^/]*/', '~/']
 "}}}
 "openbrowser"{{{
 "let g:netrw_nogx = 1 " disable netrw's gx mapping.
-function! s:enable_lemonade() abort
-    "let g:openbrowser_browser_commands_default = get(g:, 'openbrowser_browser_commands', '')
-    if executable('lemonade')
-        let g:openbrowser_browser_commands = [
-                    \   {'name': 'lemonade',
-                    \    'args': ['{browser}', 'open', '{uri}'],
-                    \    'background': 1}
-                    \]
-        echomsg "lemonade client enabled"
-    else
-        echomsg "lemonade is not on the path?"
-    endif
-endfunction
-command! EnableLemonade call s:enable_lemonade()
 nmap <space>ob <Plug>(openbrowser-open)
 vmap <space>ob <Plug>(openbrowser-open)
 nmap <space>ow <Plug>(openbrowser-search)
