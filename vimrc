@@ -358,21 +358,18 @@ nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() 
 " endif
 
 let g:lsp_diagnostics_highlights_enabled = 0
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  setlocal completeopt-=preview
-  "nmap <buffer> gd <plug>(lsp-definition)
-  "nmap <buffer> <f2> <plug>(lsp-rename)
-  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-endfunction
-set completeopt=menuone,popup
-set pumheight=10 "set the height of completion menu
-
-augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
+" function! s:on_lsp_buffer_enabled() abort
+"   setlocal omnifunc=lsp#complete
+"   setlocal signcolumn=yes
+"   setlocal completeopt-=preview
+"   "nmap <buffer> gd <plug>(lsp-definition)
+"   "nmap <buffer> <f2> <plug>(lsp-rename)
+"   inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+" endfunction
+" augroup lsp_install
+"   au!
+"   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+" augroup END
 command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
 " let g:lsp_settings = {
@@ -392,7 +389,8 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'name': 'buffer',
     \ 'allowlist': ['*'],
     \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ 'priority': 5,
+    \ 'priority': 15,
+    \ 'min_chars': 0,
     \ 'config': {
     \    'max_buffer_size': 5000000,
     \  },
@@ -401,37 +399,37 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'name': 'file',
     \ 'allowlist': ['*'],
     \ 'priority': 10,
+    \ 'min_chars': 0,
     \ 'completor': function('asyncomplete#sources#file#completor')
     \ }))
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
     \ 'name': 'neosnippet',
     \ 'whitelist': ['*'],
+    \ 'priority': 5,
+    \ 'min_chars': 1,
     \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
     \ }))
 
-function! s:sort_by_priority_preprocessor(options, matches) abort
-  let l:items = []
-  for [l:source_name, l:matches] in items(a:matches)
-	for l:item in l:matches['items']
-	  if stridx(l:item['word'], a:options['base']) == 0
-		let l:item['priority'] =
-			\ get(asyncomplete#get_source_info(l:source_name),'priority',0)
-		call add(l:items, l:item)
-	  endif
-	endfor
-  endfor
-  let l:items = sort(l:items, {a, b -> b['priority'] - a['priority']})
-  call asyncomplete#preprocess_complete(a:options, l:items)
-endfunction
-let g:asyncomplete_preprocessor = [function('s:sort_by_priority_preprocessor')]
+set completeopt=menuone,noinsert,noselect
+set pumheight=10 "set the height of completion menu
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
-let g:asyncomplete_auto_popup = 1
-let g:asyncomplete_auto_completeopt = 0
-let g:asyncomplete_popup_delay = 200
+let g:asyncomplete_auto_popup = 0
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+let g:asyncomplete_auto_completeopt = 1
+let g:asyncomplete_popup_delay = 10
+let g:asyncomplete_min_chars = 0
+let g:asyncomplete_matchfuzzy = 1
 let g:lsp_text_edit_enabled = 1
-let g:asyncomplete_remove_duplicates = 1
 let g:lsp_signs_enabled = 0         " enable signs
 let g:lsp_signs_error = {'text': 'XX'}
 let g:lsp_signs_warning = {'text': '!!'}"
