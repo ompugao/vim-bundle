@@ -75,9 +75,10 @@ Plug 'rhysd/vim-clang-format'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
-Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/vim-lsp'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'thomasfaingnaert/vim-lsp-neosnippet'
 Plug 'thomasfaingnaert/vim-lsp-snippets'
@@ -365,7 +366,7 @@ function! s:on_lsp_buffer_enabled() abort
   "nmap <buffer> <f2> <plug>(lsp-rename)
   inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
 endfunction
-set completeopt+=noselect
+set completeopt=menuone,popup
 set pumheight=10 "set the height of completion menu
 
 augroup lsp_install
@@ -387,11 +388,42 @@ command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 "     }
 " }
 
-call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'allowlist': ['*'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ 'priority': 5,
+    \ 'config': {
+    \    'max_buffer_size': 5000000,
+    \  },
+    \ }))
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'allowlist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
     \ 'name': 'neosnippet',
     \ 'whitelist': ['*'],
     \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
     \ }))
+
+function! s:sort_by_priority_preprocessor(options, matches) abort
+  let l:items = []
+  for [l:source_name, l:matches] in items(a:matches)
+	for l:item in l:matches['items']
+	  if stridx(l:item['word'], a:options['base']) == 0
+		let l:item['priority'] =
+			\ get(asyncomplete#get_source_info(l:source_name),'priority',0)
+		call add(l:items, l:item)
+	  endif
+	endfor
+  endfor
+  let l:items = sort(l:items, {a, b -> b['priority'] - a['priority']})
+  call asyncomplete#preprocess_complete(a:options, l:items)
+endfunction
+let g:asyncomplete_preprocessor = [function('s:sort_by_priority_preprocessor')]
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
