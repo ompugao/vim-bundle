@@ -147,7 +147,7 @@ set ts=4  " タブ幅
 set sw=4  " シフト幅
 set smarttab   "use shiftwidth when inserts <tab>
 set noexpandtab  " タブをスペースに展開
-au FileType cpp set expandtab
+au FileType h,cpp,cuda set expandtab
 set incsearch  "incremental search
 set hlsearch
 set wrap  "長い行を折り返し
@@ -760,6 +760,7 @@ let g:clang_format#style_options = {
             \ "ColumnLimit" : "120",
             \ "SortIncludes" : "false",
             \ "AlwaysBreakTemplateDeclarations" : "true",
+            \ "UseTab" : "Never",
             \ "Standard" : "C++11"}
 
 function! s:set_cmake_dictionary() "{{{
