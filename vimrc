@@ -248,6 +248,13 @@ endif
 " Copy-Paste in xfce4-terminal adds 0~ and 1~
 " https://unix.stackexchange.com/questions/196098/copy-paste-in-xfce4-terminal-adds-0-and-1
 set t_BE=
+" https://stackoverflow.com/a/30552423
+augroup highlight_todo
+    au!
+    au Syntax * syn match MyTodo /\v<(FIXME|NOTE|TODO|OPTIMIZE|XXX)/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link MyTodo Todo
 "}}}
 
 " mappings {{{
