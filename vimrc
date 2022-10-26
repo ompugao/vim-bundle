@@ -769,6 +769,8 @@ let g:clang_format#style_options = {
             \ "SortIncludes" : "false",
             \ "AlwaysBreakTemplateDeclarations" : "true",
             \ "UseTab" : "Never",
+            \ "DerivePointerAlignment": "false",
+            \ "PointerAlignment": "Left",
             \ "Standard" : "C++11"}
 
 function! s:set_cmake_dictionary() "{{{
