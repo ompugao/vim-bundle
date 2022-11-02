@@ -780,4 +780,22 @@ function! s:set_cmake_dictionary() "{{{
   endif
 endfunction 
 autocmd FileType cmake call s:set_cmake_dictionary() "}}}
+
+function! ToggleTerminal() abort
+  let l:terms = term_list()
+  if empty(l:terms)
+    botright terminal ++rows=10
+  else
+    let l:wins = win_findbuf(l:terms[0])
+    if empty(l:wins)
+      botright 10split
+      execute 'buffer' l:terms[0]
+    else
+      call win_execute(l:wins[0], 'hide')
+    endif
+  endif
+endfunction
+inoremap <F2> <cmd>:call ToggleTerminal()<cr>
+nnoremap <F2> <cmd>:call ToggleTerminal()<cr>
+tnoremap <F2> <cmd>:call ToggleTerminal()<cr>
 filetype plugin indent on
