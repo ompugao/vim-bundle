@@ -36,6 +36,7 @@ Plug 'thinca/vim-ref'
 Plug 'haya14busa/vim-asterisk'
 Plug 'bling/vim-airline'
 Plug 'ompugao/vim-airline-cwd'
+Plug 'ompugao/markshift', {'for': 'markshift'}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ompugao/ctrlp-history'
 Plug 'ompugao/ctrlp-locate'
@@ -278,6 +279,7 @@ function! s:GetBufferDirectory()
   let path = expand('%:p:h')
   return path . (exists('+shellslash') && !&shellslash ? '\' : '/')
 endfunction
+cnoremap <C-T> <C-R>=strftime('%Y_%m_%d')<CR>
 cabbr w!! w !sudo tee > /dev/null %
 " yank to clipboard via xsel
 nnoremap <Leader>y my:0,$!xsel -iob<CR>u`y
@@ -364,6 +366,22 @@ nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() 
 "     autocmd FileType markdown setlocal omnifunc=lsp#omni#complete
 " endif
 
+function! s:setup_markshift() abort
+	let s:msls_client_id = lsp#register_server({
+				\ 'name': 'msls',
+				\ 'cmd': ['python3', '-m', 'markshift.langserver.server', '--never_steal_focus', '--always_on_top', '--logfile=msls.log'],
+				\ 'allowlist': ['markshift'],
+				\ })
+				"\ 'cmd': ['msls'],
+				"\ 'cmd': ['msls', '--never_steal_focus', '--always_on_top', '--logfile=msls.log'],
+endfunction
+
+augroup vim_lsp_settings_markshift-language-server
+  au!
+  au User lsp_setup call s:setup_markshift()
+augroup END
+
+let g:lsp_work_done_progress_enabled = 1
 let g:lsp_diagnostics_highlights_enabled = 0
 " function! s:on_lsp_buffer_enabled() abort
 "   setlocal omnifunc=lsp#complete
@@ -437,6 +455,8 @@ let g:asyncomplete_popup_delay = 10
 let g:asyncomplete_min_chars = 0
 let g:asyncomplete_matchfuzzy = 1
 let g:lsp_text_edit_enabled = 1
+let g:lsp_experimental_workspace_folders = 1
+let g:lsp_experimental_show_document = 1
 let g:lsp_signs_enabled = 0         " enable signs
 let g:lsp_signs_error = {'text': 'XX'}
 let g:lsp_signs_warning = {'text': '!!'}"
