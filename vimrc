@@ -430,6 +430,7 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
     \ 'name': 'neosnippet',
     \ 'whitelist': ['*'],
+    \ 'blocklist': ['markshift'],
     \ 'priority': 5,
     \ 'min_chars': 1,
     \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
@@ -440,7 +441,9 @@ set pumheight=10 "set the height of completion menu
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
-let g:asyncomplete_auto_popup = 0
+"let g:asyncomplete_auto_popup = 0
+let s:auto_popup_filetypes = ['markshift']
+au InsertEnter * exe 'let g:asyncomplete_auto_popup = '.(index(s:auto_popup_filetypes, &ft) >= 0 ? '1' : '0')
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
