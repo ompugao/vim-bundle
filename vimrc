@@ -36,7 +36,7 @@ Plug 'thinca/vim-ref'
 Plug 'haya14busa/vim-asterisk'
 Plug 'bling/vim-airline'
 Plug 'ompugao/vim-airline-cwd'
-Plug 'ompugao/markshift', {'for': 'markshift'}
+Plug 'ompugao/markshift'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ompugao/ctrlp-history'
 Plug 'ompugao/ctrlp-locate'
@@ -821,4 +821,6 @@ endfunction
 inoremap <F2> <cmd>:call ToggleTerminal()<cr>
 nnoremap <F2> <cmd>:call ToggleTerminal()<cr>
 tnoremap <F2> <cmd>:call ToggleTerminal()<cr>
+
+let g:markshift_enable_default_mappings = 1
 filetype plugin indent on
