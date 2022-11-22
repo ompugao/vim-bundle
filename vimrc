@@ -712,7 +712,10 @@ nnoremap <silent> <space>E :<C-u>Dirvish %<CR>
 vnoremap <silent> <Enter> :LiveEasyAlign<cr>
 " }}}
 " operator-replace {{{
-map R <Plug>(operator-replace)
+nnoremap <silent> RR R
+nnoremap <silent> R <Plug>(operator-replace)
+xnoremap <silent> R <Plug>(operator-replace)
+"map R <Plug>(operator-replace)
 " }}}
 " operator-surround {{{
 map <silent>sa <Plug>(operator-surround-append)
