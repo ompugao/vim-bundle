@@ -40,6 +40,7 @@ Plug 'ompugao/markshift'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ompugao/ctrlp-history'
 Plug 'ompugao/ctrlp-locate'
+Plug 'img-paste-devs/img-paste.vim'
 " Plug 'DavidEGx/ctrlp-smarttabs'
 " Plug 'ompugao/uncrustify-vim'
 " Plug 'haya14busa/vim-migemo'
@@ -379,6 +380,7 @@ endfunction
 augroup vim_lsp_settings_markshift-language-server
   au!
   au User lsp_setup call s:setup_markshift()
+  au FileType markshift setlocal omnifunc=lsp#omni#complete
 augroup END
 
 let g:lsp_work_done_progress_enabled = 1
@@ -803,7 +805,7 @@ function! s:set_cmake_dictionary() "{{{
   endif
 endfunction 
 autocmd FileType cmake call s:set_cmake_dictionary() "}}}
-
+" toggle terminal {{{
 function! ToggleTerminal() abort
   let l:terms = term_list()
   if empty(l:terms)
@@ -821,6 +823,23 @@ endfunction
 inoremap <F2> <cmd>:call ToggleTerminal()<cr>
 nnoremap <F2> <cmd>:call ToggleTerminal()<cr>
 tnoremap <F2> <cmd>:call ToggleTerminal()<cr>
+" }}}
+" img-paste {{{
+let g:mdip_imgdir = 'assets'
+"let g:mdip_imgname = 'image'
+function! g:MarkshiftPasteImage(relpath)
+        execute "normal! i[@img \"" . g:mdip_tmpname[0:0]
+        let ipos = getcurpos()
+        execute "normal! a" . g:mdip_tmpname[1:] . "\" " . a:relpath . "]"
+        call setpos('.', ipos)
+        "execute "normal! vt]\<C-g>"
+endfunction
+augroup markshift-imgpaste
+	autocmd!
+	autocmd FileType markshift nmap <buffer> <leader>P <cmd>:call mdip#MarkdownClipboardImage()<CR>
+	autocmd FileType markshift let g:PasteImageFunction = 'g:MarkshiftPasteImage'
+augroup END
+" }}}
 
 let g:markshift_enable_default_mappings = 1
 filetype plugin indent on
