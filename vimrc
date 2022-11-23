@@ -715,6 +715,15 @@ vmap <space>os <Plug>(openbrowser-smart-search)
 " dirvish {{{
 let g:dirvish_hijack_netrw=1
 nnoremap <silent> <space>E :<C-u>Dirvish %<CR>
+function! s:setup_dirvish()
+  " disable default /
+  nunmap <buffer> /
+  nunmap <buffer> ?
+endfunction
+augroup DirVish
+  au!
+  autocmd FileType dirvish :call s:setup_dirvish()
+augroup END
 " }}}
 " vim-easy-align{{{
 vnoremap <silent> <Enter> :LiveEasyAlign<cr>
