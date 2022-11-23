@@ -200,6 +200,9 @@ augroup myfiletypes
     "au BufNewFile,BufRead *.m set filetype=octave
 augroup END
 set shellslash
+set isfname&
+  \ isfname+=@-@
+  \ isfname-==
 set grepprg=grep\ -nH\ $*
 let g:tex_conceal = ""
 augroup vimrc-auto-cursorline "http://d.hatena.ne.jp/thinca/20090530/1243615055 {{{ 
