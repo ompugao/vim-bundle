@@ -257,6 +257,11 @@ augroup highlight_todo
           \ containedin=.*Comment,vimCommentTitle
 augroup END
 hi def link MyTodo Todo
+" https://zenn.dev/hokorobi/articles/98f79339d7d114
+augroup syntax_off_for_big_file
+	autocmd!
+	autocmd BufEnter * if getfsize(@%) > 1000 * 1000 | setlocal syntax=OFF | call interrupt() | endif
+augroup END
 "}}}
 
 " mappings {{{
