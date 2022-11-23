@@ -828,7 +828,7 @@ nnoremap <F2> <cmd>:call ToggleTerminal()<cr>
 tnoremap <F2> <cmd>:call ToggleTerminal()<cr>
 " }}}
 " img-paste {{{
-let g:mdip_imgdir = 'assets'
+let g:mdip_imgdir = './assets'
 "let g:mdip_imgname = 'image'
 function! g:MarkshiftPasteImage(relpath)
         execute "normal! i[@img \"" . g:mdip_tmpname[0:0]
