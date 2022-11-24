@@ -116,8 +116,13 @@ augroup mysettings
 augroup END
 set autoindent  " 自動インデント
 set backup  " バックアップを有効にする
-set backupdir=$HOME/.vimbackup  " バックアップ用ディレクトリ
-set directory=$HOME/.vimswap
+if has('nvim')
+  set backupdir=$HOME/.nvimbackup  " バックアップ用ディレクトリ
+  set directory=$HOME/.nvimswap
+else
+  set backupdir=$HOME/.vimbackup  " バックアップ用ディレクトリ
+  set directory=$HOME/.vimswap
+endif
 set diffopt+=vertical
 if !isdirectory(&backupdir)
     call mkdir(&backupdir, "p")
@@ -131,7 +136,11 @@ augroup swapchoice-readonly
   autocmd SwapExists * let v:swapchoice = 'o'
 augroup END
 if has('persistent_undo')
-    set undodir=$HOME/.vimundo  " アンドゥ用ディレクトリ
+    if has('nvim')
+        set undodir=$HOME/.nvimundo  " アンドゥ用ディレクトリ
+    else
+        set undodir=$HOME/.vimundo  " アンドゥ用ディレクトリ
+    endif
     if !isdirectory(&undodir)
         call mkdir(&undodir, "p")
     endif
@@ -169,11 +178,15 @@ set hidden
 set vb t_vb= "disable visualbell
 set virtualedit+=block "矩形選択で自由に移動
 set nrformats+=unsigned "increment ignoring `-'
-if has('clipboard')
-  if has('unnamedplus')
-    set clipboard=unnamedplus,autoselect 
-  else
-    set clipboard+=unnamed "無名レジスタだけでなく、*レジスタにもヤンク
+if has('nvim')
+  set clipboard=unnamedplus
+else
+  if has('clipboard')
+    if has('unnamedplus')
+      set clipboard=unnamedplus,autoselect 
+    else
+      set clipboard+=unnamed "無名レジスタだけでなく、*レジスタにもヤンク
+    endif
   endif
 endif
 set wildmode=longest:full,full
@@ -309,27 +322,14 @@ augroup myfugitive
 augroup END
 "}}}
 " quickrun {{{
-let g:quickrun_config = {}
-if has('job')
-  let g:quickrun_config = { 
-           \ "_" : { 
-           \ "outputter/buffer/split" : ":botright", 
-           \ "outputter/buffer/close_on_empty" : 1 ,
-           \ "runner" : "job",
-           \ "runner/job/interval" : 60
-           \ }, 
-           \}
-elseif g:loaded_vimproc
-  let g:quickrun_config = { 
-           \ "_" : { 
-           \ "outputter/buffer/split" : ":botright", 
-           \ "outputter/buffer/close_on_empty" : 1 ,
-           \ "runner" : "vimproc",
-           \ "runner/vimproc/updatetime" : 60
-           \ }, 
-           \}
-endif
-
+let g:quickrun_config = { 
+        \ "_" : { 
+        \ "outputter/buffer/split" : ":botright", 
+        \ "outputter/buffer/close_on_empty" : 1 ,
+        \ "runner" : "job",
+        \ "runner/job/interval" : 60
+        \ }, 
+        \}
 let g:quickrun_config.markdown = {
       \ 'type': 'markdown/pandoc',
       \ 'outputter': 'browser',
@@ -655,7 +655,8 @@ let g:ctrlp_map = '<c-l><c-p>'
 nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
 nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
 nnoremap <silent><C-l><C-b> :<C-u>CtrlPBuffer<CR>
-noremap <silent><C-l><C-m> :<C-u>CtrlPMRU<CR>
+nnoremap <silent><C-l><C-r> :<C-u>CtrlPMRU<CR>
+nnoremap <silent><C-l><C-m> :<C-u>CtrlPMRU<CR>
 nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
 nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
 nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
@@ -675,7 +676,7 @@ let g:ctrlp_mruf_max = 1000
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*'
 let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/]\.(git|hg|svn|neocon|cache|Skype|fontconfig|vimbackup|wine|thumbnail|mozilla|local|thunderbird|vimundo|neocomplcache|rvm|cache|vimswap|rbenv)$',
+            \ 'dir':  '\v[\/]\.(git|hg|svn|neocon|cache|Skype|fontconfig|vimbackup|nvimbackup|wine|thumbnail|mozilla|local|thunderbird|vimundo|nvimundo|neocomplcache|rvm|cache|vimswap|nvimswap|rbenv)$',
             \ 'file': '\v(\.(exe|so|dll|db|o|a|pyc|pyo|pdf|dvi|zip|rar|tgz|gz|tar|png|jpg|JPG|gif|mpg|mp4|mp3|bag|sw[a-z])|tags)$',
             \ }
             "\ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.neocon$\|\.cache$\|\.Skype$\|\.fontconfig$\|\.vimbackup$\|\.wine$\|\.thumbnails$\|\.mozilla$\|\.local$\|\.thunderbird$\|\.vimundo$\|\.neocomplcache$\|\.rvm$\|\.cache$\|\.vimswap$|\.rbenv$',
