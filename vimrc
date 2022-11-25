@@ -827,20 +827,60 @@ function! s:set_cmake_dictionary() "{{{
 endfunction 
 autocmd FileType cmake call s:set_cmake_dictionary() "}}}
 " toggle terminal {{{
-function! ToggleTerminal() abort
-  let l:terms = term_list()
-  if empty(l:terms)
-    botright terminal ++rows=10
-  else
-    let l:wins = win_findbuf(l:terms[0])
-    if empty(l:wins)
-      botright 10split
-      execute 'buffer' l:terms[0]
+if has('nvim')
+  function! s:term_list() abort
+    let l:blist = getbufinfo({'bufloaded': 1, 'buflisted': 1})
+    let l:res = []
+    for l:item in l:blist
+      if empty(l:item.variables)
+        continue
+      endif
+      if !has_key(l:item.variables, "terminal_job_id")
+        continue
+      endif
+      call add(l:res, l:item.bufnr)
+    endfor
+    return l:res
+  endfunction
+  
+  function! ToggleTerminal() abort
+    let l:terms = s:term_list()
+    if empty(l:terms)
+      split
+      execute "normal! \<c-w>J"
+      resize 10
+      set wfh
+      terminal
+      startinsert
     else
-      call win_execute(l:wins[0], 'hide')
+      let l:wins = win_findbuf(l:terms[0])
+      if empty(l:wins)
+        botright 10split
+        set wfh
+        execute 'buffer' l:terms[0]
+        startinsert
+      else
+        call nvim_win_hide(l:wins[0])
+      endif
     endif
-  endif
-endfunction
+  endfunction
+else
+  function! ToggleTerminal() abort
+    let l:terms = term_list()
+    if empty(l:terms)
+      botright terminal ++rows=10
+    else
+      let l:wins = win_findbuf(l:terms[0])
+      if empty(l:wins)
+        botright 10split
+        execute 'buffer' l:terms[0]
+      else
+        call win_execute(l:wins[0], 'hide')
+      endif
+    endif
+  endfunction
+endif
+
 inoremap <F2> <cmd>:call ToggleTerminal()<cr>
 nnoremap <F2> <cmd>:call ToggleTerminal()<cr>
 tnoremap <F2> <cmd>:call ToggleTerminal()<cr>
