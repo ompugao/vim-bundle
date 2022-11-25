@@ -391,6 +391,7 @@ augroup vim_lsp_settings_markshift-language-server
   au FileType markshift setlocal omnifunc=lsp#omni#complete
 augroup END
 
+set updatetime=300
 let g:lsp_work_done_progress_enabled = 1
 let g:lsp_diagnostics_highlights_enabled = 0
 " function! s:on_lsp_buffer_enabled() abort
