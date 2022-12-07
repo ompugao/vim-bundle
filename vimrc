@@ -147,7 +147,7 @@ if has('persistent_undo')
     set undofile "全てのファイルでundo履歴を残す [http://vim-users.jp/2010/07/hack162/]()
 endif
 set list  " 不可視文字の表示
-set listchars=tab:>-
+set listchars=tab:>-,trail:_,nbsp:%
 set scrolloff=4  " スクロール時の余白
 set ignorecase
 set smartcase
@@ -483,7 +483,8 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 " For snippet_complete marker.
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+  set conceallevel=2 concealcursor=c
+  let g:indentLine_concealcursor='c'
 endif
 " }}}
 " refe {{{
@@ -721,6 +722,7 @@ function! s:setup_dirvish()
   " disable default /
   nunmap <buffer> /
   nunmap <buffer> ?
+  setlocal conceallevel=2 concealcursor=inc
 endfunction
 augroup DirVish
   au!
