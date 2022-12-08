@@ -36,7 +36,7 @@ Plug 'thinca/vim-ref'
 Plug 'haya14busa/vim-asterisk'
 Plug 'bling/vim-airline'
 Plug 'ompugao/vim-airline-cwd'
-Plug 'ompugao/markshift'
+Plug 'ompugao/markshift', {'for': 'markshift'}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ompugao/ctrlp-history'
 Plug 'ompugao/ctrlp-locate'
@@ -424,9 +424,10 @@ command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
     \ 'name': 'buffer',
     \ 'allowlist': ['*'],
+    \ 'blocklist': ['markshift'],
     \ 'completor': function('asyncomplete#sources#buffer#completor'),
     \ 'priority': 15,
-    \ 'min_chars': 0,
+    \ 'min_chars': 2,
     \ 'config': {
     \    'max_buffer_size': 5000000,
     \  },
@@ -474,7 +475,7 @@ let g:lsp_experimental_show_document = 1
 let g:lsp_signs_enabled = 0         " enable signs
 let g:lsp_signs_error = {'text': 'XX'}
 let g:lsp_signs_warning = {'text': '!!'}"
-"let g:lsp_auto_enable = 1
+let g:lsp_auto_enable = 1
 "}}}
 " neosnippet {{{
 let g:neosnippet#snippets_directory='~/.vim/snippets'
@@ -485,6 +486,7 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 if has('conceal')
   set conceallevel=2 concealcursor=c
   let g:indentLine_fileTypeExclude=['dirvish']
+  let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
   let g:indentLine_concealcursor='c'
 endif
 " }}}
