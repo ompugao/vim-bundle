@@ -484,6 +484,7 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=c
+  let g:indentLine_fileTypeExclude=['dirvish']
   let g:indentLine_concealcursor='c'
 endif
 " }}}
@@ -720,13 +721,13 @@ let g:dirvish_hijack_netrw=1
 nnoremap <silent> <space>E :<C-u>Dirvish %<CR>
 function! s:setup_dirvish()
   " disable default /
-  nunmap <buffer> /
-  nunmap <buffer> ?
-  setlocal conceallevel=2 concealcursor=inc
+  nunmap <silent> <buffer> /
+  nunmap <silent> <buffer> ?
+  setlocal conceallevel=2 concealcursor=nvc
 endfunction
-augroup DirVish
+augroup MyDirVish
   au!
-  autocmd FileType dirvish :call s:setup_dirvish()
+  autocmd FileType dirvish call s:setup_dirvish()
 augroup END
 " }}}
 " vim-easy-align{{{
