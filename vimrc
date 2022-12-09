@@ -44,9 +44,9 @@ Plug 'img-paste-devs/img-paste.vim'
 " Plug 'DavidEGx/ctrlp-smarttabs'
 " Plug 'ompugao/uncrustify-vim'
 " Plug 'haya14busa/vim-migemo'
-Plug 'tyru/eskk.vim'
-"Plug 'vim-denops/denops.vim'
-"Plug 'vim-skk/skkeleton'
+"Plug 'tyru/eskk.vim'
+Plug 'vim-denops/denops.vim'
+Plug 'vim-skk/skkeleton'
 Plug 'kshenoy/vim-signature'
 Plug 'Shougo/vinarise', {'on': 'Vinarize'}
 Plug 'scrooloose/nerdcommenter'
@@ -804,6 +804,13 @@ let g:eskk#large_dictionary = {
             \	'sorted': 1,
             \	'encoding': 'euc-jp',
             \}
+call skkeleton#config({
+            \ 'globalJisyo': '~/.skkjisyo/SKK-JISYO.L',
+            \ 'keepState': v:true,
+            \ 'registerConvertResult': v:true
+            \ })
+imap <C-j> <Plug>(skkeleton-enable)
+cmap <C-j> <Plug>(skkeleton-enable)
 "}}}
 " oscyank {{{
 let g:oscyank_silent = v:true
