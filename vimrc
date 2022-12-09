@@ -158,7 +158,7 @@ set ts=4  " タブ幅
 set sw=4  " シフト幅
 set smarttab   "use shiftwidth when inserts <tab>
 set noexpandtab  " タブをスペースに展開
-au FileType h,cpp,cuda set expandtab
+au FileType h,cpp,cuda,vim set expandtab
 set incsearch  "incremental search
 set hlsearch
 set wrap  "長い行を折り返し
