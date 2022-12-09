@@ -485,9 +485,9 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=c
-  let g:indentLine_fileTypeExclude=['dirvish']
   let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
   let g:indentLine_concealcursor='c'
+  let g:indentLine_setConceal = 0
 endif
 " }}}
 " refe {{{
