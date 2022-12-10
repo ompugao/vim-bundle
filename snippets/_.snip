@@ -9,3 +9,7 @@ abbr        vimset
 snippet     vimsetlong
 abbr        vimsetlong
     ${1} vim: set fileencoding=${2:#:fileencoding} ts=${3:#:tabshift} sw=${4:#:shiftwidth} ft=${5:filetype}:${0}
+
+snippet     date
+options     word
+    `strftime("%Y_%m_%d")`
