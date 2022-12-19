@@ -701,6 +701,7 @@ if exists('*matchfuzzy')
   let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 endif
 if has('python3')
+  let g:cpsm_match_empty_query = 0
   let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
 endif
 let g:ctrlp_tjump_shortener = ['/home/[^/]*/', '~/']
