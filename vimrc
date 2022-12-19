@@ -804,13 +804,27 @@ let g:eskk#large_dictionary = {
             \	'sorted': 1,
             \	'encoding': 'euc-jp',
             \}
-call skkeleton#config({
-            \ 'globalJisyo': '~/.skkjisyo/SKK-JISYO.L',
-            \ 'keepState': v:true,
-            \ 'registerConvertResult': v:true
-            \ })
+function! s:skkeleton_init() abort
+  call skkeleton#config({
+              \ 'globalJisyo': '~/.skkjisyo/SKK-JISYO.L',
+              \ 'keepState': v:true,
+              \ 'registerConvertResult': v:true,
+              \ 'showCandidatesCount': 1
+              \ })
+endfunction
+augroup skkeleton-initialize-pre
+  autocmd!
+  autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+augroup END
 imap <C-j> <Plug>(skkeleton-enable)
 cmap <C-j> <Plug>(skkeleton-enable)
+if executable('ibus')
+  augroup IbusControl
+    au!
+    au InsertLeave * call system('ibus engine skk')
+    au VimEnter,InsertEnter * call system('ibus engine xkb:us::eng')
+  augroup END
+endif
 "}}}
 " oscyank {{{
 let g:oscyank_silent = v:true
