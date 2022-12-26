@@ -21,4 +21,6 @@ endif
 set guioptions-=T
 "メニューを削除
 set guioptions-=m
+" console dialogを使用する
+set guioptions+=c
 set vb t_vb=
