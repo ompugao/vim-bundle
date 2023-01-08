@@ -65,7 +65,8 @@ Plug 'ompugao/ctrlp-tweetvim'
 " Plug 'jvirtanen/vim-octave', {'for': 'octave'}
 Plug 'cohama/agit.vim'
 " Plug 'altercation/vim-colors-solarized'
-Plug 'justinmk/vim-dirvish'
+Plug 'mattn/vim-molder'
+Plug 'mattn/vim-molder-operations'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'skywind3000/asyncrun.vim'
 Plug 'cocopon/iceberg.vim'
@@ -719,19 +720,24 @@ nmap <space>ow <Plug>(openbrowser-search)
 nmap <space>os <Plug>(openbrowser-smart-search)
 vmap <space>os <Plug>(openbrowser-smart-search)
 "}}}
-" dirvish {{{
-let g:dirvish_hijack_netrw=1
-nnoremap <silent> <space>E :<C-u>Dirvish %<CR>
-function! s:setup_dirvish()
-  " disable default /
-  nunmap <silent> <buffer> /
-  nunmap <silent> <buffer> ?
-  setlocal conceallevel=2 concealcursor=nvc
-endfunction
-augroup MyDirVish
-  au!
-  autocmd FileType dirvish call s:setup_dirvish()
-augroup END
+" molder {{{
+let g:molder_show_hidden = 1
+"let g:dirvish_hijack_netrw=1
+"nnoremap <silent> <space>E :<C-u>Dirvish %<CR>
+"function! s:setup_dirvish()
+  "" disable default /
+  "if mapcheck('/','n') != ""
+    "nunmap <silent> <buffer> /
+  "endif
+  "if mapcheck('?','n') != ""
+    "nunmap <silent> <buffer> ?
+  "endif
+  "setlocal conceallevel=2 concealcursor=nvc
+"endfunction
+"augroup MyDirVish
+  "au!
+  "autocmd FileType dirvish call s:setup_dirvish()
+"augroup END
 " }}}
 " vim-easy-align{{{
 vnoremap <silent> <Enter> :LiveEasyAlign<cr>
