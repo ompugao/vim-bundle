@@ -379,34 +379,50 @@ nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() 
 function! s:setup_markshift() abort
 	let s:msls_client_id = lsp#register_server({
 				\ 'name': 'msls',
-				\ 'cmd': ['python3', '-m', 'markshift.langserver.server', '--never_steal_focus', '--always_on_top', '--logfile=msls.log'],
+				\ 'cmd': ['python3', '-m', 'markshift.langserver.server', '--hidden_on_boot', '--never_steal_focus', '--logfile=msls.log', '--zotero_path=~/Zotero'],
 				\ 'allowlist': ['markshift'],
 				\ })
 				"\ 'cmd': ['msls'],
 				"\ 'cmd': ['msls', '--never_steal_focus', '--always_on_top', '--logfile=msls.log'],
+				"\ 'cmd': ['python3', '-m', 'markshift.langserver.server'],
+				"\ 'cmd': ['python3', '-m', 'markshift.langserver.server', '--never_steal_focus', '--hidden_on_boot,'--logfile=msls.log', '--zotero_path=~/Zotero'],
+				"\ 'cmd': ['msls', '--never_steal_focus', '--zotero_path=~/Zotero'],
 endfunction
 
 augroup vim_lsp_settings_markshift-language-server
   au!
   au User lsp_setup call s:setup_markshift()
-  au FileType markshift setlocal omnifunc=lsp#omni#complete
+  "au FileType markshift setlocal omnifunc=lsp#omni#complete
 augroup END
 
 set updatetime=300
 let g:lsp_work_done_progress_enabled = 1
 let g:lsp_diagnostics_highlights_enabled = 0
-" function! s:on_lsp_buffer_enabled() abort
-"   setlocal omnifunc=lsp#complete
-"   setlocal signcolumn=yes
-"   setlocal completeopt-=preview
-"   "nmap <buffer> gd <plug>(lsp-definition)
-"   "nmap <buffer> <f2> <plug>(lsp-rename)
-"   inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-" endfunction
-" augroup lsp_install
-"   au!
-"   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-" augroup END
+let g:lsp_diagnostics_virtual_text_align = 'right'
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  "setlocal signcolumn=yes
+  setlocal completeopt-=preview
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gs <plug>(lsp-document-symbol-search)
+  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> <leader>rn <plug>(lsp-rename)
+  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+  "nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+  "nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+endfunction
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
 " let g:lsp_settings = {
