@@ -40,6 +40,8 @@ Plug 'ompugao/markshift', {'for': 'markshift'}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ompugao/ctrlp-history'
 Plug 'ompugao/ctrlp-locate'
+Plug 'lambdalisue/kensaku.vim'
+Plug 'ompugao/ctrlp-kensaku'
 Plug 'img-paste-devs/img-paste.vim'
 " Plug 'DavidEGx/ctrlp-smarttabs'
 " Plug 'ompugao/uncrustify-vim'
@@ -681,13 +683,13 @@ nnoremap <silent><C-l><C-b> :<C-u>CtrlPBuffer<CR>
 nnoremap <silent><C-l><C-r> :<C-u>CtrlPMRU<CR>
 nnoremap <silent><C-l><C-m> :<C-u>CtrlPMRU<CR>
 nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
-nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
+"nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
 nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
-nnoremap <silent><C-l>f     :<C-u>CtrlPFunky<Cr>
+"nnoremap <silent><C-l>f     :<C-u>CtrlPFunky<Cr>
 nnoremap <silent><C-l><C-h> :<C-u>CtrlPCmdHistory<CR>
 nnoremap <silent><C-l>/     :<C-u>CtrlPSearchHistory<CR>
 nnoremap <silent><C-l>l     :<C-u>CtrlPLocate<CR>
-nnoremap <silent><C-l><C-t> :<C-u>CtrlPSmartTabs<CR>
+"nnoremap <silent><C-l><C-t> :<C-u>CtrlPSmartTabs<CR>
 let g:ctrlp_cmd='CtrlP'
 let g:ctrlp_use_caching = 1
 if executable('rg')
@@ -695,7 +697,7 @@ if executable('rg')
 endif
 let g:ctrlp_max_files = 0
 let g:ctrlp_show_hidden = 1
-let g:ctrlp_prompt_mappings = { 'ToggleMRURelative()': ['<F2>'] }
+let g:ctrlp_prompt_mappings = { 'ToggleMRURelative()': ['<F2>'], 'ToggleKeyLoop()': ['<F3>'] }
 let g:ctrlp_mruf_max = 1000
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*'
@@ -712,6 +714,7 @@ let g:ctrlp_key_loop = 0
 let g:ctrlp_funky_sort_reverse=1
 let g:ctrlp_smarttabs_modify_tabline = 1
 let g:ctrlp_tjump_only_silent = 1
+let g:ctrlp_user_command_async = 1
 " if has('python3')
 "   let g:fruzzy#usenative = 1
 "   let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
@@ -723,6 +726,14 @@ if has('python3')
   let g:cpsm_match_empty_query = 0
   let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
 endif
+function! s:kensaku() abort
+  let l:oldmatcher = g:ctrlp_match_func
+  let g:ctrlp_match_func = {'match': 'ctrlp_kensaku#matcher'}
+  execute("CtrlP")
+  let g:ctrlp_match_func = l:oldmatcher
+endfunction
+command! CtrlPKensakuFiles call <SID>kensaku()
+nnoremap <silent><C-l><C-k> :<C-u>CtrlPKensakuFiles<CR>
 let g:ctrlp_tjump_shortener = ['/home/[^/]*/', '~/']
 "if exists(':CtrlPtjump')
 "  let g:ctrlp_tjump_only_silent=1
