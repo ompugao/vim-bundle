@@ -734,6 +734,42 @@ function! s:kensaku() abort
 endfunction
 command! CtrlPKensakuFiles call <SID>kensaku()
 nnoremap <silent><C-l><C-k> :<C-u>CtrlPKensakuFiles<CR>
+
+
+" let g:ctrlp_mruf_default_order = 1
+" function! Ctrlp_toggle_mrf_order() abort
+"   let g:ctrlp_mruf_default_order=!g:ctrlp_mruf_default_order
+"   echo 'mru_sort: ' . g:ctrlp_mruf_default_order
+"   let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
+"   call ctrlp#update(1)
+" endfunction
+function! CtrlPToggleMRURelative() abort
+  cal ctrlp#mrufiles#tgrel()
+  let g:ctrlp_lines = ctrlp#mrufiles#refresh()
+endfunction
+function! CtrlPPreviewFunc(line) abort
+    call system('flatpak run org.gnome.NautilusPreviewer '.. a:line)
+endfunction
+function! s:ctrlp_mru_kensaku_relative() abort
+  let l:oldmatcher = g:ctrlp_match_func
+  "let g:ctrlp_mruf_default_order = 1
+  if !g:ctrlp_mruf_relative
+    cal ctrlp#mrufiles#tgrel()
+  endif
+  let g:ctrlp_match_func = {'match': 'ctrlp_kensaku#matcher'}
+  "let g:ctrlp_move_func = {'main': 'CtrlPPreviewFunc'}
+  "execute("CtrlP")
+  execute("CtrlPMRU")
+  let g:ctrlp_match_func = l:oldmatcher
+  "unlet g:ctrlp_move_func
+  "let g:ctrlp_mruf_default_order = 0
+  if g:ctrlp_mruf_relative
+    cal ctrlp#mrufiles#tgrel()
+  endif
+endfunction
+command! CtrlPRelativeMRUKensaku call <SID>ctrlp_mru_kensaku_relative()
+nnoremap <silent><C-l><C-t> :<C-u>CtrlPRelativeMRUKensaku<CR>
+
 let g:ctrlp_tjump_shortener = ['/home/[^/]*/', '~/']
 "if exists(':CtrlPtjump')
 "  let g:ctrlp_tjump_only_silent=1
