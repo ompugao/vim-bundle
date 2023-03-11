@@ -190,7 +190,6 @@ else
             set clipboard^=unnamed "無名レジスタだけでなく、*レジスタにもヤンク
         endif
     endif
-  endif
 endif
 set wildmode=longest:full,full
 set wildmenu
