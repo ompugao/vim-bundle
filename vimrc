@@ -206,14 +206,14 @@ set foldmethod=marker
 augroup myfiletypes
     " TODO FileType Eventで
     au!
-    au BufNewFile,BufRead *.l setlocal commentstring=\;%s
-    au BufNewFile,BufRead *.py setlocal commentstring=\ \#%s
-    au BufNewFile,BufRead *.rb setlocal commentstring=\ \#%s
-    au BufNewFile,BufRead *.md setlocal commentstring=\ <!--\ %s\ -->
-    au BufNewFile,BufRead *.launch setlocal commentstring=\ <!--\ %s\ -->
-    au BufNewFile,BufRead *.launch set filetype=launch syntax=xml
-    au!
     au BufNewFile,BufRead *.l set filetype=lisp
+    au FileType lisp setlocal commentstring=\;%s
+    au FileType python setlocal commentstring=\ \#%s
+    au FileType ruby setlocal commentstring=\ \#%s
+    au FileType markdown setlocal commentstring=\ <!--\ %s\ -->
+    au BufNewFile,BufRead *.launch set filetype=launch syntax=xml
+    au FileType launch setlocal commentstring=\ <!--\ %s\ -->
+    "au BufNewFile,BufRead *.m set filetype=octave
 augroup END
 set shellslash
 set isfname&
@@ -251,7 +251,7 @@ augroup vimrc-auto-cursorline "http://d.hatena.ne.jp/thinca/20090530/1243615055 
     endfunction
 augroup END "}}}
 if exists("&cryptmethod")
-  set cryptmethod=blowfish2
+    set cryptmethod=blowfish2
 endif
 let g:markdown_fenced_languages = [
             \  'css',
@@ -806,8 +806,8 @@ let g:molder_show_hidden = 1
   "setlocal conceallevel=2 concealcursor=nvc
 "endfunction
 "augroup MyDirVish
-  "au!
-  "autocmd FileType dirvish call s:setup_dirvish()
+    "au!
+    "autocmd FileType dirvish call s:setup_dirvish()
 "augroup END
 " }}}
 " vim-easy-align{{{
@@ -835,10 +835,10 @@ let g:operator#surround#blocks = {
             \ }
 " }}}
 " asterisk {{{
-nmap *  <Plug>(asterisk-*)
-nmap g* <Plug>(asterisk-g*)
-nmap #  <Plug>(asterisk-#)
-nmap g# <Plug>(asterisk-g#)
+vmap *  <Plug>(asterisk-*)
+vmap g* <Plug>(asterisk-g*)
+vmap #  <Plug>(asterisk-#)
+vmap g# <Plug>(asterisk-g#)
 " }}}
 " previm {{{
 let g:previm_enable_realtime = 1
