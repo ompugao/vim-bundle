@@ -793,22 +793,6 @@ xmap <space>os <Plug>(openbrowser-smart-search)
 "}}}
 " molder {{{
 let g:molder_show_hidden = 1
-"let g:dirvish_hijack_netrw=1
-"nnoremap <silent> <space>E :<C-u>Dirvish %<CR>
-"function! s:setup_dirvish()
-  "" disable default /
-  "if mapcheck('/','n') != ""
-    "nunmap <silent> <buffer> /
-  "endif
-  "if mapcheck('?','n') != ""
-    "nunmap <silent> <buffer> ?
-  "endif
-  "setlocal conceallevel=2 concealcursor=nvc
-"endfunction
-"augroup MyDirVish
-    "au!
-    "autocmd FileType dirvish call s:setup_dirvish()
-"augroup END
 " }}}
 " vim-easy-align{{{
 xnoremap <silent> <Enter> :LiveEasyAlign<cr>
@@ -871,9 +855,9 @@ function! s:TexReplaceChars()
     catch /^Vim\%((\a\+)\)\=:E486/
     endtry
 endfunction
-if has('autocmd')
+augroup mytex
     autocmd BufWrite *.tex call s:TexReplaceChars()
-endif
+augroup END
 " }}}
 " eskk{{{
 let g:eskk#show_annotation=1
