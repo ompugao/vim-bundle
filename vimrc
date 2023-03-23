@@ -476,7 +476,8 @@ let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
 "let g:asyncomplete_auto_popup = 0
 let s:auto_popup_filetypes = ['markshift']
-au InsertEnter * let g:asyncomplete_auto_popup = index(s:auto_popup_filetypes, &ft) >= 1
+"au InsertEnter * let g:asyncomplete_auto_popup = index(s:auto_popup_filetypes, &ft) > 1
+au InsertEnter * exe 'let g:asyncomplete_auto_popup = '.(index(s:auto_popup_filetypes, &ft) >= 0 ? '1' : '0')
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
@@ -502,7 +503,7 @@ let g:lsp_auto_enable = 1
 let g:neosnippet#snippets_directory='~/.vim/snippets'
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+vmap <C-k>     <Plug>(neosnippet_expand_target)
 " For snippet_complete marker.
 if has('conceal')
     set conceallevel=2 concealcursor=c
