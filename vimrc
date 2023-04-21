@@ -503,7 +503,8 @@ let g:lsp_auto_enable = 1
 let g:neosnippet#snippets_directory='~/.vim/snippets'
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-vmap <C-k>     <Plug>(neosnippet_expand_target)
+xmap <C-k>     <Plug>(neosnippet_expand_or_jump)
+nmap <C-k>     <Plug>(neosnippet_expand_or_jump)
 " For snippet_complete marker.
 if has('conceal')
     set conceallevel=2 concealcursor=c
@@ -992,6 +993,5 @@ augroup markshift-imgpaste
 augroup END
 " }}}
 
-smapclear
 let g:markshift_enable_default_mappings = 1
 filetype plugin indent on
