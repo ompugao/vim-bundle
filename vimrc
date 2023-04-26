@@ -408,7 +408,7 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     "setlocal signcolumn=yes
     setlocal completeopt-=preview
-    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    "if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
     inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> gs <plug>(lsp-document-symbol-search)
