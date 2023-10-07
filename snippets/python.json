@@ -1,0 +1,25 @@
+
+{
+	"ipython": {
+		"prefix": "ipython",
+		"body": [
+			"from IPython.terminal import embed; ipshell=embed.InteractiveShellEmbed(config=embed.load_default_config())(local_ns=locals())",
+			"$0"
+		],
+		"description": "embed ipython one-liner"
+	},
+	"super2": {
+		"prefix": "super2",
+		"body": [
+			"super(${1:#:superclass}, self).__init__(${2:#:args})${0}"
+		],
+		"description": "super in python2"
+	},
+	"super3": {
+		"prefix": "super3",
+		"body": [
+			"super().__init__(${1:#:args})${0}"
+		],
+		"description": "super in python3"
+	}
+}
