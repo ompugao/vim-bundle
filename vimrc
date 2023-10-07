@@ -464,7 +464,7 @@ set pumheight=10 "set the height of completion menu
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
 "let g:asyncomplete_auto_popup = 1
-let s:auto_popup_filetypes = ['markshift']
+let s:auto_popup_filetypes = ['markshift', 'make', 'markdown', 'shell', 'docker']
 "au InsertEnter * let g:asyncomplete_auto_popup = index(s:auto_popup_filetypes, &ft) > 1
 au InsertEnter * exe 'let g:asyncomplete_auto_popup = '.(index(s:auto_popup_filetypes, &ft) >= 0 ? '1' : '0')
 function! s:check_back_space() abort
