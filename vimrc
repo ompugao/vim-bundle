@@ -904,8 +904,10 @@ endif
 "}}}
 " oscyank {{{
 let g:oscyank_silent = v:true
-xnoremap <leader>Y :OSCYank<CR>
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
+nnoremap <leader>Y <Plug>OSCYankOperator
+nnoremap <leader>YY <leader>Y_
+vnoremap <leader>Y <Plug>OSCYankVisual
+autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankRegister +' | endif
 " }}}
 let g:ale_enabled=0
 let g:clang_format#style_options = {
