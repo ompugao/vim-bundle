@@ -20,6 +20,7 @@ let &t_TE = ""
 
 " plugins {{{
 call plug#begin()
+Plug 'github/copilot.vim'
 Plug 'rbtnn/vim-ambiwidth'
 Plug 'tpope/vim-fugitive'
 Plug 'Shougo/vimproc', { 'do': 'make' }
