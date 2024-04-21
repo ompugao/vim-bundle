@@ -883,7 +883,7 @@ let g:eskk#large_dictionary = {
             \}
 function! s:skkeleton_init() abort
     call skkeleton#config({
-                \ 'globalJisyo': '~/.skkjisyo/SKK-JISYO.L',
+                \ 'globalDictionaries': ['~/.skkjisyo/SKK-JISYO.L'],
                 \ 'keepState': v:false,
                 \ 'registerConvertResult': v:true,
                 \ 'showCandidatesCount': 1
