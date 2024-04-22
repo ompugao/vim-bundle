@@ -635,6 +635,9 @@ let g:airline_mode_map = {
 set background=dark
 "colorscheme Tomorrow-Night-Blue
 "colorscheme harlequin
+if has('nvim')
+  set notermguicolors
+endif
 colorscheme PaperColor
 set t_Co=256
 " 90 ... purple which we can use only when 256-colors is enabled
