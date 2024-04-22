@@ -33,9 +33,8 @@ Plug 'kana/vim-operator-replace'
 Plug 'rhysd/vim-operator-surround'
 Plug 'thinca/vim-textobj-between'
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'rafamadriz/friendly-snippets'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 Plug 'hdima/python-syntax', {'for': 'python'}
 Plug 'thinca/vim-ref'
 Plug 'haya14busa/vim-asterisk'
@@ -86,9 +85,12 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
+Plug 'thomasfaingnaert/vim-lsp-neosnippet'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'ompugao/quickdict.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -459,6 +461,15 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
             \ 'min_chars': 0,
             \ 'completor': function('asyncomplete#sources#file#completor')
             \ }))
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+            \ 'name': 'neosnippet',
+            \ 'whitelist': ['*'],
+            \ 'blocklist': ['markshift'],
+            \ 'priority': 5,
+            \ 'min_chars': 1,
+            \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+            \ }))
+
 set completeopt=menuone,noinsert,noselect
 set pumheight=10 "set the height of completion menu
 
@@ -490,41 +501,18 @@ let g:lsp_signs_warning = {'text': '!!'}
 let g:lsp_auto_enable = 1
 "}}}
 " neosnippet {{{
-" let g:neosnippet#snippets_directory='~/.vim/snippets'
-" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" xmap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" nmap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" " For snippet_complete marker.
-" if has('conceal')
-"     set conceallevel=2 concealcursor=c
-"     let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
-"     let g:indentLine_concealcursor='c'
-"     let g:indentLine_setConceal = 0
-" endif
-" }}}
-" vsnip {{{
-let g:vsnip_snippet_dir = expand('~/.vim/snippets/')
-" Expand
-"imap <expr> <C-k>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-k>'
-"smap <expr> <C-k>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-k>'
-
-" Expand or jump
-imap <expr> <C-k>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
-smap <expr> <C-k>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
-
-" Jump forward or backward
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
-" nmap        s   <Plug>(vsnip-select-text)
-" xmap        s   <Plug>(vsnip-select-text)
-" nmap        S   <Plug>(vsnip-cut-text)
-" xmap        S   <Plug>(vsnip-cut-text)
+let g:neosnippet#snippets_directory='~/.vim/snippets'
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_or_jump)
+nmap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" For snippet_complete marker.
+if has('conceal')
+    set conceallevel=2 concealcursor=c
+    let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
+    let g:indentLine_concealcursor='c'
+    let g:indentLine_setConceal = 0
+endif
 " }}}
 " refe {{{
 let g:ref_use_vimproc=1
