@@ -741,8 +741,10 @@ endif
 function! s:kensaku() abort
     let l:oldmatcher = g:ctrlp_match_func
     let g:ctrlp_match_func = {'match': 'ctrlp_kensaku#matcher'}
+    let g:ctrlp_lazy_update = 100
     execute("CtrlP")
     let g:ctrlp_match_func = l:oldmatcher
+    let g:ctrlp_lazy_update = 0
 endfunction
 command! CtrlPKensakuFiles call <SID>kensaku()
 nnoremap <silent><C-l><C-k> :<C-u>CtrlPKensakuFiles<CR>
@@ -895,11 +897,27 @@ if executable('ibus')
 endif
 "}}}
 " oscyank {{{
-let g:oscyank_silent = v:true
-nnoremap <leader>Y <Plug>OSCYankOperator
-nnoremap <leader>YY <leader>Y_
-vnoremap <leader>Y <Plug>OSCYankVisual
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankRegister +' | endif
+if has('nvim')
+    lua << EOF
+    vim.g.clipboard = {
+      name = 'OSC 52',
+      copy = {
+        ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+        ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+      },
+      paste = {
+        ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+        ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+      },
+    }
+EOF
+else
+  let g:oscyank_silent = v:true
+  nnoremap <leader>Y <Plug>OSCYankOperator
+  nnoremap <leader>YY <leader>Y_
+  vnoremap <leader>Y <Plug>OSCYankVisual
+  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankRegister +' | endif
+endif
 " }}}
 let g:ale_enabled=0
 let g:clang_format#style_options = {
