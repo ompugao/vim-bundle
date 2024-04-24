@@ -104,7 +104,9 @@ Plug 'lambdalisue/gina.vim'
 " Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'ompugao/cpsm', {'branch': 'feature/remove_boost_dependency', 'do': './install.sh' }
-Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+if !has('nvim')
+  Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+endif
 call plug#end()
 "}}}
 
@@ -182,7 +184,7 @@ set vb t_vb= "disable visualbell
 set virtualedit+=block "矩形選択で自由に移動
 set nrformats+=unsigned "increment ignoring `-'
 if has('nvim')
-    set clipboard=unnamedplus
+    set clipboard=unnamedplus  " setup clipboard-osc later
 else
     if has('clipboard')
         if has('unnamedplus')
