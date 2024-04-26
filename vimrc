@@ -696,6 +696,7 @@ nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
 nnoremap <silent><C-l><C-b> :<C-u>CtrlPBuffer<CR>
 nnoremap <silent><C-l><C-r> :<C-u>CtrlPMRU<CR>
 nnoremap <silent><C-l><C-m> :<C-u>CtrlPMRU<CR>
+nnoremap <silent><C-l><CR>  :<C-u>CtrlPMRU<CR>
 nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
 "nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
 nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
