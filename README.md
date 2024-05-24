@@ -8,8 +8,8 @@ mkdir -p $HOME/.ctags.d && ln -s $HOME/.vim/.ctags $HOME/.ctags.d/default.ctags 
 # install deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
 cat <<EOF >> ~/.bashrc
-export DENO_INSTALL="/home/leus/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
+export DENO_INSTALL="\$HOME/.deno"
+export PATH="\$DENO_INSTALL/bin:\$PATH"
 EOF
 ```
 ## NeoVim
@@ -20,7 +20,7 @@ mkdir -p $HOME/.ctags.d && ln -s $HOME/.vim/.ctags $HOME/.ctags.d/default.ctags 
 # install deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
 cat <<EOF >> ~/.bashrc
-export DENO_INSTALL="/home/leus/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
+export DENO_INSTALL="\$HOME/.deno"
+export PATH="\$DENO_INSTALL/bin:\$PATH"
 EOF
 ```
