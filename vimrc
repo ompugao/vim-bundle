@@ -67,7 +67,6 @@ Plug 'mattn/emmet-vim'
 Plug 'ivalkeen/vim-ctrlp-tjump'
 " Plug 'tpope/vim-speeddating'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ompugao/ctrlp-tweetvim'
 " Plug 'jvirtanen/vim-octave', {'for': 'octave'}
 Plug 'cohama/agit.vim'
 " Plug 'altercation/vim-colors-solarized'
