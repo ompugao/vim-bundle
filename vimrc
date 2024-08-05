@@ -998,6 +998,7 @@ if has('nvim')
                 call nvim_win_hide(l:wins[0])
             endif
         endif
+        setlocal nobuflisted
     endfunction
 else
     function! ToggleTerminal() abort
@@ -1013,6 +1014,7 @@ else
                 call win_execute(l:wins[0], 'hide')
             endif
         endif
+        setlocal nobuflisted
     endfunction
 endif
 
