@@ -208,6 +208,7 @@ set backspace=indent,eol,start "help i_backspacing
 set history=10000
 set foldenable
 set foldmethod=marker
+set shortmess-=S  " show match counts
 augroup myfiletypes
     " TODO FileType Eventで
     au!
