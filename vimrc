@@ -78,6 +78,7 @@ Plug 'cocopon/iceberg.vim'
 Plug 'racer-rust/vim-racer', {'for': 'rust'}
 " Plug 'ompugao/harlequin'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'sainnhe/everforest'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'rhysd/vim-clang-format'
 Plug 'prabirshrestha/async.vim'
@@ -641,7 +642,8 @@ set background=dark
 if has('nvim')
   set notermguicolors
 endif
-colorscheme PaperColor
+"colorscheme PaperColor
+colorscheme everforest
 set t_Co=256
 " 90 ... purple which we can use only when 256-colors is enabled
 " hi Pmenu        ctermfg=White   ctermbg=90  cterm=NONE
