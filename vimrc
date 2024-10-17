@@ -46,6 +46,8 @@ Plug 'ompugao/ctrlp-history'
 Plug 'ompugao/ctrlp-locate'
 Plug 'lambdalisue/kensaku.vim'
 Plug 'ompugao/ctrlp-kensaku'
+Plug 'tsuyoshicho/ctrlp-mr.vim'
+Plug 'lambdalisue/vim-mr'
 Plug 'img-paste-devs/img-paste.vim'
 " Plug 'DavidEGx/ctrlp-smarttabs'
 " Plug 'ompugao/uncrustify-vim'
@@ -698,9 +700,9 @@ let g:ctrlp_map = '<c-l><c-p>'
 nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
 nnoremap <silent><C-l><C-s> :execute ':<C-u>CtrlP <C-r>=expand('%:h:p')<CR><CR>'
 nnoremap <silent><C-l><C-b> :<C-u>CtrlPBuffer<CR>
-nnoremap <silent><C-l><C-r> :<C-u>CtrlPMRU<CR>
-nnoremap <silent><C-l><C-m> :<C-u>CtrlPMRU<CR>
-nnoremap <silent><C-l><CR>  :<C-u>CtrlPMRU<CR>
+nnoremap <silent><C-l><C-r> :<C-u>CtrlPMRMru<CR>
+nnoremap <silent><C-l><C-m> :<C-u>CtrlPMRMru<CR>
+nnoremap <silent><C-l><CR>  :<C-u>CtrlPMRMru<CR>
 nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
 "nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
 nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
