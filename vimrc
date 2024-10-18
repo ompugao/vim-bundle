@@ -375,6 +375,7 @@ let g:quickrun_config.octave = {
 " <C-c> で実行を強制終了させる
 " quickrun.vim が実行していない場合には <C-c> を呼び出す
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+nnoremap <silent> <leader>r <cmd>:QuickRun<CR>
 "}}}
 "asynccomplete {{{
 " if executable('mdls')
@@ -506,6 +507,7 @@ let g:lsp_signs_enabled = 0         " enable signs
 let g:lsp_signs_error = {'text': 'XX'}
 let g:lsp_signs_warning = {'text': '!!'}
 let g:lsp_auto_enable = 1
+let g:lsp_hover_ui = 'float'
 "}}}
 " neosnippet {{{
 let g:neosnippet#snippets_directory='~/.vim/snippets'
@@ -606,6 +608,7 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.linenr = 'LF'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
+let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#ignore_bufadd_pat='\c\vgundo|undotree|vimfiler|tagbar|nerd_tree'
 let g:airline#extensions#tabline#left_sep = ' '
@@ -883,6 +886,7 @@ let g:eskk#large_dictionary = {
             \	'sorted': 1,
             \	'encoding': 'euc-jp',
             \}
+set iminsert=0
 function! s:skkeleton_init() abort
     call skkeleton#config({
                 \ 'globalDictionaries': ['~/.skkjisyo/SKK-JISYO.L'],
@@ -897,13 +901,13 @@ augroup skkeleton-initialize-pre
 augroup END
 imap <C-j> <Plug>(skkeleton-enable)
 cmap <C-j> <Plug>(skkeleton-enable)
-if executable('ibus')
-    augroup IbusControl
-        au!
-        au InsertLeave * call system('ibus engine skk')
-        au VimEnter,InsertEnter * call system('ibus engine xkb:us::eng')
-    augroup END
-endif
+"if executable('ibus')
+"    augroup IbusControl
+"        au!
+"        au InsertLeave * call system('ibus engine skk')
+"        au VimEnter,InsertEnter * call system('ibus engine xkb:us::eng')
+"    augroup END
+"endif
 "}}}
 " oscyank {{{
 if has('nvim')
