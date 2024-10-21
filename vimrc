@@ -78,13 +78,20 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'sainnhe/everforest'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'rhysd/vim-clang-format'
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
+if has('nvim')
+  Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
+  Plug 'rafamadriz/friendly-snippets'
+else
+  Plug 'Shougo/neosnippet'
+  Plug 'Shougo/neosnippet-snippets'
+endif
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+if !has('nvim')
+  Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+endif
 Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'thomasfaingnaert/vim-lsp-neosnippet'
@@ -462,14 +469,16 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
             \ 'min_chars': 0,
             \ 'completor': function('asyncomplete#sources#file#completor')
             \ }))
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
-            \ 'name': 'neosnippet',
-            \ 'whitelist': ['*'],
-            \ 'blocklist': ['markshift'],
-            \ 'priority': 5,
-            \ 'min_chars': 1,
-            \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
-            \ }))
+if !has('nvim')
+  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+              \ 'name': 'neosnippet',
+              \ 'whitelist': ['*'],
+              \ 'blocklist': [],
+              \ 'priority': 5,
+              \ 'min_chars': 1,
+              \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+              \ }))
+endif
 
 set completeopt=menuone,noinsert,noselect
 set pumheight=10 "set the height of completion menu
@@ -502,20 +511,39 @@ let g:lsp_signs_warning = {'text': '!!'}
 let g:lsp_auto_enable = 1
 let g:lsp_hover_ui = 'float'
 "}}}
-" neosnippet {{{
-let g:neosnippet#snippets_directory='~/.vim/snippets'
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_or_jump)
-nmap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" For snippet_complete marker.
-if has('conceal')
-    set conceallevel=2 concealcursor=c
-    let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
-    let g:indentLine_concealcursor='c'
-    let g:indentLine_setConceal = 0
+if has('nvim')
+  " luasnip {{{
+  lua require("luasnip.loaders.from_vscode").lazy_load()
+  
+  " press <Tab> to expand or jump in a snippet. These can also be mapped separately
+  " via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+  imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+  " -1 for jumping backwards.
+  inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+  
+  snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+  snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+  
+  " For changing choices in choiceNodes (not strictly necessary for a basic setup).
+  imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+  smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+  " }}}
+else
+  " neosnippet {{{
+  let g:neosnippet#snippets_directory='~/.vim/snippets'
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  nmap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  " For snippet_complete marker.
+  if has('conceal')
+      set conceallevel=2 concealcursor=c
+      let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
+      let g:indentLine_concealcursor='c'
+      let g:indentLine_setConceal = 0
+  endif
+  " }}}
 endif
-" }}}
 " refe {{{
 let g:ref_use_vimproc=1
 let g:ref_refe_version=2
