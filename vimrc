@@ -33,8 +33,6 @@ Plug 'kana/vim-operator-replace'
 Plug 'rhysd/vim-operator-surround'
 Plug 'thinca/vim-textobj-between'
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
 Plug 'hdima/python-syntax', {'for': 'python'}
 Plug 'thinca/vim-ref'
 Plug 'haya14busa/vim-asterisk'
@@ -44,15 +42,14 @@ Plug 'ompugao/markshift', {'for': 'markshift'}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ompugao/ctrlp-history'
 Plug 'ompugao/ctrlp-locate'
+Plug 'mattn/ctrlp-matchfuzzy'
+Plug 'ompugao/cpsm', {'branch': 'feature/remove_boost_dependency', 'do': './install.sh' }
 Plug 'lambdalisue/kensaku.vim'
 Plug 'ompugao/ctrlp-kensaku'
-Plug 'tsuyoshicho/ctrlp-mr.vim'
 Plug 'lambdalisue/vim-mr'
+Plug 'tsuyoshicho/ctrlp-mr.vim'
 Plug 'img-paste-devs/img-paste.vim'
-" Plug 'DavidEGx/ctrlp-smarttabs'
-" Plug 'ompugao/uncrustify-vim'
 " Plug 'haya14busa/vim-migemo'
-"Plug 'tyru/eskk.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-skk/skkeleton'
 Plug 'kshenoy/vim-signature'
@@ -65,11 +62,9 @@ Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'airblade/vim-gitgutter'
 Plug 'mopp/autodirmake.vim'
 Plug 'mattn/emmet-vim'
-" Plug 'sunaku/vim-unbundle'
 Plug 'ivalkeen/vim-ctrlp-tjump'
 " Plug 'tpope/vim-speeddating'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'jvirtanen/vim-octave', {'for': 'octave'}
 Plug 'cohama/agit.vim'
 " Plug 'altercation/vim-colors-solarized'
 Plug 'mattn/vim-molder'
@@ -83,6 +78,8 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'sainnhe/everforest'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'rhysd/vim-clang-format'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
@@ -90,22 +87,18 @@ Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'thomasfaingnaert/vim-lsp-neosnippet'
 Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'ompugao/quickdict.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mattn/vim-lsp-settings'
-Plug 'mattn/ctrlp-matchfuzzy'
 Plug 'Yggdroot/indentLine'
 Plug 'preservim/tagbar'
 Plug 'lambdalisue/gina.vim'
-"Plug 'lambdalisue/fern.vim', {'branch': 'main'}
-"Plug 'lambdalisue/fern-git-status.vim'
 " Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'ompugao/cpsm', {'branch': 'feature/remove_boost_dependency', 'do': './install.sh' }
 if has('nvim')
   Plug 'ojroques/nvim-osc52', {'branch': 'main'}
 else
