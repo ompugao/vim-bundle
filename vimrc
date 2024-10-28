@@ -72,7 +72,6 @@ Plug 'mattn/vim-molder-operations'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'skywind3000/asyncrun.vim'
 Plug 'cocopon/iceberg.vim'
-Plug 'racer-rust/vim-racer', {'for': 'rust'}
 " Plug 'ompugao/harlequin'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'sainnhe/everforest'
