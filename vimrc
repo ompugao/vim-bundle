@@ -20,6 +20,7 @@ let &t_TE = ""
 
 " plugins {{{
 call plug#begin()
+Plug 'ompugao/tabton', {'for': 'tabton'}
 Plug 'github/copilot.vim'
 Plug 'rbtnn/vim-ambiwidth'
 Plug 'tpope/vim-fugitive'
@@ -311,7 +312,7 @@ function! s:GetBufferDirectory()
     let path = expand('%:p:h')
     return path . (exists('+shellslash') && !&shellslash ? '\' : '/')
 endfunction
-cnoremap <C-T> <C-R>=strftime('%Y_%m_%d')<CR>
+cnoremap <C-T> <C-R>=strftime('%Y-%m-%d')<CR>
 cabbr w!! w !sudo tee > /dev/null %
 " yank to clipboard via xsel
 nnoremap <Leader>y my:0,$!xsel -iob<CR>u`y
@@ -403,6 +404,20 @@ augroup vim_lsp_settings_markshift-language-server
     au!
     au User lsp_setup call s:setup_markshift()
     "au FileType markshift setlocal omnifunc=lsp#omni#complete
+augroup END
+
+function! s:setup_tabton() abort
+    let s:msls_client_id = lsp#register_server({
+                \ 'name': 'tabton-lsp',
+                \ 'cmd': ['tabton-lsp' ],
+                \ 'allowlist': ['tabton'],
+                \ })
+endfunction
+
+augroup vim_lsp_settings_tabton-language-server
+    au!
+    au User lsp_setup call s:setup_tabton()
+    "au FileType tabton setlocal omnifunc=lsp#omni#complete
 augroup END
 
 set updatetime=300

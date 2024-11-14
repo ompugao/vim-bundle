@@ -1,0 +1,36 @@
+snippet math
+options head
+	[@math]
+		${0}
+
+snippet table
+options head
+	[@table]
+		${0}
+
+snippet quote
+options head
+	[@quote]
+		${0}
+
+snippet code
+options head
+	[@code ${1:#lang}]
+		${0}
+
+snippet img
+options word
+	[@img "${1:#title}" ${2:#path}]${0}
+
+
+snippet $$
+options word
+	[$ ${1} $]${0}
+
+snippet ``
+options word
+	[\` ${1}\`]${0}
+
+snippet task
+options word
+	{@task status=${1:todo} due=${2:`strftime("%Y-%m-%d")`}}${0}
