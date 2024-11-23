@@ -20,7 +20,7 @@ let &t_TE = ""
 
 " plugins {{{
 call plug#begin()
-Plug 'ompugao/tabton', {'for': 'tabton'}
+Plug 'ompugao/patto', {'for': 'patto'}
 Plug 'github/copilot.vim'
 Plug 'rbtnn/vim-ambiwidth'
 Plug 'tpope/vim-fugitive'
@@ -39,7 +39,6 @@ Plug 'thinca/vim-ref'
 Plug 'haya14busa/vim-asterisk'
 Plug 'bling/vim-airline'
 Plug 'ompugao/vim-airline-cwd'
-Plug 'ompugao/markshift', {'for': 'markshift'}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ompugao/ctrlp-history'
 Plug 'ompugao/ctrlp-locate'
@@ -406,20 +405,6 @@ augroup vim_lsp_settings_markshift-language-server
     "au FileType markshift setlocal omnifunc=lsp#omni#complete
 augroup END
 
-function! s:setup_tabton() abort
-    let s:msls_client_id = lsp#register_server({
-                \ 'name': 'tabton-lsp',
-                \ 'cmd': ['tabton-lsp' ],
-                \ 'allowlist': ['tabton'],
-                \ })
-endfunction
-
-augroup vim_lsp_settings_tabton-language-server
-    au!
-    au User lsp_setup call s:setup_tabton()
-    "au FileType tabton setlocal omnifunc=lsp#omni#complete
-augroup END
-
 set updatetime=300
 let g:lsp_work_done_progress_enabled = 1
 let g:lsp_diagnostics_highlights_enabled = 0
@@ -468,7 +453,7 @@ command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
             \ 'name': 'buffer',
             \ 'allowlist': ['*'],
-            \ 'blocklist': ['markshift'],
+            \ 'blocklist': ['patto'],
             \ 'completor': function('asyncomplete#sources#buffer#completor'),
             \ 'priority': 15,
             \ 'min_chars': 2,
@@ -487,7 +472,7 @@ if !has('nvim')
   au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
               \ 'name': 'neosnippet',
               \ 'whitelist': ['*'],
-              \ 'blocklist': [],
+              \ 'blocklist': ['patto'],
               \ 'priority': 5,
               \ 'min_chars': 1,
               \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
@@ -500,7 +485,7 @@ set pumheight=10 "set the height of completion menu
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
 "let g:asyncomplete_auto_popup = 1
-let s:auto_popup_filetypes = ['markshift', 'make', 'markdown', 'shell', 'docker']
+let s:auto_popup_filetypes = ['make', 'markdown', 'shell', 'docker', 'rust', 'patto']
 "au InsertEnter * let g:asyncomplete_auto_popup = index(s:auto_popup_filetypes, &ft) > 1
 au InsertEnter * exe 'let g:asyncomplete_auto_popup = '.(index(s:auto_popup_filetypes, &ft) >= 0 ? '1' : '0')
 function! s:check_back_space() abort
@@ -1068,17 +1053,17 @@ tnoremap <F2> <cmd>:call ToggleTerminal()<cr>
 " img-paste {{{
 let g:mdip_imgdir = './assets'
 "let g:mdip_imgname = 'image'
-function! g:MarkshiftPasteImage(relpath)
+function! g:PattoPasteImage(relpath)
     execute "normal! i[@img \"" . g:mdip_tmpname[0:0]
     let ipos = getcurpos()
     execute "normal! a" . g:mdip_tmpname[1:] . "\" " . a:relpath . "]"
     call setpos('.', ipos)
     "execute "normal! vt]\<C-g>"
 endfunction
-augroup markshift-imgpaste
+augroup patto-imgpaste
     autocmd!
-    autocmd FileType markshift nmap <buffer> <leader>P <cmd>:call mdip#MarkdownClipboardImage()<CR>
-    autocmd FileType markshift let g:PasteImageFunction = 'g:MarkshiftPasteImage'
+    autocmd FileType patto nmap <buffer> <leader>P <cmd>:call mdip#MarkdownClipboardImage()<CR>
+    autocmd FileType patto let g:PasteImageFunction = 'g:PattoPasteImage'
 augroup END
 " }}}
 
