@@ -2,7 +2,7 @@
     "coding": {
         "prefix": "coding",
         "body": [
-            "${1} -*- coding: ${2:python} -*-${0}"
+            "${1} -*- coding: ${2:coding} -*-${0}"
         ],
         "description": "Insert coding declaration"
     },
