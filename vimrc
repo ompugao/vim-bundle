@@ -438,7 +438,7 @@ set pumheight=20 "set the height of completion menu
 lua <<EOF
   -- Set up nvim-cmp.
   local cmp = require'cmp'
-
+  local luasnip = require'luasnip'
   cmp.setup({
     snippet = {
       -- REQUIRED - you must specify a snippet engine
@@ -466,6 +466,20 @@ lua <<EOF
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ["<Tab>"] = cmp.mapping(function(fallback)
+        if luasnip.locally_jumpable(1) then
+          luasnip.jump(1)
+        else
+          fallback()
+        end
+      end, { "i", "s" }),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
+        if luasnip.locally_jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          fallback()
+        end
+      end, { "i", "s" }),
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
