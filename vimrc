@@ -534,6 +534,27 @@ lua <<EOF
           }
       }
   }
+  require "lspconfig".pylsp.setup {
+    settings = {
+      pylsp = {
+        plugins = {
+          flake8 = {
+            enabled = false,
+            maxLineLength = 119,
+          },
+          mypy = {
+            enabled = true,
+          },
+          pycodestyle = {
+            enabled = false,
+          },
+          pyflakes = {
+            enabled = false,
+          },
+        }
+      }
+    }
+  }
 
   vim.lsp.set_log_level('debug')
   vim.api.nvim_create_autocmd('LspAttach', {
