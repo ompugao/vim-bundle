@@ -58,5 +58,14 @@
             "{@task status=${1:todo} due=${2:${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}}}$0"
         ],
         "description": "Task snippet"
+    },
+    "diary": {
+        "prefix": "diary",
+        "body": [
+            "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} #${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+            "----------------------",
+            "$0"
+        ],
+        "description": "Diary header"
     }
 }

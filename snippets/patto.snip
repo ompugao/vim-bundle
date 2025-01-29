@@ -34,3 +34,9 @@ options word
 snippet task
 options word
 	{@task status=${1:todo} due=${2:`strftime("%Y-%m-%d")`}}${0}
+
+snippet diary
+options word
+    `strftime("%Y-%m-%d")` #`strftime("%Y-%m-%d")`
+    ----------------------
+    ${0}
