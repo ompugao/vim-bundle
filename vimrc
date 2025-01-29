@@ -481,7 +481,7 @@ lua <<EOF
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
       }, {
-        --{ name = 'buffer' },
+        { name = 'buffer' },
         { name = 'path' },
       })
     })
@@ -555,6 +555,7 @@ lua <<EOF
       }
     }
   }
+  require "lspconfig".clangd.setup {}
 
   vim.lsp.set_log_level('debug')
   vim.api.nvim_create_autocmd('LspAttach', {
@@ -1132,7 +1133,6 @@ else
   autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankRegister +' | endif
 endif
 " }}}
-let g:ale_enabled=0
 let g:clang_format#style_options = {
             \ "AccessModifierOffset" : -2,
             \ "AllowShortIfStatementsOnASingleLine" : "false",
