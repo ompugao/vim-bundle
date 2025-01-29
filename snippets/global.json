@@ -1,0 +1,37 @@
+{
+    "coding": {
+        "prefix": "coding",
+        "body": [
+            "${1} -*- coding: ${2:python} -*-${0}"
+        ],
+        "description": "Insert coding declaration"
+    },
+    "vimset": {
+        "prefix": "vimset",
+        "body": [
+            "${1} vim: set ft=${2:python} ts=${3:4} sw=${4:4}:${0}"
+        ],
+        "description": "Insert vim set options"
+    },
+    "vimsetlong": {
+        "prefix": "vimsetlong",
+        "body": [
+            "${1} vim: set fileencoding=${2:utf-8} ts=${3:4} sw=${4:4} ft=${5:python}:${0}"
+        ],
+        "description": "Insert long vim set options"
+    },
+    "date": {
+        "prefix": "date",
+        "body": [
+            "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"
+        ],
+        "description": "Insert current date"
+    },
+    "datetime": {
+        "prefix": "datetime",
+        "body": [
+            "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}"
+        ],
+        "description": "Insert current date and time"
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "math": {
+        "prefix": "math",
+        "body": [
+            "[@math]",
+            "\t$0"
+        ],
+        "description": "Math snippet"
+    },
+    "table": {
+        "prefix": "table",
+        "body": [
+            "[@table]",
+            "\t$0"
+        ],
+        "description": "Table snippet"
+    },
+    "quote": {
+        "prefix": "quote",
+        "body": [
+            "[@quote]",
+            "\t$0"
+        ],
+        "description": "Quote snippet"
+    },
+    "code": {
+        "prefix": "code",
+        "body": [
+            "[@code ${1:lang}]",
+            "\t$0"
+        ],
+        "description": "Code snippet"
+    },
+    "img": {
+        "prefix": "img",
+        "body": [
+            "[@img \"${1:title}\" ${2:path}]$0"
+        ],
+        "description": "Image snippet"
+    },
+    "$$": {
+        "prefix": "$$",
+        "body": [
+            "[$ ${1} $]$0"
+        ],
+        "description": "Inline math snippet"
+    },
+    "``": {
+        "prefix": "``",
+        "body": [
+            "[` ${1}`]$0"
+        ],
+        "description": "Inline code snippet"
+    },
+    "task": {
+        "prefix": "task",
+        "body": [
+            "{@task status=${1:todo} due=${2:${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}}}$0"
+        ],
+        "description": "Task snippet"
+    }
+}

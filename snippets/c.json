@@ -1,0 +1,74 @@
+{
+    "For Loop": {
+        "prefix": "for",
+        "body": [
+            "for (${1:int} ${2:i} = ${3:0}; $2 ${4:<} ${5:N}; ${6:$2++}) {",
+            "    ${0:TARGET}",
+            "}"
+        ],
+        "description": "For loop template"
+    },
+    "File Header Comment": {
+        "prefix": "comment file",
+        "body": [
+            "/**",
+            " * @file ${1:filename}",
+            " * @brief ${2:description}",
+            " * @author ${3:author}",
+            " * @date ${4:date}",
+            " */"
+        ],
+        "description": "File header comment template"
+    },
+    "Function Comment": {
+        "prefix": "comment function",
+        "body": [
+            "/**",
+            " * @fn",
+            " * ${1:description}",
+            " * @brief ${2:brief}",
+            " * @param ${3:param}",
+            " * @return ${4:return}",
+            " * @sa ${5:reference_function}",
+            " * @detail ${6:detailed_description}",
+            " */"
+        ],
+        "description": "Function comment template"
+    },
+    "Variable Comment": {
+        "prefix": "comment_variable",
+        "body": [
+            "//! ${1:comment}"
+        ],
+        "description": "Variable comment template"
+    },
+    "Macro Comment": {
+        "prefix": "comment macro",
+        "body": [
+            "/** @def",
+            " * ${1:comment}",
+            " */"
+        ],
+        "description": "Macro comment template"
+    },
+    "Enum Comment": {
+        "prefix": "comment_enum",
+        "body": [
+            "/**",
+            " * @enum ${1:enum_name}",
+            " * ${2:comment}",
+            " */"
+        ],
+        "description": "Enum comment template"
+    },
+    "Include Guard": {
+        "prefix": "incguard",
+        "body": [
+            "#ifndef ${1:HEADER_GUARD}",
+            "#define ${1:HEADER_GUARD}",
+            "${0}",
+            "#endif // ${1:HEADER_GUARD}"
+        ],
+        "description": "Include guard template"
+    }
+}

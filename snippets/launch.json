@@ -1,0 +1,101 @@
+{
+  "launch": {
+    "prefix": "launch",
+    "body": [
+      "<launch>",
+      "  $0",
+      "</launch>"
+    ],
+    "description": "launch"
+  },
+  "gdb": {
+    "prefix": "gdb",
+    "body": [
+      "launch-prefix=\"xterm -fa 'Monospace' -fs 14 -fn 12x24 -e gdb --args \""
+    ],
+    "description": "gdb"
+  },
+  "valgrind": {
+    "prefix": "valgrind",
+    "body": [
+      "launch-prefix=\"xterm -fa 'Monospace' -fs 14 -fn 12x24 -e valgrind -v --error-limit=no --leak-check=full --show-reachable=no --log-file='${env:HOME}/log.txt' \""
+    ],
+    "description": "valgrind"
+  },
+  "node": {
+    "prefix": "node",
+    "body": [
+      "<node pkg=\"${1:pkg}\" type=\"${2:type}\" name=\"${3:${4:type}}\">$0",
+      "</node>"
+    ],
+    "description": "node"
+  },
+  "group": {
+    "prefix": "group",
+    "body": [
+      "<group ${1:ns}=\"${2}\">$0",
+      "</group>"
+    ],
+    "description": "group"
+  },
+  "if": {
+    "prefix": "if",
+    "body": [
+      "<group if=\"${1}\">",
+      "  $0",
+      "</group>"
+    ],
+    "description": "if"
+  },
+  "unless": {
+    "prefix": "unless",
+    "body": [
+      "<group unless=\"${1}\">",
+      "  $0",
+      "</group>"
+    ],
+    "description": "unless"
+  },
+  "include": {
+    "prefix": "include",
+    "body": [
+      "<include file=\"$(find ${1:pkg})/${2}\"/>$0"
+    ],
+    "description": "include"
+  },
+  "param": {
+    "prefix": "param",
+    "body": [
+      "<param name=\"${1}\" value=\"${2}\"/>$0"
+    ],
+    "description": "param"
+  },
+  "arg": {
+    "prefix": "arg",
+    "body": [
+      "<arg name=\"${1}\" ${2:value|default}=\"${3}\"/>$0"
+    ],
+    "description": "arg"
+  },
+  "env": {
+    "prefix": "env",
+    "body": [
+      "<env name=\"${1}\" value=\"${2}\"/>$0"
+    ],
+    "description": "env"
+  },
+  "remap": {
+    "prefix": "remap",
+    "body": [
+      "<remap from=\"${1:from}\" to=\"${2:to}\"/>$0"
+    ],
+    "description": "remap"
+  },
+  "machine": {
+    "prefix": "machine",
+    "body": [
+      "<machine name=\"${1:name}\" address=\"${2:#:willowgarage.com}\" env-loader=\"/opt/ros/${3:${env:ROS_DISTRO}}/env.sh\" ${4:default=\"${5:#:true|false|never}\"} user=\"${6:#:user}\" ${7:timeout=\"${8}\"}/>$0"
+    ],
+    "description": "machine"
+  }
+}

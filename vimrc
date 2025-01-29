@@ -4,6 +4,11 @@ set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
 scriptencoding utf8
 
+if has("nvim")
+let g:loaded_python3_provider = 1
+let g:python3_host_prog = ''
+endif
+
 " gutentags {{{
 let g:gutentags_cache_dir=expand('~') . '/.gutentags'
 let g:gutentags_ctags_extra_args = ['--excmd=number']
@@ -20,8 +25,16 @@ let &t_TE = ""
 
 " plugins {{{
 call plug#begin()
-Plug 'ompugao/patto', {'for': 'patto'}
-Plug 'github/copilot.vim'
+if has('nvim')
+  Plug 'stevearc/dressing.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'MunifTanjim/nui.nvim'
+  Plug 'zbirenbaum/copilot.lua'
+  Plug 'olimorris/codecompanion.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter'
+else
+  Plug 'github/copilot.vim'
+endif
 Plug 'rbtnn/vim-ambiwidth'
 Plug 'tpope/vim-fugitive'
 Plug 'Shougo/vimproc', { 'do': 'make' }
@@ -80,26 +93,35 @@ Plug 'rhysd/vim-clang-format'
 if has('nvim')
   Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
   Plug 'rafamadriz/friendly-snippets'
+  "Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'saadparwaiz1/cmp_luasnip'
+  Plug 'ompugao/patto'
 else
+  Plug 'prabirshrestha/async.vim'
+  Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'prabirshrestha/asyncomplete-lsp.vim'
+  Plug 'prabirshrestha/asyncomplete-buffer.vim'
+  Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+  Plug 'prabirshrestha/asyncomplete-file.vim'
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'thomasfaingnaert/vim-lsp-neosnippet'
+  Plug 'thomasfaingnaert/vim-lsp-snippets'
+  Plug 'mattn/vim-lsp-settings'
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
+  Plug 'ompugao/patto', {'for': 'patto'}
 endif
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-if !has('nvim')
-  Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
-endif
-Plug 'prabirshrestha/asyncomplete-file.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'thomasfaingnaert/vim-lsp-neosnippet'
-Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'ompugao/quickdict.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'mattn/vim-lsp-settings'
 Plug 'Yggdroot/indentLine'
 Plug 'preservim/tagbar'
 Plug 'lambdalisue/gina.vim'
@@ -376,35 +398,159 @@ let g:quickrun_config.octave = {
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 nnoremap <silent> <leader>r <cmd>:QuickRun<CR>
 "}}}
+if has('nvim')
+  " luasnip {{{
+  lua require("luasnip.loaders.from_vscode").lazy_load()
+  lua require("luasnip.loaders.from_vscode").lazy_load({ paths = { '~/.config/nvim/snippets/' } }) -- Load snippets from my-snippets folder
+  " press <Tab> to expand or jump in a snippet. These can also be mapped separately
+  " via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+  imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+  " -1 for jumping backwards.
+  inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+  
+  snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+  snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+  
+  " For changing choices in choiceNodes (not strictly necessary for a basic setup).
+  imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+  smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+  " }}}
+else
+  " neosnippet {{{
+  let g:neosnippet#snippets_directory='~/.vim/snippets'
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  nmap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  " For snippet_complete marker.
+  if has('conceal')
+      set conceallevel=2 concealcursor=c
+      let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
+      let g:indentLine_concealcursor='c'
+      let g:indentLine_setConceal = 0
+  endif
+  " }}}
+endif
+if has('nvim')
+" nvim-cmp {{{
+set completeopt=menuone,noinsert,noselect
+set pumheight=20 "set the height of completion menu
+lua <<EOF
+  -- Set up nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+        -- vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+
+        -- For `mini.snippets` users:
+        -- local insert = MiniSnippets.config.expand.insert or MiniSnippets.default_insert
+        -- insert({ body = args.body }) -- Insert at cursor
+        -- cmp.resubscribe({ "TextChangedI", "TextChangedP" })
+        -- require("cmp.config").set_onetime({ sources = {} })
+      end,
+    },
+    window = {
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      -- { name = 'vsnip' }, -- For vsnip users.
+      { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- To use git you need to install the plugin petertriho/cmp-git and uncomment lines below
+  -- Set configuration for specific filetype.
+  --[[ cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'git' },
+    }, {
+      { name = 'buffer' },
+    })
+ })
+ require("cmp_git").setup() ]]-- 
+
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  --[[cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })]]--
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  --[[cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    }),
+    matching = { disallow_symbol_nonprefix_matching = false }
+  })]]--
+
+  -- Set up lspconfig.
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  require('patto')
+  require('lspconfig.configs').patto_lsp.setup({
+    capabilities = capabilities
+  })
+  require'lspconfig'.rust_analyzer.setup{
+      capabilities = capabilities,
+      settings = {
+          ['rust-analyzer'] = {
+              diagnostics = {
+                  enable = false;
+              }
+          }
+      }
+  }
+
+  vim.lsp.set_log_level('debug')
+  vim.api.nvim_create_autocmd('LspAttach', {
+          desc = 'LSP actions',
+          callback = function()
+            local bufmap = function(mode, lhs, rhs)
+            local opts = {buffer = true}
+            vim.keymap.set(mode, lhs, rhs, opts)
+          end
+          bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+          bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+          bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+          bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
+          bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
+          bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+          bufmap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+          bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
+          bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+          bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+          bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+          bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+          end
+  })
+EOF
+" }}}
+else
 "asynccomplete {{{
-" if executable('mdls')
-"     au User lsp_setup call lsp#register_server({
-"         \ 'name': 'mdls',
-"         \ 'cmd': ['mdls', '-v', '--log-file', './mdls.log'],
-"         \ 'whitelist': ['md', 'markdown'],
-"         \ })
-"     autocmd FileType markdown setlocal omnifunc=lsp#omni#complete
-" endif
-
-function! s:setup_markshift() abort
-    let s:msls_client_id = lsp#register_server({
-                \ 'name': 'msls',
-                \ 'cmd': ['python3', '-m', 'markshift.langserver.server', '--hidden_on_boot', '--never_steal_focus', '--logfile=msls.log', '--zotero_path=~/Zotero'],
-                \ 'allowlist': ['markshift'],
-                \ })
-    "\ 'cmd': ['msls'],
-    "\ 'cmd': ['msls', '--never_steal_focus', '--always_on_top', '--logfile=msls.log'],
-    "\ 'cmd': ['python3', '-m', 'markshift.langserver.server'],
-    "\ 'cmd': ['python3', '-m', 'markshift.langserver.server', '--never_steal_focus', '--hidden_on_boot,'--logfile=msls.log', '--zotero_path=~/Zotero'],
-    "\ 'cmd': ['msls', '--never_steal_focus', '--zotero_path=~/Zotero'],
-endfunction
-
-augroup vim_lsp_settings_markshift-language-server
-    au!
-    au User lsp_setup call s:setup_markshift()
-    "au FileType markshift setlocal omnifunc=lsp#omni#complete
-augroup END
-
 set updatetime=300
 let g:lsp_work_done_progress_enabled = 1
 let g:lsp_diagnostics_highlights_enabled = 0
@@ -480,7 +626,7 @@ if !has('nvim')
 endif
 
 set completeopt=menuone,noinsert,noselect
-set pumheight=10 "set the height of completion menu
+set pumheight=20 "set the height of completion menu
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
@@ -510,38 +656,6 @@ let g:lsp_signs_warning = {'text': '!!'}
 let g:lsp_auto_enable = 1
 let g:lsp_hover_ui = 'float'
 "}}}
-if has('nvim')
-  " luasnip {{{
-  lua require("luasnip.loaders.from_vscode").lazy_load()
-  
-  " press <Tab> to expand or jump in a snippet. These can also be mapped separately
-  " via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
-  imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
-  " -1 for jumping backwards.
-  inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
-  
-  snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
-  snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
-  
-  " For changing choices in choiceNodes (not strictly necessary for a basic setup).
-  imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-  smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-  " }}}
-else
-  " neosnippet {{{
-  let g:neosnippet#snippets_directory='~/.vim/snippets'
-  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  nmap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  " For snippet_complete marker.
-  if has('conceal')
-      set conceallevel=2 concealcursor=c
-      let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
-      let g:indentLine_concealcursor='c'
-      let g:indentLine_setConceal = 0
-  endif
-  " }}}
 endif
 " refe {{{
 let g:ref_use_vimproc=1
@@ -620,7 +734,12 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 let g:airline_experimental = 1
-let g:airline_extensions = ['branch', 'gina', 'ctrlp', 'quickfix', 'tabline', 'wordcount', 'gutentags', 'cwd', 'lsp'] " 'grepper',
+let g:airline_extensions = ['branch', 'gina', 'ctrlp', 'quickfix', 'tabline', 'wordcount', 'gutentags', 'cwd']
+if has('nvim')
+  let g:airline_extensions = add(g:airline_extensions, 'nvimlsp')
+else
+  let g:airline_extensions = add(g:airline_extensions, 'lsp')
+endif
 let g:airline_theme='ayu_mirage' "'minimalist' 'serene' 'simple' 'wombat''papercolor'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
@@ -1067,5 +1186,20 @@ augroup patto-imgpaste
 augroup END
 " }}}
 
-let g:markshift_enable_default_mappings = 1
+if has('nvim')
+" codecompanion {{{
+lua << EOF
+require("codecompanion").setup({
+  strategies = {
+    chat = {
+      adapter = "copilot",
+    },
+    inline = {
+      adapter = "copilot",
+    },
+  },
+})
+EOF
+" }}}
+endif
 filetype plugin indent on
