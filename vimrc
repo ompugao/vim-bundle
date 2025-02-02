@@ -102,6 +102,7 @@ if has('nvim')
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
   Plug 'saadparwaiz1/cmp_luasnip'
+  Plug 'folke/trouble.nvim'
   Plug 'ompugao/patto'
 else
   Plug 'prabirshrestha/async.vim'
@@ -1235,6 +1236,7 @@ augroup END
 if has('nvim')
 " codecompanion {{{
 lua << EOF
+require("copilot").setup()
 require("codecompanion").setup({
   strategies = {
     chat = {
