@@ -437,7 +437,7 @@ endif
 if has('nvim')
 " nvim-cmp {{{
 set completeopt=menuone,noinsert,noselect
-set pumheight=10 "set the height of completion menu
+set pumheight=5 "set the height of completion menu
 lua <<EOF
   -- Set up nvim-cmp.
   local cmp = require'cmp'
@@ -520,7 +520,10 @@ lua <<EOF
   })]]--
 
   -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  local capabilities = require('cmp_nvim_lsp').default_capabilities({
+      -- https://github.com/neovim/neovim/issues/30688
+      insertReplaceSupport = false,
+  })
   require('patto')
   require('lspconfig.configs').patto_lsp.setup({
     capabilities = capabilities
