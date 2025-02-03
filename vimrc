@@ -557,6 +557,7 @@ lua <<EOF
     }
   }
   require "lspconfig".clangd.setup {}
+  require "trouble".setup()
 
   vim.lsp.set_log_level('debug')
   vim.api.nvim_create_autocmd('LspAttach', {
