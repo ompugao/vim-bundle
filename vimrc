@@ -95,6 +95,9 @@ if has('nvim')
   Plug 'rafamadriz/friendly-snippets'
   "Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
+
+  Plug 'ibhagwan/fzf-lua'
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-buffer'
@@ -582,6 +585,7 @@ lua <<EOF
           bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
           bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
           bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+          bufmap('n', 'g=', '<cmd>lua vim.lsp.buf.format()<cr>')
           end
   })
   vim.api.nvim_create_augroup('skkeleton-nvim-cmp', {})
@@ -1238,6 +1242,40 @@ augroup END
 " }}}
 
 if has('nvim')
+" telescope {{{
+lua << EOF
+require'telescope'.setup({
+  defaults = {
+      layout_strategy = 'bottom_pane',
+      layout_config = { height = 0.50, prompt_position = "bottom" },
+      border = false,
+  }
+})
+EOF
+" }}}
+" fzf-lua {{{
+lua << EOF
+require("fzf-lua").setup{
+  winopts = { 
+    split = "belowright new",-- open in a split instead?
+    border           = "none",
+    preview = {
+      border         = "none",
+      title = false,
+    }
+  },
+  fzf_opts = {
+    ["--ansi"]           = true,
+    ["--info"]           = "hidden", -- fzf < v0.42 = "inline"
+    ["--height"]         = "100%",
+    ["--layout"]         = "default",
+    ["--border"]         = "none",
+    ["--highlight-line"] = true,
+    ["--keep-right"] = true,
+  },
+}
+EOF
+" }}}
 " codecompanion {{{
 lua << EOF
 require("copilot").setup()
