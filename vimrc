@@ -126,7 +126,11 @@ Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'ompugao/quickdict.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'Yggdroot/indentLine'
+if has('nvim')
+  Plug 'shellRaining/hlchunk.nvim'
+else
+  Plug 'Yggdroot/indentLine'
+endif
 Plug 'preservim/tagbar'
 Plug 'lambdalisue/gina.vim'
 " Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
@@ -428,14 +432,26 @@ else
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
   xmap <C-k>     <Plug>(neosnippet_expand_or_jump)
   nmap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  " For snippet_complete marker.
-  if has('conceal')
-      set conceallevel=2 concealcursor=c
-      let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
-      let g:indentLine_concealcursor='c'
-      let g:indentLine_setConceal = 0
-  endif
   " }}}
+endif
+if has('conceal')
+ " For snippet_complete marker.
+  set conceallevel=2 concealcursor=c
+endif
+if has('nvim')
+  lua <<EOF
+  require('hlchunk').setup({
+  chunk = {
+      enable = true
+      },
+  indent = {
+      enable = true
+  } })
+EOF
+else
+  let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
+  let g:indentLine_concealcursor='c'
+  let g:indentLine_setConceal = 0
 endif
 if has('nvim')
 " nvim-cmp {{{
