@@ -1310,6 +1310,20 @@ require("codecompanion").setup({
 })
 EOF
 " }}}
+" telescope {{{
+lua << EOF
+require('telescope').setup{
+  defaults = {
+    layout_strategy = 'bottom_pane',
+    layout_config = {
+      prompt_position = 'bottom',
+      width = 0.99,
+      height = 0.9,
+    }
+  },
+}
+EOF
+" }}}
 " dial.nvim {{{
 nmap  <C-a>  <Plug>(dial-increment)
 nmap  <C-x>  <Plug>(dial-decrement)
