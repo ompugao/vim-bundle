@@ -140,7 +140,7 @@ Plug 'lambdalisue/gina.vim'
 " Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 Plug 'stefandtw/quickfix-reflector.vim'
 if has('nvim')
-  Plug 'ojroques/nvim-osc52', {'branch': 'main'}
+  "Plug 'ojroques/nvim-osc52', {'branch': 'main'}
 else
   Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 endif
@@ -1166,34 +1166,60 @@ cmap <C-j> <Plug>(skkeleton-enable)
 "}}}
 " oscyank {{{
 if has('nvim')
-    lua << EOF
-    require('osc52').setup {
-        max_length = 0,           -- Maximum length of selection (0 for no limit)
-        silent = true,           -- Disable message on successful copy
-        trim = false,             -- Trim surrounding whitespaces before copy
-        tmux_passthrough = false, -- Use tmux passthrough (requires tmux: set -g allow-passthrough on)
-    }
-    -- vim.keymap.set('n', '<leader>c', require('osc52').copy_operator, {expr = true})
-    -- vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
-    -- vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
-    local function copy(lines, _)
-        require('osc52').copy(table.concat(lines, '\n'))
-    end
+lua << EOF
+vim.o.clipboard = "unnamedplus"
 
-    local function paste()
-        return {vim.fn.split(vim.fn.getreg(''), '\n'), vim.fn.getregtype('')}
-    end
+local function paste()
+  return {
+    vim.fn.split(vim.fn.getreg(""), "\n"),
+    vim.fn.getregtype(""),
+  }
+end
 
-    vim.g.clipboard = {
-        name = 'osc52',
-        copy = {['+'] = copy, ['*'] = copy},
-        paste = {['+'] = paste, ['*'] = paste},
-    }
-
-    -- Now the '+' register will copy to system clipboard using OSC52
-    vim.keymap.set('n', '<leader>c', '"+y')
-    vim.keymap.set('n', '<leader>cc', '"+yy')
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  --paste = {
+  --  ["+"] = paste,
+  --  ["*"] = paste,
+  --},
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
 EOF
+"    lua << EOF
+"    require('osc52').setup {
+"        max_length = 0,           -- Maximum length of selection (0 for no limit)
+"        silent = true,           -- Disable message on successful copy
+"        trim = false,             -- Trim surrounding whitespaces before copy
+"        tmux_passthrough = false, -- Use tmux passthrough (requires tmux: set -g allow-passthrough on)
+"    }
+"    -- vim.keymap.set('n', '<leader>c', require('osc52').copy_operator, {expr = true})
+"    -- vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
+"    -- vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
+"    local function copy(lines, _)
+"        require('osc52').copy(table.concat(lines, '\n'))
+"    end
+"
+"    local function paste()
+"        return {vim.fn.split(vim.fn.getreg(''), '\n'), vim.fn.getregtype('')}
+"    end
+"
+"    vim.g.clipboard = {
+"        name = 'osc52',
+"        copy = {['+'] = copy, ['*'] = copy},
+"        paste = {['+'] = paste, ['*'] = paste},
+"    }
+"
+"    -- Now the '+' register will copy to system clipboard using OSC52
+"    vim.keymap.set('n', '<leader>c', '"+y')
+"    vim.keymap.set('n', '<leader>cc', '"+yy')
+"EOF
 else
   let g:oscyank_silent = v:true
   nnoremap <leader>Y <Plug>OSCYankOperator
