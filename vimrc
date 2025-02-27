@@ -597,6 +597,9 @@ lua <<EOF
           ['rust-analyzer'] = {
               diagnostics = {
                   enable = false;
+              },
+              check = {
+                  command = "clippy",
               }
           }
       }
