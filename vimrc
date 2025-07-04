@@ -1172,28 +1172,31 @@ if has('nvim')
 lua << EOF
 vim.o.clipboard = "unnamedplus"
 
-local function paste()
-  return {
-    vim.fn.split(vim.fn.getreg(""), "\n"),
-    vim.fn.getregtype(""),
-  }
-end
+local function osc52_supported()
+  local term = vim.env.TERM or ""
+  local tty = vim.env.SSH_TTY or vim.fn.getenv("TTY") or ""
 
-vim.g.clipboard = {
-  name = "OSC 52",
-  copy = {
-    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-  },
-  --paste = {
-  --  ["+"] = paste,
-  --  ["*"] = paste,
-  --},
-  paste = {
-    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-  },
-}
+  -- Explicit opt-in via terminal detection
+  if vim.env.NVIM_TERM == "alacritty" or vim.env.TERM_PROGRAM == "WezTerm" then
+    return true
+  end
+
+  -- Over SSH? Most likely terminals support OSC52 copy there
+  if tty ~= "" then
+    return true
+  end
+
+  -- Could also allow certain known terms
+  if term:match("xterm") or term:match("tmux") then
+    return true
+  end
+
+  return false
+end
+if osc52_supported() then
+  -- :help clipboard-osc52
+  vim.g.clipboard = 'osc52'
+end
 EOF
 "    lua << EOF
 "    require('osc52').setup {
