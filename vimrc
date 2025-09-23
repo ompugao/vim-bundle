@@ -587,12 +587,12 @@ lua <<EOF
       -- https://github.com/neovim/neovim/issues/30688
       insertReplaceSupport = false,
   })
-  require('patto')
-  require('lspconfig.configs').patto_lsp.setup({
-    capabilities = capabilities
+
+  vim.lsp.config('*', {
+      capabilities = capabilities
   })
-  require'lspconfig'.rust_analyzer.setup{
-      capabilities = capabilities,
+  vim.lsp.config('patto_lsp', {})
+  vim.lsp.config('rust_analyzer', {
       settings = {
           ['rust-analyzer'] = {
               diagnostics = {
@@ -603,8 +603,8 @@ lua <<EOF
               }
           }
       }
-  }
-  require "lspconfig".pylsp.setup {
+  })
+  vim.lsp.config('pylsp', {
     settings = {
       pylsp = {
         plugins = {
@@ -624,11 +624,12 @@ lua <<EOF
         }
       }
     }
-  }
-  require "lspconfig".clangd.setup {}
+  })
+  vim.lsp.config('clangd', {})
+  vim.lsp.enable({'rust_analyzer', 'pylsp', 'clangd', 'patto_lsp'})
   require "trouble".setup()
 
-  vim.lsp.set_log_level('info')
+  --vim.lsp.log.set_level('warn')
   vim.api.nvim_create_autocmd('LspAttach', {
           desc = 'LSP actions',
           callback = function()
