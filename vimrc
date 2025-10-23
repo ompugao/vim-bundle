@@ -102,6 +102,7 @@ if has('nvim')
 
   Plug 'ibhagwan/fzf-lua'
   Plug 'romgrk/barbar.nvim'
+  Plug 'j-hui/fidget.nvim'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'neovim/nvim-lspconfig'
@@ -1527,6 +1528,13 @@ lua << EOF
     ignore_case = true,
   },
   }
+EOF
+" }}}
+" fidget {{{
+lua <<EOF
+require("fidget").setup {
+  -- options
+}
 EOF
 " }}}
 endif
