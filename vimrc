@@ -75,7 +75,6 @@ Plug 'mattn/webapi-vim'
 Plug 'tyru/open-browser.vim'
 " Plug 'previm/previm'
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'airblade/vim-gitgutter'
 Plug 'mopp/autodirmake.vim'
 Plug 'mattn/emmet-vim'
 Plug 'ivalkeen/vim-ctrlp-tjump'
@@ -129,6 +128,7 @@ else
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
   Plug 'ompugao/patto', {'for': 'patto'}
+  Plug 'airblade/vim-gitgutter'
 endif
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'ompugao/quickdict.vim'
