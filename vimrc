@@ -113,6 +113,7 @@ if has('nvim')
   Plug 'rinx/cmp-skkeleton'
   Plug 'saadparwaiz1/cmp_luasnip'
   Plug 'folke/trouble.nvim'
+  Plug 'rachartier/tiny-inline-diagnostic.nvim'
   Plug 'ompugao/patto'
 else
   Plug 'prabirshrestha/async.vim'
@@ -342,8 +343,6 @@ nnoremap <Space><Space> i<Space><Esc>la<Space><Esc>
 noremap ; :
 noremap : ;
 
-imap <silent> <c-b> <Left>
-imap <silent> <c-f> <Right>
 "tagsジャンプの時に複数ある時は一覧表示
 nnoremap <C-]> g<C-]>
 
@@ -568,7 +567,8 @@ lua <<EOF
   })
 
   vim.lsp.config('*', {
-      capabilities = capabilities
+      capabilities = capabilities,
+      virtual_text = false
   })
   vim.lsp.config('patto_lsp', {})
   vim.lsp.config('rust_analyzer', {
@@ -607,6 +607,19 @@ lua <<EOF
   vim.lsp.config('clangd', {})
   vim.lsp.enable({'rust_analyzer', 'pylsp', 'clangd', 'patto_lsp'})
   require "trouble".setup()
+  require 'tiny-inline-diagnostic'.setup({
+    preset = "simple",
+    hi = {
+        error = "DiagnosticError",     -- Highlight for error diagnostics
+        warn = "DiagnosticWarn",       -- Highlight for warning diagnostics
+        info = "DiagnosticInfo",       -- Highlight for info diagnostics
+        hint = "DiagnosticHint",       -- Highlight for hint diagnostics
+        arrow = "NonText",             -- Highlight for the arrow pointing to diagnostic
+        background = "CursorLine",     -- Background highlight for diagnostics
+        mixing_color = "Normal",       -- Color to blend background with (or "None")
+    },
+  })
+
 
   --vim.lsp.log.set_level('warn')
   vim.api.nvim_create_autocmd('LspAttach', {
@@ -626,8 +639,9 @@ lua <<EOF
           bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
           bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
           bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-          bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-          bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+          -- floating window is handled by rachartier/tiny-inline-diagnostic.nvim
+          bufmap('n', '[d', '<cmd>lua vim.diagnostic.jump({count=-1, float=false})<cr>')
+          bufmap('n', ']d', '<cmd>lua vim.diagnostic.jump({count=1, float=false})<cr>')
           bufmap('n', 'g=', '<cmd>lua vim.lsp.buf.format()<cr>')
           end
   })
@@ -885,9 +899,7 @@ let g:airline_mode_map = {
 set background=dark
 "colorscheme Tomorrow-Night-Blue
 "colorscheme harlequin
-if has('nvim')
-  set notermguicolors
-endif
+set termguicolors
 "colorscheme PaperColor
 colorscheme everforest
 set t_Co=256
