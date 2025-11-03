@@ -597,27 +597,6 @@ lua <<EOF
           }
       }
   })
-  vim.lsp.config('pylsp', {
-    settings = {
-      pylsp = {
-        plugins = {
-          flake8 = {
-            enabled = false,
-            maxLineLength = 119,
-          },
-          mypy = {
-            enabled = true,
-          },
-          pycodestyle = {
-            enabled = false,
-          },
-          pyflakes = {
-            enabled = false,
-          },
-        }
-      }
-    }
-  })
   vim.lsp.config('clangd', {})
   vim.lsp.config('pyright', {})
   vim.lsp.enable({'rust_analyzer', 'pyright', 'clangd', 'patto_lsp'})
