@@ -605,7 +605,8 @@ lua <<EOF
     }
   })
   vim.lsp.config('clangd', {})
-  vim.lsp.enable({'rust_analyzer', 'pylsp', 'clangd', 'patto_lsp'})
+  vim.lsp.config('pyright', {})
+  vim.lsp.enable({'rust_analyzer', 'pyright', 'clangd', 'patto_lsp'})
   require "trouble".setup()
   require 'tiny-inline-diagnostic'.setup({
     preset = "simple",
