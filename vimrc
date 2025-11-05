@@ -112,6 +112,7 @@ if has('nvim')
   Plug 'hrsh7th/nvim-cmp'
   Plug 'rinx/cmp-skkeleton'
   Plug 'saadparwaiz1/cmp_luasnip'
+  Plug 'biosugar0/cmp-claudecode'
   Plug 'folke/trouble.nvim'
   Plug 'rachartier/tiny-inline-diagnostic.nvim'
   Plug 'ompugao/patto'
@@ -470,6 +471,16 @@ if has('nvim')
 set completeopt=menuone,noinsert,noselect
 set pumheight=5 "set the height of completion menu
 lua <<EOF
+  require('cmp_claudecode').setup({
+    enabled = {
+      -- Restrict to specific filetypes (default: nil = all filetypes)
+      -- filetypes = { 'terminal', 'markdown', 'gitcommit', 'text' },
+      -- Or use a custom function for more control
+      custom = function()
+        -- Enable only when launched by editprompt
+        return vim.env.EDITPROMPT == '1'
+      end,
+    }})
   -- Set up nvim-cmp.
   local cmp = require'cmp'
   local luasnip = require'luasnip'
@@ -488,6 +499,8 @@ lua <<EOF
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
         -- { name = 'copilot' },
+        { name = 'claude_slash', priority = 900 },
+        { name = 'claude_at', priority = 900 },
       }, {
         { name = 'buffer' },
         { name = 'path' },
