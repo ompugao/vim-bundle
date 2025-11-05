@@ -1050,6 +1050,9 @@ let g:ctrlp_tjump_shortener = ['/home/[^/]*/', '~/']
 "  xnoremap <c-]> :CtrlPtjumpVisual<cr>
 "endif
 "}}}
+" vim-mr {{{
+let g:mr#mru#predicates = [{ filename -> filename !~# '/tmp/editprompt-prompts' }]
+" }}}
 "openbrowser"{{{
 "let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap <space>ob <Plug>(openbrowser-open)
