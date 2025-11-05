@@ -116,6 +116,7 @@ if has('nvim')
   Plug 'folke/trouble.nvim'
   Plug 'rachartier/tiny-inline-diagnostic.nvim'
   Plug 'ompugao/patto'
+  Plug 'yorickpeterse/nvim-pqf'
 else
   Plug 'prabirshrestha/async.vim'
   Plug 'prabirshrestha/asyncomplete.vim'
@@ -674,6 +675,7 @@ lua <<EOF
         cmp_setup(false)
       end
   })
+  require('pqf').setup()
 EOF
 " }}}
 else
