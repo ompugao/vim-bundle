@@ -470,7 +470,7 @@ endif
 if has('nvim')
 " nvim-cmp {{{
 set completeopt=menuone,noinsert,noselect
-set pumheight=5 "set the height of completion menu
+set pumheight=12 "set the height of completion menu
 lua <<EOF
   require('cmp_claudecode').setup({
     enabled = {
@@ -734,7 +734,7 @@ if !has('nvim')
 endif
 
 set completeopt=menuone,noinsert,noselect
-set pumheight=20 "set the height of completion menu
+set pumheight=12 "set the height of completion menu
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
