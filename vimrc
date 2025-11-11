@@ -850,11 +850,11 @@ else
   let g:airline_extensions = add(g:airline_extensions, 'lsp')
   let g:airline_extensions = add(g:airline_extensions, 'tabline')
 endif
-let g:airline_theme='ayu_mirage' "'minimalist' 'serene' 'simple' 'wombat''papercolor'
+let g:airline_theme='everforest' "'ayu_mirage' 'minimalist' 'serene' 'simple' 'wombat''papercolor'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.linenr = 'LF'
+let g:airline_symbols.linenr = 'L'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
