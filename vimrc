@@ -593,14 +593,18 @@ lua <<EOF
               },
               check = {
                   command = "clippy",
-              }
+              },
           }
       }
   })
   vim.lsp.config('clangd', {})
   vim.lsp.config('pyright', {})
   vim.lsp.enable({'rust_analyzer', 'pyright', 'clangd', 'patto_lsp'})
-  require "trouble".setup()
+  require "trouble".setup({
+    preview = {
+      scratch = false
+    }
+  })
   require 'tiny-inline-diagnostic'.setup({
     preset = "simple",
     hi = {
