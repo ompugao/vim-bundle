@@ -904,7 +904,7 @@ let g:airline_mode_map = {
 set background=dark
 "colorscheme Tomorrow-Night-Blue
 "colorscheme harlequin
-set termguicolors
+set notermguicolors
 "colorscheme PaperColor
 colorscheme everforest
 set t_Co=256
