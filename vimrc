@@ -585,6 +585,7 @@ lua <<EOF
       virtual_text = false
   })
   vim.lsp.config('patto_lsp', {})
+  vim.lsp.config('patto_preview', {})
   vim.lsp.config('rust_analyzer', {
       settings = {
           ['rust-analyzer'] = {
@@ -599,7 +600,7 @@ lua <<EOF
   })
   vim.lsp.config('clangd', {})
   vim.lsp.config('pyright', {})
-  vim.lsp.enable({'rust_analyzer', 'pyright', 'clangd', 'patto_lsp'})
+  vim.lsp.enable({'rust_analyzer', 'pyright', 'clangd', 'patto_lsp', 'patto_preview'})
   require "trouble".setup({
     preview = {
       scratch = false
