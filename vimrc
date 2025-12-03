@@ -30,7 +30,6 @@ if has('nvim')
   Plug 'nvim-lua/plenary.nvim'
   Plug 'MunifTanjim/nui.nvim'
   Plug 'zbirenbaum/copilot.lua'
-  Plug 'olimorris/codecompanion.nvim'
   Plug 'nvim-treesitter/nvim-treesitter'
 else
   Plug 'github/copilot.vim'
@@ -1372,19 +1371,9 @@ require("fzf-lua").setup{
 }
 EOF
 " }}}
-" codecompanion {{{
+" copilot {{{
 lua << EOF
 require("copilot").setup()
-require("codecompanion").setup({
-  strategies = {
-    chat = {
-      adapter = "copilot",
-    },
-    inline = {
-      adapter = "copilot",
-    },
-  },
-})
 EOF
 " }}}
 " telescope {{{
