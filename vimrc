@@ -452,6 +452,7 @@ if has('conceal')
   set conceallevel=2 concealcursor=c
 endif
 if has('nvim')
+  " hlchunk {{{
   lua <<EOF
   require('hlchunk').setup({
   chunk = {
@@ -461,10 +462,13 @@ if has('nvim')
       enable = true
   } })
 EOF
+  " }}}
 else
+  " indentLine {{{
   let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
   let g:indentLine_concealcursor='c'
   let g:indentLine_setConceal = 0
+  " }}}
 endif
 if has('nvim')
 " nvim-cmp {{{
