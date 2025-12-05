@@ -1157,7 +1157,9 @@ function! s:skkeleton_init() abort
                 \ 'globalDictionaries': ['~/.skkjisyo/SKK-JISYO.L'],
                 \ 'keepState': v:false,
                 \ 'registerConvertResult': v:true,
-                \ 'showCandidatesCount': 1
+                \ 'showCandidatesCount': 1,
+                \ 'markerHenkan': '',
+                \ 'markerHenkanSelect': ''
                 \ })
 endfunction
 augroup skkeleton-initialize-pre
