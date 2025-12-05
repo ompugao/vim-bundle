@@ -104,13 +104,10 @@ if has('nvim')
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'neovim/nvim-lspconfig'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'rinx/cmp-skkeleton'
-  Plug 'saadparwaiz1/cmp_luasnip'
+  Plug 'saghen/blink.cmp', {'branch': 'main', 'do': 'cargo +nightly b -r'}
+  Plug 'saghen/blink.compat', {'branch': 'main'}
+  "Plug 'rinx/cmp-skkeleton'
+  Plug 'Xantibody/blink-cmp-skkeleton'
   Plug 'biosugar0/cmp-claudecode'
   Plug 'folke/trouble.nvim'
   Plug 'rachartier/tiny-inline-diagnostic.nvim'
@@ -471,115 +468,79 @@ else
   " }}}
 endif
 if has('nvim')
-" nvim-cmp {{{
+" blink.cmp {{{
 set completeopt=menuone,noinsert,noselect
 set pumheight=12 "set the height of completion menu
 lua <<EOF
   require('cmp_claudecode').setup({
     enabled = {
-      -- Restrict to specific filetypes (default: nil = all filetypes)
-      -- filetypes = { 'terminal', 'markdown', 'gitcommit', 'text' },
-      -- Or use a custom function for more control
       custom = function()
-        -- Enable only when launched by editprompt
         return vim.env.EDITPROMPT == '1'
       end,
-    }})
-  -- Set up nvim-cmp.
-  local cmp = require'cmp'
-  local luasnip = require'luasnip'
-  local cmp_setup = function(skkmode)
-    if skkmode then
-      cmp_srcs = cmp.config.sources({
-        { name = 'skkeleton' },
-        { name = 'nvim_lsp' },
-      }, {
-      })
-    else
-      cmp_srcs = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        -- { name = 'vsnip' }, -- For vsnip users.
-        { name = 'luasnip' }, -- For luasnip users.
-        -- { name = 'ultisnips' }, -- For ultisnips users.
-        -- { name = 'snippy' }, -- For snippy users.
-        -- { name = 'copilot' },
-        { name = 'claude_slash', priority = 900 },
-        { name = 'claude_at', priority = 900 },
-      }, {
-        { name = 'buffer' },
-        { name = 'path' },
-      })
-    end
-    cmp.setup({
-      enabled = true,
-      snippet = {
-        expand = function(args)
-          luasnip.lsp_expand(args.body)
-        end,
-      },
-      window = {
-        -- completion = cmp.config.window.bordered(),
-        -- documentation = cmp.config.window.bordered(),
-      },
-      mapping = cmp.mapping.preset.insert({
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ["<Tab>"] = cmp.mapping(function(fallback)
-          if luasnip.locally_jumpable(1) then
-            luasnip.jump(1)
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-      }),
-      sources = cmp_srcs
-    })
-  end
-  cmp_setup(false)
-
-  -- To use git you need to install the plugin petertriho/cmp-git and uncomment lines below
-  -- Set configuration for specific filetype.
-  --[[ cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-      { name = 'git' },
-    }, {
-      { name = 'buffer' },
-    })
- })
- require("cmp_git").setup() ]]-- 
-
-  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-  --[[cmp.setup.cmdline({ '/', '?' }, {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' }
     }
-  })]]--
+  })
+  require('blink.compat').setup({})
+  local blink = require('blink.cmp')
 
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  --[[cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    }),
-    matching = { disallow_symbol_nonprefix_matching = false }
-  })]]--
+  vim.g.skkeleton_blink_mode = false
 
-  -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities({
-      -- https://github.com/neovim/neovim/issues/30688
+  local function default_sources(_ctx)
+    if require("blink-cmp-skkeleton").is_enabled() then
+      return { "skkeleton", "lsp" }
+    else
+      return { 'lsp', 'snippets', 'path', 'buffer', 'claude_slash', 'claude_at' }
+    end
+  end
+
+  blink.setup({
+    snippets = { preset = 'luasnip' },
+    cmdline = {
+      keymap = {
+          preset = 'cmdline',
+      },
+      --completion = {
+      --  menu = {
+      --    auto_show = true
+      --  }
+      --},
+    },
+    keymap = {
+      preset = 'enter',
+      ["<Space>"] = {}  -- required for skkeleton
+    },
+    completion = {
+      list = {
+        selection = {
+          preselect = false,
+          auto_insert = true,
+        },
+      },
+      menu = { max_height = 12 },
+      documentation = { auto_show = false },
+    },
+    fuzzy = { implementation = "prefer_rust_with_warning" },
+    sources = {
+      default = default_sources,
+      providers = {
+        skkeleton = {
+          name = 'skkeleton',
+          module = 'blink-cmp-skkeleton',
+        },
+        claude_slash = {
+          name = 'claude_slash',
+          module = 'blink.compat.source',
+          score_offset = 20,
+        },
+        claude_at = {
+          name = 'claude_at',
+          module = 'blink.compat.source',
+          score_offset = 20,
+        },
+      },
+    },
+  })
+
+  local capabilities = blink.get_lsp_capabilities({
       insertReplaceSupport = false,
   })
 
@@ -612,18 +573,16 @@ lua <<EOF
   require 'tiny-inline-diagnostic'.setup({
     preset = "simple",
     hi = {
-        error = "DiagnosticError",     -- Highlight for error diagnostics
-        warn = "DiagnosticWarn",       -- Highlight for warning diagnostics
-        info = "DiagnosticInfo",       -- Highlight for info diagnostics
-        hint = "DiagnosticHint",       -- Highlight for hint diagnostics
-        arrow = "NonText",             -- Highlight for the arrow pointing to diagnostic
-        background = "CursorLine",     -- Background highlight for diagnostics
-        mixing_color = "Normal",       -- Color to blend background with (or "None")
+        error = "DiagnosticError",
+        warn = "DiagnosticWarn",
+        info = "DiagnosticInfo",
+        hint = "DiagnosticHint",
+        arrow = "NonText",
+        background = "CursorLine",
+        mixing_color = "Normal",
     },
   })
 
-
-  --vim.lsp.log.set_level('warn')
   vim.api.nvim_create_autocmd('LspAttach', {
           desc = 'LSP actions',
           callback = function()
@@ -632,11 +591,6 @@ lua <<EOF
             vim.keymap.set(mode, lhs, rhs, opts)
           end
           bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-          -- bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
-          -- bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
-          -- bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
-          -- bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
-          -- bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
           bufmap('n', 'gd', '<cmd>Trouble lsp_definitions<cr>')
           bufmap('n', 'gD', '<cmd>Trouble lsp_declarations<cr>')
           bufmap('n', 'gi', '<cmd>Trouble lsp_implementations<cr>')
@@ -647,27 +601,27 @@ lua <<EOF
           bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
           bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
           bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-          -- floating window is handled by rachartier/tiny-inline-diagnostic.nvim
           bufmap('n', '[d', '<cmd>lua vim.diagnostic.jump({count=-1, float=false})<cr>')
           bufmap('n', ']d', '<cmd>lua vim.diagnostic.jump({count=1, float=false})<cr>')
           bufmap('n', 'g=', '<cmd>lua vim.lsp.buf.format()<cr>')
           end
   })
-  vim.api.nvim_create_augroup('skkeleton-nvim-cmp', {})
-  vim.api.nvim_create_autocmd('User', {
-      group = 'skkeleton-nvim-cmp',
-      pattern = 'skkeleton-enable-pre',
-      callback = function()
-        cmp_setup(true)
-      end
-  })
-  vim.api.nvim_create_autocmd('User', {
-      group = 'skkeleton-nvim-cmp',
-      pattern = 'skkeleton-disable-pre',
-      callback = function()
-        cmp_setup(false)
-      end
-  })
+
+  --local skk_group = vim.api.nvim_create_augroup('skkeleton-blink-cmp', {})
+  --vim.api.nvim_create_autocmd('User', {
+  --    group = skk_group,
+  --    pattern = 'skkeleton-enable-pre',
+  --    callback = function()
+  --      vim.g.skkeleton_blink_mode = true
+  --    end
+  --})
+  --vim.api.nvim_create_autocmd('User', {
+  --    group = skk_group,
+  --    pattern = 'skkeleton-disable-pre',
+  --    callback = function()
+  --      vim.g.skkeleton_blink_mode = false
+  --    end
+  --})
   require('pqf').setup()
 EOF
 " }}}
