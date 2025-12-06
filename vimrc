@@ -95,7 +95,7 @@ if has('nvim')
   Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
   Plug 'rafamadriz/friendly-snippets'
   "Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+  Plug 'nvim-telescope/telescope.nvim'  ", { 'tag': '0.1.8' }
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
 
   Plug 'ibhagwan/fzf-lua'
@@ -453,10 +453,13 @@ if has('nvim')
   lua <<EOF
   require('hlchunk').setup({
   chunk = {
-      enable = true
+      enable = true,
+      priority = 15,
+      style = "#c21f30",
       },
   indent = {
-      enable = true
+      enable = true,
+      priority = 10
   } })
 EOF
   " }}}
@@ -518,7 +521,15 @@ lua <<EOF
       menu = { max_height = 12 },
       documentation = { auto_show = false },
     },
-    fuzzy = { implementation = "prefer_rust_with_warning" },
+    fuzzy = {
+      implementation = "prefer_rust_with_warning",
+      sorts = {
+        'exact',
+        -- defaults
+        'score',
+        'sort_text',
+      },
+    },
     sources = {
       default = default_sources,
       providers = {
@@ -1518,5 +1529,17 @@ require("fidget").setup {
 }
 EOF
 " }}}
+lua <<EOF
+local ok, extui = pcall(require, 'vim._extui')
+if ok then
+  extui.enable({
+    enable = true, -- extuiを有効化
+    msg = {
+      target = 'cmd',
+      timeout = 3000,
+    },
+  })
+end
+EOF
 endif
 filetype plugin indent on
