@@ -495,6 +495,14 @@ lua <<EOF
     end
   end
 
+  local function sources_for_writing(_ctx)
+    if require("blink-cmp-skkeleton").is_enabled() then
+      return { "skkeleton", "lsp" }
+    else
+      return { 'lsp', 'snippets', 'path', 'claude_slash', 'claude_at' }
+    end
+  end
+
   blink.setup({
     snippets = { preset = 'luasnip' },
     cmdline = {
@@ -532,6 +540,10 @@ lua <<EOF
     },
     sources = {
       default = default_sources,
+      per_filetype = {
+        markdown = sources_for_writing,
+        patto = sources_for_writing
+      },
       providers = {
         skkeleton = {
           name = 'skkeleton',
