@@ -541,7 +541,17 @@ lua <<EOF
   })
 
   local capabilities = blink.get_lsp_capabilities({
-      insertReplaceSupport = false,
+    textDocument = {
+      completion = {
+        completionItem = {
+          snippetSupport = true,
+        },
+      },
+      foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      },
+    },
   })
 
   vim.lsp.config('*', {
