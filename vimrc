@@ -67,6 +67,7 @@ Plug 'img-paste-devs/img-paste.vim'
 " Plug 'haya14busa/vim-migemo'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-skk/skkeleton'
+Plug 'NI57721/skkeleton-henkan-highlight'
 Plug 'kshenoy/vim-signature'
 Plug 'Shougo/vinarise', {'on': 'Vinarize'}
 Plug 'scrooloose/nerdcommenter'
@@ -616,6 +617,7 @@ lua <<EOF
     },
   })
 
+  --vim.lsp.log.set_level('warn')
   vim.api.nvim_create_autocmd('LspAttach', {
           desc = 'LSP actions',
           callback = function()
@@ -843,10 +845,11 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 let g:airline_experimental = 1
-let g:airline_extensions = ['branch', 'gina', 'ctrlp', 'quickfix', 'tabline', 'wordcount', 'gutentags', 'cwd']
+let g:airline_extensions = ['branch', 'gina', 'ctrlp', 'quickfix', 'wordcount', 'gutentags', 'cwd']
 if has('nvim')
   let g:airline_extensions = add(g:airline_extensions, 'nvimlsp')
   " using barbar.nvim instead of airline's tabline
+  "let g:airline_extensions = add(g:airline_extensions, 'tabline')
 else
   let g:airline_extensions = add(g:airline_extensions, 'lsp')
   let g:airline_extensions = add(g:airline_extensions, 'tabline')
@@ -1148,6 +1151,10 @@ function! s:skkeleton_init() abort
                 \ 'markerHenkan': '',
                 \ 'markerHenkanSelect': ''
                 \ })
+    " ノーマル・ターミナルでは変換中に下線を引き、
+    highlight SkkeletonHenkan gui=underline term=underline cterm=underline
+    " カラー・ターミナルでは変換中に色を反転する
+    highlight SkkeletonHenkanSelect gui=underline,reverse term=underline,reverse cterm=underline,reverse
 endfunction
 augroup skkeleton-initialize-pre
     autocmd!
