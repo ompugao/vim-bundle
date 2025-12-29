@@ -582,7 +582,12 @@ lua <<EOF
       capabilities = capabilities,
       virtual_text = false
   })
-  vim.lsp.config('patto_lsp', {})
+  vim.lsp.config('patto_lsp', {
+    on_init = function(client)
+      local stp = client.server_capabilities.semanticTokensProvider
+      stp.range = false
+    end,
+  })
   vim.lsp.config('patto_preview', {})
   vim.lsp.config('rust_analyzer', {
       settings = {
