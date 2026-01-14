@@ -1,13 +1,10 @@
-if 0 | finish | endif
+" Vim-only configuration
+" Cleaned up from unified vimrc
+
 set encoding=utf-8
 set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
 scriptencoding utf8
-
-if has("nvim")
-let g:loaded_python3_provider = 1
-let g:python3_host_prog = ''
-endif
 
 " gutentags {{{
 let g:gutentags_cache_dir=expand('~') . '/.gutentags'
@@ -15,29 +12,16 @@ let g:gutentags_ctags_extra_args = ['--excmd=number']
 if !isdirectory(g:gutentags_cache_dir)
     call mkdir(g:gutentags_cache_dir, "p")
 endif
-"let g:gutentags_trace = 1
 " }}}
 
-" Strange character since last update (>4;2m) in vim - Stack Overflow https://stackoverflow.com/questions/62148994/strange-character-since-last-update-42m-in-vim
-" https://stackoverflow.com/questions/62148994/strange-character-since-last-update-42m-in-vim
+" Terminal compatibility
 let &t_TI = ""
 let &t_TE = ""
 
 " plugins {{{
 call plug#begin()
-if has('nvim')
-  Plug 'stevearc/dressing.nvim'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'MunifTanjim/nui.nvim'
-  Plug 'zbirenbaum/copilot.lua'
-  Plug 'nvim-treesitter/nvim-treesitter'
-else
-  Plug 'github/copilot.vim'
-endif
+Plug 'github/copilot.vim'
 Plug 'rbtnn/vim-ambiwidth'
-if has('nvim')
-  Plug 'monaqa/dial.nvim'
-endif
 Plug 'tpope/vim-fugitive'
 Plug 'Shougo/vimproc', { 'do': 'make' }
 Plug 'junegunn/vim-easy-align'
@@ -64,7 +48,6 @@ Plug 'ompugao/ctrlp-kensaku'
 Plug 'lambdalisue/vim-mr'
 Plug 'tsuyoshicho/ctrlp-mr.vim'
 Plug 'img-paste-devs/img-paste.vim'
-" Plug 'haya14busa/vim-migemo'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-skk/skkeleton'
 Plug 'NI57721/skkeleton-henkan-highlight'
@@ -73,102 +56,59 @@ Plug 'Shougo/vinarise', {'on': 'Vinarize'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'mattn/webapi-vim'
 Plug 'tyru/open-browser.vim'
-" Plug 'previm/previm'
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'mopp/autodirmake.vim'
 Plug 'mattn/emmet-vim'
 Plug 'ivalkeen/vim-ctrlp-tjump'
-" Plug 'tpope/vim-speeddating'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'cohama/agit.vim'
-" Plug 'altercation/vim-colors-solarized'
 Plug 'mattn/vim-molder'
 Plug 'mattn/vim-molder-operations'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'skywind3000/asyncrun.vim'
 Plug 'cocopon/iceberg.vim'
-" Plug 'ompugao/harlequin'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'sainnhe/everforest'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'rhysd/vim-clang-format'
-if has('nvim')
-  Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
-  Plug 'rafamadriz/friendly-snippets'
-  "Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'  ", { 'tag': '0.1.8' }
-  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
-
-  Plug 'ibhagwan/fzf-lua'
-  Plug 'romgrk/barbar.nvim'
-  Plug 'j-hui/fidget.nvim'
-  Plug 'nvim-tree/nvim-web-devicons'
-  Plug 'lewis6991/gitsigns.nvim'
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'saghen/blink.cmp', {'branch': 'main', 'do': 'cargo +nightly b -r'}
-  Plug 'saghen/blink.compat', {'branch': 'main'}
-  "Plug 'rinx/cmp-skkeleton'
-  Plug 'Xantibody/blink-cmp-skkeleton'
-  Plug 'biosugar0/cmp-claudecode'
-  Plug 'folke/trouble.nvim'
-  Plug 'rachartier/tiny-inline-diagnostic.nvim'
-  Plug 'ompugao/patto'
-  Plug 'yorickpeterse/nvim-pqf'
-else
-  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/asyncomplete.vim'
-  Plug 'prabirshrestha/asyncomplete-lsp.vim'
-  Plug 'prabirshrestha/asyncomplete-buffer.vim'
-  Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
-  Plug 'prabirshrestha/asyncomplete-file.vim'
-  Plug 'prabirshrestha/vim-lsp'
-  Plug 'thomasfaingnaert/vim-lsp-neosnippet'
-  Plug 'thomasfaingnaert/vim-lsp-snippets'
-  Plug 'mattn/vim-lsp-settings'
-  Plug 'Shougo/neosnippet'
-  Plug 'Shougo/neosnippet-snippets'
-  Plug 'ompugao/patto', {'for': 'patto'}
-  Plug 'airblade/vim-gitgutter'
-endif
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'thomasfaingnaert/vim-lsp-neosnippet'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'mattn/vim-lsp-settings'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'ompugao/patto', {'for': 'patto'}
+Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'ompugao/quickdict.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-if has('nvim')
-  Plug 'shellRaining/hlchunk.nvim'
-else
-  Plug 'Yggdroot/indentLine'
-endif
+Plug 'Yggdroot/indentLine'
 Plug 'preservim/tagbar'
 Plug 'lambdalisue/gina.vim'
-" Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 Plug 'stefandtw/quickfix-reflector.vim'
-if has('nvim')
-  "Plug 'ojroques/nvim-osc52', {'branch': 'main'}
-else
-  Plug 'ojroques/vim-oscyank', {'branch': 'main'}
-endif
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 call plug#end()
 "}}}
 
-" settings(set *** etc.etc...) {{{
+" settings {{{
 augroup mysettings
     autocmd!
-    " カーソル位置を記憶する
     autocmd BufReadPost *
                 \ if line("'\"") > 0 && line("'\"") <= line("$") |
                 \   exe "normal g`\"" |
                 \ endif
 augroup END
-set autoindent  " 自動インデント
-set backup  " バックアップを有効にする
-if has('nvim')
-    set backupdir=$HOME/.nvimbackup  " バックアップ用ディレクトリ
-    set directory=$HOME/.nvimswap
-else
-    set backupdir=$HOME/.vimbackup  " バックアップ用ディレクトリ
-    set directory=$HOME/.vimswap
-endif
+set autoindent
+set backup
+set backupdir=$HOME/.vimbackup
+set directory=$HOME/.vimswap
 set diffopt+=vertical
 if !isdirectory(&backupdir)
     call mkdir(&backupdir, "p")
@@ -176,63 +116,51 @@ endif
 if !isdirectory(&directory)
     call mkdir(&directory, "p")
 endif
-" open file read-only when it finds a swap file
 augroup swapchoice-readonly
     autocmd!
     autocmd SwapExists * let v:swapchoice = 'o'
 augroup END
 if has('persistent_undo')
-    if has('nvim')
-        set undodir=$HOME/.nvimundo  " アンドゥ用ディレクトリ
-    else
-        set undodir=$HOME/.vimundo  " アンドゥ用ディレクトリ
-    endif
+    set undodir=$HOME/.vimundo
     if !isdirectory(&undodir)
         call mkdir(&undodir, "p")
     endif
-    set undofile "全てのファイルでundo履歴を残す [http://vim-users.jp/2010/07/hack162/]()
+    set undofile
 endif
-set list  " 不可視文字の表示
+set list
 set listchars=tab:>-,trail:_,nbsp:%
-set scrolloff=4  " スクロール時の余白
+set scrolloff=4
 set ignorecase
 set smartcase
-"set titlestring=%t  " see :help statusline  or :help titlestring
-set showcmd  " コマンドを表示 
-set laststatus=2 " ステータスラインを表示
-set ts=4  " タブ幅
-set sw=4  " シフト幅
-set smarttab   "use shiftwidth when inserts <tab>
-set noexpandtab  " タブをスペースに展開
+set showcmd
+set laststatus=2
+set ts=4
+set sw=4
+set smarttab
+set noexpandtab
 au FileType h,cpp,cuda,vim set expandtab
-set incsearch  "incremental search
+set incsearch
 set hlsearch
-set wrap  "長い行を折り返し
+set wrap
 if has('linebreak')
     set breakindent
-    "set breakindentopt=shift:2,sbr
     set breakindentopt=min:50,shift:4,sbr
-    "set showbreak=>
     set showbreak=↪
 endif
-set display=lastline   "as much as possible of the last linein a window will be displayed
-syntax enable  " 構文配色を有効にする
-set showtabline=2 "常にタブを表示
-set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバッファを開く
-set infercase           " 補完時に大文字小文字を区別しない
+set display=lastline
+syntax enable
+set showtabline=2
+set switchbuf=useopen
+set infercase
 set hidden
-set vb t_vb= "disable visualbell
-set virtualedit+=block "矩形選択で自由に移動
-set nrformats+=unsigned "increment ignoring `-'
-if has('nvim')
-    set clipboard=unnamedplus  " setup clipboard-osc later
-else
-    if has('clipboard')
-        if has('unnamedplus')
-            set clipboard=unnamedplus,autoselect 
-        else
-            set clipboard^=unnamed "無名レジスタだけでなく、*レジスタにもヤンク
-        endif
+set vb t_vb=
+set virtualedit+=block
+set nrformats+=unsigned
+if has('clipboard')
+    if has('unnamedplus')
+        set clipboard=unnamedplus,autoselect
+    else
+        set clipboard^=unnamed
     endif
 endif
 set wildmode=longest:full,full
@@ -243,13 +171,12 @@ endif
 set showmatch
 set matchtime=1
 set matchpairs=(:),{:},[:],<:>
-set backspace=indent,eol,start "help i_backspacing
+set backspace=indent,eol,start
 set history=10000
 set foldenable
 set foldmethod=marker
-set shortmess-=S  " show match counts
+set shortmess-=S
 augroup myfiletypes
-    " TODO FileType Eventで
     au!
     au BufNewFile,BufRead *.l set filetype=lisp
     au FileType lisp setlocal commentstring=\;%s
@@ -258,7 +185,6 @@ augroup myfiletypes
     au FileType markdown setlocal commentstring=\ <!--\ %s\ -->
     au BufNewFile,BufRead *.launch set filetype=launch syntax=xml
     au FileType launch setlocal commentstring=\ <!--\ %s\ -->
-    "au BufNewFile,BufRead *.m set filetype=octave
 augroup END
 set shellslash
 set isfname&
@@ -266,7 +192,7 @@ set isfname&
             \ isfname-==
 set grepprg=grep\ -nH\ $*
 let g:tex_conceal = ""
-augroup vimrc-auto-cursorline "http://d.hatena.ne.jp/thinca/20090530/1243615055 {{{
+augroup vimrc-auto-cursorline
     autocmd!
     autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
     autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
@@ -294,7 +220,7 @@ augroup vimrc-auto-cursorline "http://d.hatena.ne.jp/thinca/20090530/1243615055 
             let s:cursorline_lock = 1
         endif
     endfunction
-augroup END "}}}
+augroup END
 if exists("&cryptmethod")
     set cryptmethod=blowfish2
 endif
@@ -311,17 +237,13 @@ let g:markdown_fenced_languages = [
 if has('patch-7.4.146')
     command! Oldfiles execute ":new +setl\\ buftype=nofile | 0put =v:oldfiles | nnoremap <buffer> <CR> :e <C-r>=getline('.')<CR><CR>"
 endif
-" Copy-Paste in xfce4-terminal adds 0~ and 1~
-" https://unix.stackexchange.com/questions/196098/copy-paste-in-xfce4-terminal-adds-0-and-1
 set t_BE=
-" https://stackoverflow.com/a/30552423
 augroup highlight_todo
     au!
     au Syntax * syn match MyTodo /\v<(FIXME|NOTE|TODO|OPTIMIZE|XXX)/
                 \ containedin=.*Comment,vimCommentTitle
 augroup END
 hi def link MyTodo Todo
-" https://zenn.dev/hokorobi/articles/98f79339d7d114
 augroup syntax_off_for_big_file
     autocmd!
     autocmd BufEnter * if getfsize(@%) > 1000 * 1000 | setlocal syntax=OFF | call interrupt() | endif
@@ -329,22 +251,13 @@ augroup END
 "}}}
 
 " mappings {{{
-if has('nvim')
-  nnoremap <silent> <C-n> <Cmd>BufferNext<CR>
-  nnoremap <silent> <C-p> <Cmd>BufferPrevious<CR>
-else
-  nnoremap <silent> <C-n> :<C-u>bnext<CR>
-  nnoremap <silent> <C-p> :<C-u>bprevious<CR>
-endif
+nnoremap <silent> <C-n> :<C-u>bnext<CR>
+nnoremap <silent> <C-p> :<C-u>bprevious<CR>
 nnoremap <Space>d :<C-u>bd<CR>
 nnoremap <Space><Space> i<Space><Esc>la<Space><Esc>
-"nnoremap <S-tab> za
 noremap ; :
 noremap : ;
-
-"tagsジャンプの時に複数ある時は一覧表示
 nnoremap <C-]> g<C-]>
-
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 cnoremap <C-X> <C-R>=<SID>GetBufferDirectory()<CR>
@@ -354,32 +267,24 @@ function! s:GetBufferDirectory()
 endfunction
 cnoremap <C-T> <C-R>=strftime('%Y-%m-%d')<CR>
 cabbr w!! w !sudo tee > /dev/null %
-" yank to clipboard via xsel
 nnoremap <Leader>y my:0,$!xsel -iob<CR>u`y
-" "switched to oscyank plugin
-" if executable('kitty')
-"   nnoremap <leader>Y :call system('kitty +kitten clipboard', @0)<CR>
-"   xnoremap <leader>Y :call system('kitty +kitten clipboard', @0)<CR>
-" else
-"   " clipper https://github.com/wincent/clipper
-"   nnoremap <leader>Y :call system('nc -N localhost 8377', @0)<CR>
-"   xnoremap <leader>Y :call system('nc -N localhost 8377', @0)<CR>
-" endif
 "}}}
-" fugitive "{{{
+
+" fugitive {{{
 augroup myfugitive
     autocmd!
     autocmd BufReadPost fugitive://* set bufhidden=delete
 augroup END
 "}}}
+
 " quickrun {{{
-let g:quickrun_config = { 
-            \ "_" : { 
-            \ "outputter/buffer/split" : ":botright", 
+let g:quickrun_config = {
+            \ "_" : {
+            \ "outputter/buffer/split" : ":botright",
             \ "outputter/buffer/close_on_empty" : 1 ,
             \ "runner" : "job",
             \ "runner/job/interval" : 60
-            \ }, 
+            \ },
             \}
 let g:quickrun_config.markdown = {
             \ 'type': 'markdown/pandoc',
@@ -411,263 +316,29 @@ let g:quickrun_config['cpp/g++14'] = {
             \ }
 let g:quickrun_config.octave = {
             \ 'command': 'octave',
-            \ } 
-" <C-c> で実行を強制終了させる
-" quickrun.vim が実行していない場合には <C-c> を呼び出す
-"nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+            \ }
 nnoremap <silent> <leader>r <cmd>:QuickRun<CR>
 "}}}
-if has('nvim')
-  " luasnip {{{
-  lua require("luasnip.loaders.from_vscode").lazy_load()
-  lua require("luasnip.loaders.from_vscode").lazy_load({ paths = { '~/.config/nvim/snippets/' } }) -- Load snippets from my-snippets folder
-  " press <Tab> to expand or jump in a snippet. These can also be mapped separately
-  " via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
-  imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
-  imap <silent><expr> <C-k> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
-  " -1 for jumping backwards.
-  inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
 
-  snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(1)<Cr>
-  snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
-  snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+" neosnippet {{{
+let g:neosnippet#snippets_directory='~/.vim/snippets'
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_or_jump)
+nmap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" }}}
 
-  " For changing choices in choiceNodes (not strictly necessary for a basic setup).
-  imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-  smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-  " }}}
-else
-  " neosnippet {{{
-  let g:neosnippet#snippets_directory='~/.vim/snippets'
-  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  nmap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  " }}}
-endif
 if has('conceal')
- " For snippet_complete marker.
   set conceallevel=2 concealcursor=c
 endif
-if has('nvim')
-  " hlchunk {{{
-  lua <<EOF
-  require('hlchunk').setup({
-  chunk = {
-      enable = true,
-      priority = 15,
-      style = "#c21f30",
-      },
-  indent = {
-      enable = true,
-      priority = 10
-  } })
-EOF
-  " }}}
-else
-  " indentLine {{{
-  let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
-  let g:indentLine_concealcursor='c'
-  let g:indentLine_setConceal = 0
-  " }}}
-endif
-if has('nvim')
-" blink.cmp {{{
-set completeopt=menuone,noinsert,noselect
-set pumheight=12 "set the height of completion menu
-lua <<EOF
-  require('cmp_claudecode').setup({
-    enabled = {
-      custom = function()
-        return vim.env.EDITPROMPT == '1'
-      end,
-    }
-  })
-  require('blink.compat').setup({})
-  local blink = require('blink.cmp')
 
-  vim.g.skkeleton_blink_mode = false
-
-  local function default_sources(_ctx)
-    if require("blink-cmp-skkeleton").is_enabled() then
-      return { "skkeleton", "lsp" }
-    else
-      return { 'lsp', 'snippets', 'path', 'buffer', 'claude_slash', 'claude_at' }
-    end
-  end
-
-  local function sources_for_writing(_ctx)
-    if require("blink-cmp-skkeleton").is_enabled() then
-      return { "skkeleton", "lsp" }
-    else
-      return { 'lsp', 'snippets', 'path', 'claude_slash', 'claude_at' }
-    end
-  end
-
-  blink.setup({
-    snippets = { preset = 'luasnip' },
-    cmdline = {
-      keymap = {
-          preset = 'cmdline',
-      },
-      --completion = {
-      --  menu = {
-      --    auto_show = true
-      --  }
-      --},
-    },
-    keymap = {
-      preset = 'enter',
-      ["<Space>"] = {}  -- required for skkeleton
-    },
-    completion = {
-      list = {
-        selection = {
-          preselect = false,
-          auto_insert = true,
-        },
-      },
-      menu = { max_height = 12 },
-      documentation = { auto_show = false },
-    },
-    fuzzy = {
-      implementation = "prefer_rust_with_warning",
-      sorts = {
-        'exact',
-        -- defaults
-        'score',
-        'sort_text',
-      },
-    },
-    sources = {
-      default = default_sources,
-      per_filetype = {
-        markdown = sources_for_writing,
-        patto = sources_for_writing
-      },
-      providers = {
-        skkeleton = {
-          name = 'skkeleton',
-          module = 'blink-cmp-skkeleton',
-        },
-        claude_slash = {
-          name = 'claude_slash',
-          module = 'blink.compat.source',
-          score_offset = 20,
-        },
-        claude_at = {
-          name = 'claude_at',
-          module = 'blink.compat.source',
-          score_offset = 20,
-        },
-      },
-    },
-  })
-
-  local capabilities = blink.get_lsp_capabilities({
-    textDocument = {
-      completion = {
-        completionItem = {
-          snippetSupport = true,
-        },
-      },
-      foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-      },
-    },
-  })
-
-  vim.lsp.config('*', {
-      capabilities = capabilities,
-      virtual_text = false
-  })
-  vim.lsp.config('patto_lsp', {
-    on_init = function(client)
-      local stp = client.server_capabilities.semanticTokensProvider
-      stp.range = false
-    end,
-  { settings = { patto = { markdown = { defaultFlavor = 'github' }}}}
-  })
-  vim.lsp.config('patto_preview', {})
-  vim.lsp.config('rust_analyzer', {
-      settings = {
-          ['rust-analyzer'] = {
-              diagnostics = {
-                  enable = false;
-              },
-              check = {
-                  command = "clippy",
-              },
-          }
-      }
-  })
-  vim.lsp.config('clangd', {})
-  vim.lsp.config('pyright', {})
-  vim.lsp.enable({'rust_analyzer', 'pyright', 'clangd', 'patto_lsp', 'patto_preview'})
-  require "trouble".setup({
-    preview = {
-      scratch = false
-    }
-  })
-  require 'tiny-inline-diagnostic'.setup({
-    preset = "simple",
-    hi = {
-        error = "DiagnosticError",
-        warn = "DiagnosticWarn",
-        info = "DiagnosticInfo",
-        hint = "DiagnosticHint",
-        arrow = "NonText",
-        background = "CursorLine",
-        mixing_color = "Normal",
-    },
-  })
-
-  --vim.lsp.log.set_level('warn')
-  vim.api.nvim_create_autocmd('LspAttach', {
-          desc = 'LSP actions',
-          callback = function()
-            local bufmap = function(mode, lhs, rhs)
-            local opts = {buffer = true}
-            vim.keymap.set(mode, lhs, rhs, opts)
-          end
-          bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-          bufmap('n', 'gd', '<cmd>Trouble lsp_definitions<cr>')
-          bufmap('n', 'gD', '<cmd>Trouble lsp_declarations<cr>')
-          bufmap('n', 'gi', '<cmd>Trouble lsp_implementations<cr>')
-          bufmap('n', 'go', '<cmd>Trouble lsp_type_definitions<cr>')
-          bufmap('n', 'gr', '<cmd>Trouble lsp_references<cr>')
-
-          bufmap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
-          bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
-          bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
-          bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-          bufmap('n', '[d', '<cmd>lua vim.diagnostic.jump({count=-1, float=false})<cr>')
-          bufmap('n', ']d', '<cmd>lua vim.diagnostic.jump({count=1, float=false})<cr>')
-          bufmap('n', 'g=', '<cmd>lua vim.lsp.buf.format()<cr>')
-          end
-  })
-
-  --local skk_group = vim.api.nvim_create_augroup('skkeleton-blink-cmp', {})
-  --vim.api.nvim_create_autocmd('User', {
-  --    group = skk_group,
-  --    pattern = 'skkeleton-enable-pre',
-  --    callback = function()
-  --      vim.g.skkeleton_blink_mode = true
-  --    end
-  --})
-  --vim.api.nvim_create_autocmd('User', {
-  --    group = skk_group,
-  --    pattern = 'skkeleton-disable-pre',
-  --    callback = function()
-  --      vim.g.skkeleton_blink_mode = false
-  --    end
-  --})
-  require('pqf').setup()
-EOF
+" indentLine {{{
+let g:indentLine_fileTypeExclude=['dirvish', 'gina-status']
+let g:indentLine_concealcursor='c'
+let g:indentLine_setConceal = 0
 " }}}
-else
-"asynccomplete {{{
+
+" asynccomplete {{{
 set updatetime=300
 let g:lsp_work_done_progress_enabled = 1
 let g:lsp_diagnostics_highlights_enabled = 0
@@ -677,9 +348,7 @@ let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
-    "setlocal signcolumn=yes
     setlocal completeopt-=preview
-    "if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
     inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> gs <plug>(lsp-document-symbol-search)
@@ -691,27 +360,12 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
     nmap <buffer> K <plug>(lsp-hover)
-    "nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
-    "nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
 endfunction
 augroup lsp_install
     au!
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
-
-" let g:lsp_settings = {
-" \  'clangd': {
-" \    'cmd': ['clangd', '-compile_args_from=filesystem'],
-" \  }
-" \}
-" :LspSettingsLocalEdit and put the following text (change the build directory part for your 
-" every project)
-" {
-"     'clangd': {
-"         'initialization_options': {'compilationDatabasePath': 'build'}
-"     }
-" }
 
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
             \ 'name': 'buffer',
@@ -731,25 +385,21 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
             \ 'min_chars': 0,
             \ 'completor': function('asyncomplete#sources#file#completor')
             \ }))
-if !has('nvim')
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
-              \ 'name': 'neosnippet',
-              \ 'whitelist': ['*'],
-              \ 'blocklist': ['patto'],
-              \ 'priority': 5,
-              \ 'min_chars': 1,
-              \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
-              \ }))
-endif
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+            \ 'name': 'neosnippet',
+            \ 'whitelist': ['*'],
+            \ 'blocklist': ['patto'],
+            \ 'priority': 5,
+            \ 'min_chars': 1,
+            \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+            \ }))
 
 set completeopt=menuone,noinsert,noselect
-set pumheight=12 "set the height of completion menu
+set pumheight=12
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
-"let g:asyncomplete_auto_popup = 1
 let s:auto_popup_filetypes = ['make', 'markdown', 'shell', 'docker', 'rust', 'patto']
-"au InsertEnter * let g:asyncomplete_auto_popup = index(s:auto_popup_filetypes, &ft) > 1
 au InsertEnter * exe 'let g:asyncomplete_auto_popup = '.(index(s:auto_popup_filetypes, &ft) >= 0 ? '1' : '0')
 function! s:check_back_space() abort
     let col = col('.') - 1
@@ -767,13 +417,13 @@ let g:asyncomplete_matchfuzzy = 1
 let g:lsp_text_edit_enabled = 1
 let g:lsp_experimental_workspace_folders = 1
 let g:lsp_show_document = 1
-let g:lsp_signs_enabled = 0         " enable signs
+let g:lsp_signs_enabled = 0
 let g:lsp_signs_error = {'text': 'XX'}
 let g:lsp_signs_warning = {'text': '!!'}
 let g:lsp_auto_enable = 1
 let g:lsp_hover_ui = 'float'
 "}}}
-endif
+
 " refe {{{
 let g:ref_use_vimproc=1
 let g:ref_refe_version=2
@@ -782,32 +432,15 @@ nnoremap <Space>rm  :<C-u>Ref man<Space>
 nnoremap <Space>rpy :<C-u>Ref pydoc<Space>
 nnoremap <Space>rw  :<C-u>Ref webdict<Space>
 let g:ref_source_webdict_sites = {
-            \   'je': {
-            \     'url': 'http://dictionary.infoseek.ne.jp/jeword/%s',
-            \   },
-            \   'ej': {
-            \     'url': 'http://dictionary.infoseek.ne.jp/ejword/%s',
-            \   },
-            \   'wiki': {
-            \     'url': 'http://ja.wikipedia.org/wiki/%s',
-            \   },
-            \   'alc': {
-            \     'url': 'http://eow.alc.co.jp/search?q=%s',
-            \   },
-            \   'weblio': {
-            \     'url': 'http://www.weblio.jp/content/%s',
-            \   },
-            \   'thesaurus': {
-            \     'url': 'http://thesaurus.weblio.jp/content/%s'
-            \   },
-            \   'antonym': {
-            \     'url': 'http://thesaurus.weblio.jp/antonym/content/%s'
-            \   }
+            \   'je': { 'url': 'http://dictionary.infoseek.ne.jp/jeword/%s' },
+            \   'ej': { 'url': 'http://dictionary.infoseek.ne.jp/ejword/%s' },
+            \   'wiki': { 'url': 'http://ja.wikipedia.org/wiki/%s' },
+            \   'alc': { 'url': 'http://eow.alc.co.jp/search?q=%s' },
+            \   'weblio': { 'url': 'http://www.weblio.jp/content/%s' },
+            \   'thesaurus': { 'url': 'http://thesaurus.weblio.jp/content/%s' },
+            \   'antonym': { 'url': 'http://thesaurus.weblio.jp/antonym/content/%s' }
             \ }
-
-"default site
 let g:ref_source_webdict_sites.default = 'alc'
-"filters
 function! g:ref_source_webdict_sites.je.filter(output)
     return join(split(a:output, "\n")[15 :], "\n")
 endfunction
@@ -830,37 +463,29 @@ function! g:ref_source_webdict_sites.antonym.filter(output)
     return join(split(a:output, "\n")[49 :], "\n")
 endfunction
 "}}}
+
 " quickdict.vim {{{
 nnoremap <Space>rq :<C-u>QuickDictEcho <C-r><C-w><CR>
 nnoremap <Space>ra :<C-u>QuickDictAppend <C-r><C-w><CR>
 nnoremap <Space>rA :<C-u>QuickDictInsertLast <C-r><C-w><CR>
 " }}}
+
 " vim-grepper {{{
-"let g:ag_prg="ag --vimgrep --smart-case --ignore='*__pycache__*' --ignore='*.pyc' --ignore='tags' "
-"let g:ag_highlight=1
 let g:grepper = {}
 let g:grepper.stop = 10000
 let g:grepper.rg = {'grepprg': 'rg -H --no-heading --vimgrep --smart-case -g "!tags"'}
-"noremap <Space>ga :<C-u>Grepper -tool ag<CR>
 noremap <Space>gg :<C-u>Grepper -tool git<CR>
 noremap <Space>gi :<C-u>Grepper -tool rg<CR>
 noremap <Space>g* :<C-u>Grepper -tool rg -cword -noprompt<CR>
 "}}}
-" airline{{{
+
+" airline {{{
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 let g:airline_experimental = 1
-let g:airline_extensions = ['branch', 'gina', 'ctrlp', 'quickfix', 'wordcount', 'gutentags', 'cwd']
-if has('nvim')
-  let g:airline_extensions = add(g:airline_extensions, 'nvimlsp')
-  " using barbar.nvim instead of airline's tabline
-  "let g:airline_extensions = add(g:airline_extensions, 'tabline')
-else
-  let g:airline_extensions = add(g:airline_extensions, 'lsp')
-  let g:airline_extensions = add(g:airline_extensions, 'tabline')
-endif
-let g:airline_theme='everforest' "'ayu_mirage' 'minimalist' 'serene' 'simple' 'wombat''papercolor'
+let g:airline_extensions = ['branch', 'gina', 'ctrlp', 'quickfix', 'wordcount', 'gutentags', 'cwd', 'lsp', 'tabline']
+let g:airline_theme='everforest'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = '⎇'
@@ -877,62 +502,31 @@ let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline#extensions#disable_rtp_load = 0
 let g:airline#extensions#cwd#enabled = 1
 let g:airline#extensions#fugitiveline#enabled = 1
-"let g:airline#extensions#alpaca_tags#enabled = 1
 let g:airline#extensions#gutentags#enabled = 1
 let g:airline#extensions#default#section_truncate_width = {
-            \ 'b': 79,
-            \ 'x': 80,
-            \ 'y': 88,
-            \ 'z': 60,
-            \ }
+            \ 'b': 79, 'x': 80, 'y': 88, 'z': 60 }
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline_mode_map = {
-            \ '__' : '-',
-            \ 'n'  : 'N',
-            \ 'i'  : 'I',
-            \ 'R'  : 'R',
-            \ 'c'  : 'C',
-            \ 'v'  : 'v',
-            \ 'V'  : 'V',
-            \ '' : '^V',
-            \ 's'  : 's',
-            \ 'S'  : 'S',
-            \ '' : '^',
-            \ }
+            \ '__' : '-', 'n'  : 'N', 'i'  : 'I', 'R'  : 'R',
+            \ 'c'  : 'C', 'v'  : 'v', 'V'  : 'V', '' : '^V',
+            \ 's'  : 's', 'S'  : 'S', '' : '^' }
 " }}}
-" 配色設定"{{{
+
+" colorscheme {{{
 set background=dark
-"colorscheme Tomorrow-Night-Blue
-"colorscheme harlequin
-"set notermguicolors
 set termguicolors
-"colorscheme PaperColor
 colorscheme everforest
 set t_Co=256
-" 90 ... purple which we can use only when 256-colors is enabled
-" hi Pmenu        ctermfg=White   ctermbg=90  cterm=NONE
-" hi PmenuSel     ctermfg=90   ctermbg=White  cterm=NONE
-" hi PmenuSbar    ctermfg=90   ctermbg=White  cterm=NONE
-" hi PmenuThumb   ctermfg=White   ctermbg=90  cterm=NONE
-
-" highlight LineNr ctermfg=40
-" highlight Visual term=reverse ctermbg=90 guibg=LightGrey
-" 全角スペースの表示
-"highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=white
 highlight MatchParen term=standout ctermbg=LightGrey ctermfg=lightcyan guibg=LightGrey guifg=lightcyan
-"match ZenkakuSpace /　/
-" make background transparent
 highlight Normal ctermbg=none
-let g:netrw_liststyle = 3 "netrw(Explorer)を常にツリー表示する
-let lisp_rainbow = 1 "lispをcolorfulに
+let g:netrw_liststyle = 3
+let lisp_rainbow = 1
 "}}}
 
 " fzf {{{
 let g:fzf_preview_window = ['right:40%:hidden', 'ctrl-/']
 let g:fzf_layout = { 'down': '~40%' }
-"let $FZF_DEFAULT_OPTS .= ' --info=inline --keep-right '
 let $FZF_DEFAULT_OPTS .= ' --info=hidden --keep-right '
-"let g:fzf_files_options='--info=inline --preview "basename {}" --preview-window "down:1:noborder"'
 command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, <bang>0)
 function! s:fzfhistory(...)
     return fzf#run(fzf#wrap('history-files', {
@@ -947,15 +541,8 @@ augroup fzfconf
     autocmd! FileType fzf set laststatus=0 noshowmode noruler
                 \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
-
-"nnoremap <silent><C-l><C-p> :<C-u>Files<CR>
-"nnoremap <silent><C-l><C-s> :execute ':<C-u>Files <C-r>=expand('%:h:p')<CR><CR>'
-"nnoremap <silent><C-l><C-b> :<C-u>Buffers<CR>
-"nnoremap <silent><C-l><C-m> :<C-u>FileHistory<CR>
-"nnoremap <silent><C-l><C-h> :<C-u>History:<CR>
-"nnoremap <silent><C-l>/     :<C-u>History/<CR>
-"nnoremap <C-l>l     :<C-u>Locate 
 " }}}
+
 " ctrlp {{{
 let g:ctrlp_map = '<c-l><c-p>'
 nnoremap <silent><C-l><C-p> :<C-u>CtrlP<CR>
@@ -965,13 +552,10 @@ nnoremap <silent><C-l><C-r> :<C-u>CtrlPMRMru<CR>
 nnoremap <silent><C-l><C-m> :<C-u>CtrlPMRMru<CR>
 nnoremap <silent><C-l><CR>  :<C-u>CtrlPMRMru<CR>
 nnoremap <silent><C-l><C-d> :<C-u>CtrlPDir<CR>
-"nnoremap <silent><C-l><C-k> :execute ':<C-u>CtrlPDir <C-r>=expand('%:h:p')<CR><CR>'
 nnoremap <silent><C-l><C-c> :<C-u>CtrlPQuickfix<CR>
-"nnoremap <silent><C-l>f     :<C-u>CtrlPFunky<Cr>
 nnoremap <silent><C-l><C-h> :<C-u>CtrlPCmdHistory<CR>
 nnoremap <silent><C-l>/     :<C-u>CtrlPSearchHistory<CR>
 nnoremap <silent><C-l>l     :<C-u>CtrlPLocate<CR>
-"nnoremap <silent><C-l><C-t> :<C-u>CtrlPSmartTabs<CR>
 let g:ctrlp_cmd='CtrlP'
 let g:ctrlp_use_caching = 1
 if executable('rg')
@@ -987,8 +571,6 @@ let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git|hg|svn|neocon|cache|Skype|fontconfig|vimbackup|nvimbackup|wine|thumbnail|mozilla|local|thunderbird|vimundo|nvimundo|neocomplcache|rvm|cache|vimswap|nvimswap|rbenv)$',
             \ 'file': '\v(\.(exe|so|dll|db|o|a|pyc|pyo|pdf|dvi|zip|rar|tgz|gz|tar|png|jpg|JPG|gif|mpg|mp4|mp3|bag|sw[a-z])|tags)$',
             \ }
-"\ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.neocon$\|\.cache$\|\.Skype$\|\.fontconfig$\|\.vimbackup$\|\.wine$\|\.thumbnails$\|\.mozilla$\|\.local$\|\.thunderbird$\|\.vimundo$\|\.neocomplcache$\|\.rvm$\|\.cache$\|\.vimswap$|\.rbenv$',
-"\ 'file': '\.exe$\|\.so$\|\.dll$\|\.db$\|\.o$\|\.a$\|\.pyc$\|\.pyo$\|\.pdf$\|\.dvi$\|\.zip$\|\.rar$\|\.tgz$\|\.gz$\|\.tar$\|\.png$\|\.jpg$\|\.JPG$\|\.gif$\|\.mpg$\|\.mp4$\|\.mp3$\|\.bag$\|\.sw[a-z]$',
 let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|vimfiler\|unite\|vimshell'
 let g:ctrlp_lazy_update = 0
@@ -997,10 +579,6 @@ let g:ctrlp_funky_sort_reverse=1
 let g:ctrlp_smarttabs_modify_tabline = 1
 let g:ctrlp_tjump_only_silent = 1
 let g:ctrlp_user_command_async = 1
-" if has('python3')
-"   let g:fruzzy#usenative = 1
-"   let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
-" elseif exists('*matchfuzzy')
 if exists('*matchfuzzy')
     let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 endif
@@ -1018,15 +596,6 @@ function! s:kensaku() abort
 endfunction
 command! CtrlPKensakuFiles call <SID>kensaku()
 nnoremap <silent><C-l><C-k> :<C-u>CtrlPKensakuFiles<CR>
-
-
-" let g:ctrlp_mruf_default_order = 1
-" function! Ctrlp_toggle_mrf_order() abort
-"   let g:ctrlp_mruf_default_order=!g:ctrlp_mruf_default_order
-"   echo 'mru_sort: ' . g:ctrlp_mruf_default_order
-"   let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
-"   call ctrlp#update(1)
-" endfunction
 function! CtrlPToggleMRURelative() abort
     cal ctrlp#mrufiles#tgrel()
     let g:ctrlp_lines = ctrlp#mrufiles#refresh()
@@ -1036,60 +605,51 @@ function! CtrlPPreviewFunc(line) abort
 endfunction
 function! s:ctrlp_mru_kensaku_relative() abort
     let l:oldmatcher = g:ctrlp_match_func
-    "let g:ctrlp_mruf_default_order = 1
     if !g:ctrlp_mruf_relative
         cal ctrlp#mrufiles#tgrel()
     endif
     let g:ctrlp_match_func = {'match': 'ctrlp_kensaku#matcher'}
-    "let g:ctrlp_move_func = {'main': 'CtrlPPreviewFunc'}
-    "execute("CtrlP")
     execute("CtrlPMRU")
     let g:ctrlp_match_func = l:oldmatcher
-    "unlet g:ctrlp_move_func
-    "let g:ctrlp_mruf_default_order = 0
     if g:ctrlp_mruf_relative
         cal ctrlp#mrufiles#tgrel()
     endif
 endfunction
 command! CtrlPRelativeMRUKensaku call <SID>ctrlp_mru_kensaku_relative()
 nnoremap <silent><C-l><C-t> :<C-u>CtrlPRelativeMRUKensaku<CR>
-
 let g:ctrlp_tjump_shortener = ['/home/[^/]*/', '~/']
-"if exists(':CtrlPtjump')
-"  let g:ctrlp_tjump_only_silent=1
-"  nnoremap <c-]> :CtrlPtjump<cr>
-"  xnoremap <c-]> :CtrlPtjumpVisual<cr>
-"endif
 "}}}
+
 " vim-mr {{{
 let g:mr#mru#predicates = [{ filename -> filename !~# '/tmp/editprompt-prompts' }]
 " }}}
-"openbrowser"{{{
-"let g:netrw_nogx = 1 " disable netrw's gx mapping.
+
+" openbrowser {{{
 nmap <space>ob <Plug>(openbrowser-open)
 xmap <space>ob <Plug>(openbrowser-open)
 nmap <space>ow <Plug>(openbrowser-search)
 nmap <space>os <Plug>(openbrowser-smart-search)
 xmap <space>os <Plug>(openbrowser-smart-search)
 "}}}
+
 " molder {{{
 let g:molder_show_hidden = 1
 " }}}
-" vim-easy-align{{{
+
+" vim-easy-align {{{
 xnoremap <silent> <Enter> :LiveEasyAlign<cr>
 " }}}
+
 " operator-replace {{{
 nnoremap <silent> RR R
 nnoremap <silent> R <Plug>(operator-replace)
 xnoremap <silent> R <Plug>(operator-replace)
-"map R <Plug>(operator-replace)
 " }}}
+
 " operator-surround {{{
 map <silent>sa <Plug>(operator-surround-append)
 map <silent>sd <Plug>(operator-surround-delete)
 map <silent>sr <Plug>(operator-surround-replace)
-"map <silent>sA <Plug>(operator-surround-append-input-in-advance)
-"map <silent>sR <Plug>(operator-surround-replace-input-in-advance)
 let g:operator#surround#blocks = {
             \ 'markdown' : [
             \       { 'block' : ["```\n", "\n```"], 'motionwise' : ['line'], 'keys' : ['`'] },
@@ -1099,19 +659,23 @@ let g:operator#surround#blocks = {
             \ ]
             \ }
 " }}}
+
 " asterisk {{{
 vmap *  <Plug>(asterisk-*)
 vmap g* <Plug>(asterisk-g*)
 vmap #  <Plug>(asterisk-#)
 vmap g# <Plug>(asterisk-g#)
 " }}}
+
 " previm {{{
 let g:previm_enable_realtime = 1
 "}}}
+
 " vim-markdown {{{
 let g:vim_markdown_folding_disabled=1
 " }}}
-"{{{
+
+" blockwise visual {{{
 xnoremap <expr> I  <SID>force_blockwise_visual('I')
 xnoremap <expr> A  <SID>force_blockwise_visual('A')
 function! s:force_blockwise_visual(next_key)
@@ -1119,12 +683,13 @@ function! s:force_blockwise_visual(next_key)
         return "\<C-v>" . a:next_key
     elseif mode() ==# 'V'
         return "\<C-v>0o$" . a:next_key
-    else  " mode() ==# "\<C-v>"
+    else
         return a:next_key
     endif
 endfunction
 "}}}
-" tex{{{
+
+" tex {{{
 function! s:TexReplaceChars()
     echo "replace tex chars"
     try
@@ -1140,13 +705,8 @@ augroup mytex
     autocmd BufWrite *.tex call s:TexReplaceChars()
 augroup END
 " }}}
-" eskk{{{
-let g:eskk#show_annotation=1
-let g:eskk#large_dictionary = {
-            \	'path': "~/.skkjisyo/SKK-JISYO.L",
-            \	'sorted': 1,
-            \	'encoding': 'euc-jp',
-            \}
+
+" skkeleton {{{
 set iminsert=0
 function! s:skkeleton_init() abort
     call skkeleton#config({
@@ -1157,9 +717,7 @@ function! s:skkeleton_init() abort
                 \ 'markerHenkan': '',
                 \ 'markerHenkanSelect': ''
                 \ })
-    " ノーマル・ターミナルでは変換中に下線を引き、
     highlight SkkeletonHenkan gui=underline term=underline cterm=underline
-    " カラー・ターミナルでは変換中に色を反転する
     highlight SkkeletonHenkanSelect gui=underline,reverse term=underline,reverse cterm=underline,reverse
 endfunction
 augroup skkeleton-initialize-pre
@@ -1168,81 +726,17 @@ augroup skkeleton-initialize-pre
 augroup END
 imap <C-j> <Plug>(skkeleton-enable)
 cmap <C-j> <Plug>(skkeleton-enable)
-"if executable('ibus')
-"    augroup IbusControl
-"        au!
-"        au InsertLeave * call system('ibus engine skk')
-"        au VimEnter,InsertEnter * call system('ibus engine xkb:us::eng')
-"    augroup END
-"endif
 "}}}
+
 " oscyank {{{
-if has('nvim')
-lua << EOF
-vim.o.clipboard = "unnamedplus"
-
-local function osc52_supported()
-  local term = vim.env.TERM or ""
-  local tty = vim.env.SSH_TTY or vim.fn.getenv("TTY") or ""
-
-  -- Explicit opt-in via terminal detection
-  if vim.env.NVIM_TERM == "alacritty" or vim.env.TERM_PROGRAM == "WezTerm" then
-    return true
-  end
-
-  -- Over SSH? Most likely terminals support OSC52 copy there
-  if tty ~= "" then
-    return true
-  end
-
-  -- Could also allow certain known terms
-  if term:match("xterm") or term:match("tmux") then
-    return true
-  end
-
-  return false
-end
-if osc52_supported() then
-  -- :help clipboard-osc52
-  vim.g.clipboard = 'osc52'
-end
-EOF
-"    lua << EOF
-"    require('osc52').setup {
-"        max_length = 0,           -- Maximum length of selection (0 for no limit)
-"        silent = true,           -- Disable message on successful copy
-"        trim = false,             -- Trim surrounding whitespaces before copy
-"        tmux_passthrough = false, -- Use tmux passthrough (requires tmux: set -g allow-passthrough on)
-"    }
-"    -- vim.keymap.set('n', '<leader>c', require('osc52').copy_operator, {expr = true})
-"    -- vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
-"    -- vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
-"    local function copy(lines, _)
-"        require('osc52').copy(table.concat(lines, '\n'))
-"    end
-"
-"    local function paste()
-"        return {vim.fn.split(vim.fn.getreg(''), '\n'), vim.fn.getregtype('')}
-"    end
-"
-"    vim.g.clipboard = {
-"        name = 'osc52',
-"        copy = {['+'] = copy, ['*'] = copy},
-"        paste = {['+'] = paste, ['*'] = paste},
-"    }
-"
-"    -- Now the '+' register will copy to system clipboard using OSC52
-"    vim.keymap.set('n', '<leader>c', '"+y')
-"    vim.keymap.set('n', '<leader>cc', '"+yy')
-"EOF
-else
-  let g:oscyank_silent = v:true
-  nnoremap <leader>Y <Plug>OSCYankOperator
-  nnoremap <leader>YY <leader>Y_
-  vnoremap <leader>Y <Plug>OSCYankVisual
-  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankRegister +' | endif
-endif
+let g:oscyank_silent = v:true
+nnoremap <leader>Y <Plug>OSCYankOperator
+nnoremap <leader>YY <leader>Y_
+vnoremap <leader>Y <Plug>OSCYankVisual
+autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankRegister +' | endif
 " }}}
+
+" clang-format {{{
 let g:clang_format#style_options = {
             \ "AccessModifierOffset" : -2,
             \ "AllowShortIfStatementsOnASingleLine" : "false",
@@ -1256,84 +750,46 @@ let g:clang_format#style_options = {
             \ "DerivePointerAlignment": "false",
             \ "PointerAlignment": "Left",
             \ "Standard" : "C++11"}
+" }}}
 
-function! s:set_cmake_dictionary() "{{{
+" cmake dictionary {{{
+function! s:set_cmake_dictionary()
     let s:cmake_dict = printf('%s/dict/cmake.txt', expand('<sfile>:p:h'))
-    if stridx(&l:dictionary, 'cmake\.txt$') == -1 " only when it doesn't contain
+    if stridx(&l:dictionary, 'cmake\.txt$') == -1
         let &l:dictionary = printf('%s,%s', &l:dictionary, s:cmake_dict)
     endif
-endfunction 
-autocmd FileType cmake call s:set_cmake_dictionary() "}}}
+endfunction
+autocmd FileType cmake call s:set_cmake_dictionary()
+"}}}
+
 " toggle terminal {{{
-if has('nvim')
-    function! s:term_list() abort
-        let l:blist = getbufinfo({'bufloaded': 1, 'buflisted': 1})
-        let l:res = []
-        for l:item in l:blist
-            if empty(l:item.variables)
-                continue
-            endif
-            if !has_key(l:item.variables, "terminal_job_id")
-                continue
-            endif
-            call add(l:res, l:item.bufnr)
-        endfor
-        return l:res
-    endfunction
-
-    function! ToggleTerminal() abort
-        let l:terms = s:term_list()
-        if empty(l:terms)
-            split
-            execute "normal! \<c-w>J"
-            resize 10
-            set wfh
-            terminal
-            startinsert
+function! ToggleTerminal() abort
+    let l:terms = term_list()
+    if empty(l:terms)
+        botright terminal ++rows=10
+    else
+        let l:wins = win_findbuf(l:terms[0])
+        if empty(l:wins)
+            botright 10split
+            execute 'buffer' l:terms[0]
         else
-            let l:wins = win_findbuf(l:terms[0])
-            if empty(l:wins)
-                botright 10split
-                set wfh
-                execute 'buffer' l:terms[0]
-                startinsert
-            else
-                call nvim_win_hide(l:wins[0])
-            endif
+            call win_execute(l:wins[0], 'hide')
         endif
-        setlocal nobuflisted
-    endfunction
-else
-    function! ToggleTerminal() abort
-        let l:terms = term_list()
-        if empty(l:terms)
-            botright terminal ++rows=10
-        else
-            let l:wins = win_findbuf(l:terms[0])
-            if empty(l:wins)
-                botright 10split
-                execute 'buffer' l:terms[0]
-            else
-                call win_execute(l:wins[0], 'hide')
-            endif
-        endif
-        setlocal nobuflisted
-    endfunction
-endif
-
+    endif
+    setlocal nobuflisted
+endfunction
 inoremap <F2> <cmd>:call ToggleTerminal()<cr>
 nnoremap <F2> <cmd>:call ToggleTerminal()<cr>
 tnoremap <F2> <cmd>:call ToggleTerminal()<cr>
 " }}}
+
 " img-paste {{{
 let g:mdip_imgdir = './assets'
-"let g:mdip_imgname = 'image'
 function! g:PattoPasteImage(relpath)
     execute "normal! i[@img \"" . g:mdip_tmpname[0:0]
     let ipos = getcurpos()
     execute "normal! a" . g:mdip_tmpname[1:] . "\" " . a:relpath . "]"
     call setpos('.', ipos)
-    "execute "normal! vt]\<C-g>"
 endfunction
 augroup patto-imgpaste
     autocmd!
@@ -1342,229 +798,4 @@ augroup patto-imgpaste
 augroup END
 " }}}
 
-if has('nvim')
-" telescope {{{
-lua << EOF
-require'telescope'.setup({
-  defaults = {
-      layout_strategy = 'bottom_pane',
-      layout_config = { height = 0.50, prompt_position = "bottom" },
-      border = false,
-  }
-})
-EOF
-" }}}
-" fzf-lua {{{
-lua << EOF
-require("fzf-lua").setup{
-  winopts = { 
-    split = "belowright new",-- open in a split instead?
-    border           = "none",
-    preview = {
-      border         = "none",
-      title = false,
-    }
-  },
-  fzf_opts = {
-    ["--ansi"]           = true,
-    ["--info"]           = "hidden", -- fzf < v0.42 = "inline"
-    ["--height"]         = "100%",
-    ["--layout"]         = "default",
-    ["--border"]         = "none",
-    ["--highlight-line"] = true,
-    ["--keep-right"] = true,
-  },
-}
-EOF
-" }}}
-" copilot {{{
-lua << EOF
-require("copilot").setup()
-EOF
-" }}}
-" telescope {{{
-lua << EOF
-require('telescope').setup{
-  defaults = {
-    layout_strategy = 'bottom_pane',
-    layout_config = {
-      prompt_position = 'bottom',
-      width = 0.99,
-      height = 0.9,
-    }
-  },
-}
-EOF
-" }}}
-" dial.nvim {{{
-nmap  <C-a>  <Plug>(dial-increment)
-nmap  <C-x>  <Plug>(dial-decrement)
-nmap g<C-a> g<Plug>(dial-increment)
-nmap g<C-x> g<Plug>(dial-decrement)
-vmap  <C-a>  <Plug>(dial-increment)
-vmap  <C-x>  <Plug>(dial-decrement)
-vmap g<C-a> g<Plug>(dial-increment)
-vmap g<C-x> g<Plug>(dial-decrement)
-" }}}
-" barbar.nvim {{{
-let g:barbar_auto_setup = v:false " disable auto-setup
-lua << EOF
-  require'barbar'.setup {
-  -- Enable/disable animations
-  animation = false,
-
-  -- Automatically hide the tabline when there are this many buffers left.
-  -- Set to any value >=0 to enable.
-  auto_hide = false,
-
-  -- Enable/disable current/total tabpages indicator (top right corner)
-  tabpages = true,
-
-  -- Enables/disable clickable tabs
-  --  - left-click: go to buffer
-  --  - middle-click: delete buffer
-  clickable = true,
-
-  -- Excludes buffers from the tabline
-  exclude_ft = {},
-  exclude_name = {},
-
-  -- A buffer to this direction will be focused (if it exists) when closing the current buffer.
-  -- Valid options are 'left' (the default), 'previous', and 'right'
-  focus_on_close = 'left',
-
-  -- Hide inactive buffers and file extensions. Other options are `alternate`, `current`, and `visible`.
-  hide = {extensions = false, inactive = false},
-
-  -- Disable highlighting alternate buffers
-  highlight_alternate = false,
-
-  -- Disable highlighting file icons in inactive buffers
-  highlight_inactive_file_icons = false,
-
-  -- Enable highlighting visible buffers
-  highlight_visible = true,
-
-  icons = {
-    -- Configure the base icons on the bufferline.
-    -- Valid options to display the buffer index and -number are `true`, 'superscript' and 'subscript'
-    buffer_index = false,
-    buffer_number = false,
-    button = '',
-    -- Enables / disables diagnostic symbols
-    diagnostics = {
-      [vim.diagnostic.severity.ERROR] = {enabled = true, icon = 'ﬀ'},
-      [vim.diagnostic.severity.WARN] = {enabled = false},
-      [vim.diagnostic.severity.INFO] = {enabled = false},
-      [vim.diagnostic.severity.HINT] = {enabled = true},
-    },
-    gitsigns = {
-      added = {enabled = true, icon = '+'},
-      changed = {enabled = true, icon = '~'},
-      deleted = {enabled = true, icon = '-'},
-    },
-    filetype = {
-      -- Sets the icon's highlight group.
-      -- If false, will use nvim-web-devicons colors
-      custom_colors = false,
-
-      -- Requires `nvim-web-devicons` if `true`
-      enabled = false,
-    },
-    separator = {left = '▎', right = ''},
-
-    -- If true, add an additional separator at the end of the buffer list
-    separator_at_end = true,
-
-    -- Configure the icons on the bufferline when modified or pinned.
-    -- Supports all the base icon options.
-    modified = {button = '●'},
-    pinned = {button = '', filename = true},
-
-    -- Use a preconfigured buffer appearance— can be 'default', 'powerline', or 'slanted'
-    preset = 'default',
-
-    -- Configure the icons on the bufferline based on the visibility of a buffer.
-    -- Supports all the base icon options, plus `modified` and `pinned`.
-    alternate = {filetype = {enabled = true}},
-    current = {buffer_index = false},
-    inactive = {button = '×'},
-    visible = {modified = {buffer_number = true}},
-  },
-
-  -- If true, new buffers will be inserted at the start/end of the list.
-  -- Default is to insert after current buffer.
-  insert_at_end = false,
-  insert_at_start = false,
-
-  -- Sets the maximum padding width with which to surround each tab
-  maximum_padding = 1,
-
-  -- Sets the minimum padding width with which to surround each tab
-  minimum_padding = 1,
-
-  -- Sets the maximum buffer name length.
-  maximum_length = 30,
-
-  -- Sets the minimum buffer name length.
-  minimum_length = 0,
-
-  -- If set, the letters for each buffer in buffer-pick mode will be
-  -- assigned based on their name. Otherwise or in case all letters are
-  -- already assigned, the behavior is to assign letters in order of
-  -- usability (see order below)
-  semantic_letters = true,
-
-  -- Set the filetypes which barbar will offset itself for
-  -- sidebar_filetypes = {
-  --   -- Use the default values: {event = 'BufWinLeave', text = '', align = 'left'}
-  --   NvimTree = true,
-  --   -- Or, specify the text used for the offset:
-  --   undotree = {
-  --     text = 'undotree',
-  --     align = 'center', -- *optionally* specify an alignment (either 'left', 'center', or 'right')
-  --   },
-  --   -- Or, specify the event which the sidebar executes when leaving:
-  --   ['neo-tree'] = {event = 'BufWipeout'},
-  --   -- Or, specify all three
-  --   Outline = {event = 'BufWinLeave', text = 'symbols-outline', align = 'right'},
-  -- },
-
-  -- New buffer letters are assigned in this order. This order is
-  -- optimal for the qwerty keyboard layout but might need adjustment
-  -- for other layouts.
-  letters = 'asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP',
-
-  -- Sets the name of unnamed buffers. By default format is "[Buffer X]"
-  -- where X is the buffer number. But only a static string is accepted here.
-  no_name_title = nil,
-
-  -- sorting options
-  sort = {
-    -- tells barbar to ignore case differences while sorting buffers
-    ignore_case = true,
-  },
-  }
-EOF
-" }}}
-" fidget {{{
-lua <<EOF
-require("fidget").setup {
-  -- options
-}
-EOF
-" }}}
-lua <<EOF
-local ok, extui = pcall(require, 'vim._extui')
-if ok then
-  extui.enable({
-    enable = true, -- extuiを有効化
-    msg = {
-      target = 'cmd',
-      timeout = 3000,
-    },
-  })
-end
-EOF
-endif
 filetype plugin indent on
