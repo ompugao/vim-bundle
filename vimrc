@@ -587,6 +587,7 @@ lua <<EOF
       local stp = client.server_capabilities.semanticTokensProvider
       stp.range = false
     end,
+  { settings = { patto = { markdown = { defaultFlavor = 'github' }}}}
   })
   vim.lsp.config('patto_preview', {})
   vim.lsp.config('rust_analyzer', {
