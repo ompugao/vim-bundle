@@ -7,6 +7,9 @@ vim.o.fileencodings = 'utf-8,iso-2022-jp,euc-jp,sjis'
 vim.o.fileformats = 'unix,dos,mac'
 vim.scriptencoding = 'utf8'
 
+-- Set termguicolors early (before colorscheme is loaded)
+vim.o.termguicolors = true
+
 -- Disable Python provider
 vim.g.loaded_python3_provider = 0
 vim.g.python3_host_prog = ''
@@ -31,7 +34,15 @@ require('lazy').setup({
   { 'nvim-tree/nvim-web-devicons', lazy = true },
   { 'cocopon/iceberg.vim', lazy = true },
   { 'NLKNguyen/papercolor-theme', lazy = true },
-  { 'sainnhe/everforest', lazy = false, priority = 1000 },
+  { 'sainnhe/everforest',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.g.everforest_background = 'hard'
+      vim.o.background = 'dark'
+      vim.cmd('colorscheme everforest')
+    end,
+  },
 
   { 'romgrk/barbar.nvim',
     lazy = false,
@@ -280,7 +291,7 @@ require('lazy').setup({
 
   -- Git
   { 'tpope/vim-fugitive',
-    cmd = { 'Git', 'G', 'Gstatus', 'Gblame', 'Gpush', 'Gpull', 'Gvdiff' },
+    cmd = { 'Git', 'G', 'Gstatus', 'Gblame', 'Gpush', 'Gpull', 'Gvdiffsplit' },
     init = function()
       vim.api.nvim_create_autocmd('BufReadPost', {
         pattern = 'fugitive://*',
@@ -588,7 +599,7 @@ require('lazy').setup({
   },
 
   { 'bling/vim-airline',
-    dependencies = { 'vim-airline/vim-airline-themes', 'ompugao/vim-airline-cwd' },
+    dependencies = { 'vim-airline/vim-airline-themes', 'ompugao/vim-airline-cwd', 'lambdalisue/gina.vim' },
     init = function()
       vim.g.airline_symbols = {
         branch = '⎇',
@@ -823,7 +834,6 @@ opt.isfname:remove('=')
 opt.grepprg = 'grep -nH $*'
 opt.completeopt = 'menuone,noinsert,noselect'
 opt.pumheight = 12
-opt.termguicolors = true
 opt.background = 'dark'
 
 vim.g.tex_conceal = ""
@@ -836,10 +846,11 @@ vim.g.markdown_fenced_languages = { 'css', 'erb=eruby', 'javascript', 'js=javasc
 vim.g.netrw_liststyle = 3
 vim.g.lisp_rainbow = 1
 
--- Colorscheme
-vim.cmd('colorscheme everforest')
+-- Colorscheme highlights (colorscheme is set by everforest plugin config)
 vim.api.nvim_set_hl(0, 'MatchParen', { ctermbg = 'LightGrey', ctermfg = 'lightcyan', bg = 'LightGrey', fg = 'lightcyan' })
-vim.api.nvim_set_hl(0, 'Normal', { ctermbg = 'none' })
+-- Make terminal background transparent (only cterm, preserve GUI colors)
+vim.cmd('highlight Normal ctermbg=NONE')
+--vim.api.nvim_set_hl(0, 'Normal', { ctermbg = 'none' })
 
 -- Autocommands
 vim.api.nvim_create_autocmd('BufReadPost', {
