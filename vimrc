@@ -42,7 +42,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ompugao/ctrlp-history'
 Plug 'ompugao/ctrlp-locate'
 Plug 'mattn/ctrlp-matchfuzzy'
-Plug 'ompugao/cpsm', {'branch': 'feature/remove_boost_dependency', 'do': './install.sh' }
+"Plug 'ompugao/cpsm', {'branch': 'feature/remove_boost_dependency', 'do': './install.sh' }
 Plug 'lambdalisue/kensaku.vim'
 Plug 'ompugao/ctrlp-kensaku'
 Plug 'lambdalisue/vim-mr'
@@ -582,10 +582,11 @@ let g:ctrlp_user_command_async = 1
 if exists('*matchfuzzy')
     let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 endif
-if has('python3')
-    let g:cpsm_match_empty_query = 0
-    let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
-endif
+"cpsm kills vim on ubuntu24.04
+"if has('python3')
+"    let g:cpsm_match_empty_query = 0
+"    let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
+"endif
 function! s:kensaku() abort
     let l:oldmatcher = g:ctrlp_match_func
     let g:ctrlp_match_func = {'match': 'ctrlp_kensaku#matcher'}
