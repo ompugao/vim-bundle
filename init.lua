@@ -1063,7 +1063,7 @@ keymap('t', '<F2>', toggle_terminal)
 local function osc52_supported()
   local term = vim.env.TERM or ""
   local tty = vim.env.SSH_TTY or vim.fn.getenv("TTY") or ""
-  if vim.env.NVIM_TERM == "alacritty" or vim.env.TERM_PROGRAM == "WezTerm" then
+  if vim.env.NVIM_TERM == "alacritty" or vim.env.TERM_PROGRAM == "WezTerm" or vim.env.TERM_PROGRAM == "ghostty" then
     return true
   end
   if tty ~= "" then
