@@ -244,7 +244,11 @@ require('lazy').setup({
       })
       vim.lsp.config('clangd', {})
       vim.lsp.config('ty', {})
-      vim.lsp.enable({ 'rust_analyzer', 'ty', 'clangd', 'patto_lsp', 'patto_preview' })
+      vim.lsp.config('typos_lsp', {
+        cmd = { "typos-lsp" },
+        cmd_env = { RUST_LOG = "error" },
+      })
+      vim.lsp.enable({ 'rust_analyzer', 'ty', 'clangd', 'patto_lsp', 'patto_preview', 'typos_lsp' })
 
       vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP actions',
