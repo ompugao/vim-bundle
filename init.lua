@@ -638,26 +638,36 @@ require('lazy').setup({
     end,
   },
 
-  { 'img-paste-devs/img-paste.vim',
+  { 'hakonharnes/img-clip.nvim',
     ft = { 'markdown', 'patto' },
-    init = function()
-      vim.g.mdip_imgdir = './assets'
-      -- Define PattoPasteImage function
-      vim.cmd([[
-        function! g:PattoPasteImage(relpath)
-          execute "normal! i[@img \"" . g:mdip_tmpname[0:0]
-          let ipos = getcurpos()
-          execute "normal! a" . g:mdip_tmpname[1:] . "\" " . a:relpath . "]"
-          call setpos('.', ipos)
-        endfunction
-      ]])
-    end,
-    config = function()
+    opts = {
+      default = {
+        dir_path = './assets',
+      },
+      filetypes = {
+        markdown = {
+          dir_path = './assets',
+        },
+        patto = {
+          dir_path = './assets',
+          template = function(context)
+            -- Custom format for patto: [@img "filename" path]
+            local filename = context.file_name
+            local first_char = filename:sub(1, 1)
+            local rest = filename:sub(2)
+            return string.format('[@img "%s%s" %s]', first_char, rest, context.file_path)
+          end,
+        },
+      },
+    },
+    config = function(_, opts)
+      require('img-clip').setup(opts)
+      
+      -- Set up keymaps for both filetypes
       vim.api.nvim_create_autocmd('FileType', {
-        pattern = 'patto',
+        pattern = { 'markdown', 'patto' },
         callback = function()
-          vim.keymap.set('n', '<leader>P', '<cmd>call mdip#MarkdownClipboardImage()<CR>', { buffer = true })
-          vim.g.PasteImageFunction = 'g:PattoPasteImage'
+          vim.keymap.set('n', '<leader>P', '<cmd>PasteImage<CR>', { buffer = true })
         end,
       })
     end,
