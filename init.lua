@@ -1089,6 +1089,12 @@ local function osc52_supported()
   return false
 end
 if osc52_supported() then
+  local function paste()
+    return {
+      vim.fn.split(vim.fn.getreg(""), "\n"),
+      vim.fn.getregtype(""),
+    }
+  end
   vim.o.clipboard = "unnamedplus"
   -- vim.g.clipboard = "osc52"
   -- OSC52 only supports copy (write to system clipboard), not paste (read)
@@ -1100,10 +1106,8 @@ if osc52_supported() then
       ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
     },
     paste = {
-      -- Return nil to use Neovim's default paste behavior
-      -- This avoids interfering with insert mode and skkeleton
-      ["+"] = function() return nil end,
-      ["*"] = function() return nil end,
+      ["+"] = paste,
+      ["*"] = paste,
     },
   }
 end
