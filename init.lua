@@ -502,7 +502,17 @@ require('lazy').setup({
   { 'plasticboy/vim-markdown', ft = 'markdown', init = function()
     vim.g.vim_markdown_folding_disabled = 1
   end },
-  { 'ompugao/patto' },
+  { 'ompugao/patto',
+    ft = 'patto',
+    keys = {
+      {
+        "<space>p",
+        function() require("patto_preview_toggle").toggle() end,
+        desc = "Open patto-preview-tui for current file",
+        ft = "patto",
+      },
+    },
+  },
 
   -- Utilities
   { 'rbtnn/vim-ambiwidth' },
