@@ -162,6 +162,7 @@ require('lazy').setup({
           enabled = { custom = function() return vim.env.EDITPROMPT == '1' end },
         },
       },
+      'neovim/nvim-lspconfig'
     },
     opts = {
       snippets = { preset = 'luasnip' },
