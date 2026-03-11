@@ -653,6 +653,7 @@ require('lazy').setup({
     opts = {
       default = {
         dir_path = './assets',
+        insert_mode_after_paste = false
       },
       filetypes = {
         markdown = {
