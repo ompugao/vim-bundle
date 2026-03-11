@@ -297,14 +297,18 @@ require('lazy').setup({
   },
 
   -- Git
-  { 'tpope/vim-fugitive',
-    cmd = { 'Git', 'G', 'Gstatus', 'Gblame', 'Gpush', 'Gpull', 'Gvdiffsplit' },
-    init = function()
-      vim.api.nvim_create_autocmd('BufReadPost', {
-        pattern = 'fugitive://*',
-        callback = function() vim.bo.bufhidden = 'delete' end,
-      })
-    end,
+  {
+    "NeogitOrg/neogit",
+    lazy = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    cmd = "Neogit",
+    keys = {
+      { "<leader>gg", function() require('neogit').open() end, desc = "Show Neogit UI" }
+    }
   },
   { 'lewis6991/gitsigns.nvim', event = 'BufReadPre', opts = {} },
   { 'cohama/agit.vim', cmd = 'Agit' },
@@ -638,7 +642,7 @@ require('lazy').setup({
       vim.g['airline#extensions#hunks#non_zero_only'] = 1
       vim.g['airline#extensions#disable_rtp_load'] = 0
       vim.g['airline#extensions#cwd#enabled'] = 1
-      vim.g['airline#extensions#fugitiveline#enabled'] = 1
+      vim.g['airline#extensions#fugitiveline#enabled'] = 0
       vim.g['airline#extensions#gutentags#enabled'] = 1
       vim.g['airline#extensions#default#section_truncate_width'] = { b = 79, x = 80, y = 88, z = 60 }
       vim.g['airline#extensions#whitespace#enabled'] = 1
