@@ -619,37 +619,57 @@ require('lazy').setup({
     },
   },
 
-  { 'bling/vim-airline',
-    dependencies = { 'vim-airline/vim-airline-themes', 'ompugao/vim-airline-cwd', 'lambdalisue/gina.vim' },
-    init = function()
-      vim.g.airline_symbols = {
-        branch = '⎇',
-        linenr = 'L',
-        paste = 'ρ',
-        whitespace = 'Ξ',
+  { 'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      local mode_map = {
+        NORMAL = 'N', INSERT = 'I', REPLACE = 'R', COMMAND = 'C',
+        VISUAL = 'v', ['V-LINE'] = 'V', ['V-BLOCK'] = '^V',
+        SELECT = 's', ['S-LINE'] = 'S', ['S-BLOCK'] = '^',
+        TERMINAL = 'T', EX = 'E',
       }
-      vim.g.airline_experimental = 1
-      vim.g.airline_extensions = { 'branch', 'gina', 'ctrlp', 'quickfix', 'wordcount', 'gutentags', 'cwd', 'nvimlsp' }
-      vim.g.airline_theme = 'everforest'
-      vim.g.airline_left_sep = ''
-      vim.g.airline_right_sep = ''
-      vim.g['airline#extensions#tabline#buffer_idx_mode'] = 1
-      vim.g['airline#extensions#tabline#enabled'] = 1
-      vim.g['airline#extensions#tabline#ignore_bufadd_pat'] = [[\c\vgundo|undotree|vimfiler|tagbar|nerd_tree]]
-      vim.g['airline#extensions#tabline#left_sep'] = ' '
-      vim.g['airline#extensions#tabline#formatter'] = 'unique_tail_improved'
-      vim.g['airline#extensions#branch#enabled'] = 1
-      vim.g['airline#extensions#hunks#non_zero_only'] = 1
-      vim.g['airline#extensions#disable_rtp_load'] = 0
-      vim.g['airline#extensions#cwd#enabled'] = 1
-      vim.g['airline#extensions#fugitiveline#enabled'] = 0
-      vim.g['airline#extensions#gutentags#enabled'] = 1
-      vim.g['airline#extensions#default#section_truncate_width'] = { b = 79, x = 80, y = 88, z = 60 }
-      vim.g['airline#extensions#whitespace#enabled'] = 1
-      vim.g.airline_mode_map = {
-        ['__'] = '-', n = 'N', i = 'I', R = 'R', c = 'C', v = 'v', V = 'V',
-        [''] = '^V', s = 's', S = 'S', [''] = '^',
-      }
+
+      local function wordcount()
+        local wc = vim.fn.wordcount()
+        return (wc.visual_words or wc.words) .. 'w'
+      end
+
+      local function cwd()
+        return vim.fn.fnamemodify(vim.fn.getcwd(), ':~')
+      end
+
+      local function win_wider_than(w)
+        return function() return vim.fn.winwidth(0) > w end
+      end
+
+      require('lualine').setup({
+        options = {
+          theme = 'everforest',
+          section_separators = '',
+          component_separators = '',
+        },
+        sections = {
+          lualine_a = { { 'mode', fmt = function(s) return mode_map[s] or s end } },
+          lualine_b = {
+            { 'branch', icon = '⎇', cond = win_wider_than(79) },
+            { 'diff', symbols = { added = '+', modified = '~', removed = '-' },
+              cond = win_wider_than(79) },
+          },
+          lualine_c = { { 'filename', path = 1 } },
+          lualine_x = {
+            { 'diagnostics', cond = win_wider_than(80) },
+            { wordcount, cond = win_wider_than(80) },
+            { 'fileformat', cond = win_wider_than(88) },
+            { 'filetype', cond = win_wider_than(88) },
+          },
+          lualine_y = { { cwd, cond = win_wider_than(88) } },
+          lualine_z = { { 'location', cond = win_wider_than(60) } },
+        },
+        inactive_sections = {
+          lualine_c = { { 'filename', path = 1 } },
+          lualine_x = { 'location' },
+        },
+      })
     end,
   },
 
