@@ -620,7 +620,7 @@ require('lazy').setup({
   },
 
   { 'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons', 'ompugao/lualine-ctrlp' },
     config = function()
       local mode_map = {
         NORMAL = 'N', INSERT = 'I', REPLACE = 'R', COMMAND = 'C',
@@ -643,6 +643,7 @@ require('lazy').setup({
       end
 
       require('lualine').setup({
+        extensions = { 'ctrlp' },
         options = {
           theme = 'everforest',
           section_separators = '',
