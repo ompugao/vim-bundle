@@ -153,8 +153,10 @@ require('lazy').setup({
   -- Completion
   { 'saghen/blink.cmp',
     branch = 'main',
-    build = 'cargo +nightly b -r',
+    -- build = 'cargo +nightly b -r',
+    build = function() require('blink.cmp').build():wait(60000) end,
     dependencies = {
+      'saghen/blink.lib',
       { 'saghen/blink.compat', branch = 'main', opts = {} },
       'Xantibody/blink-cmp-skkeleton',
       { 'biosugar0/cmp-claudecode',
@@ -181,26 +183,12 @@ require('lazy').setup({
         default = function(_ctx)
           if require("blink-cmp-skkeleton").is_enabled() then
             return { "skkeleton", "lsp" }
+          elseif vim.bo.filetype == 'markdown' or vim.bo.filetype == 'patto' then
+            return { 'lsp', 'snippets', 'path', 'claude_slash', 'claude_at' }
           else
             return { 'lsp', 'snippets', 'path', 'buffer', 'claude_slash', 'claude_at' }
           end
         end,
-        per_filetype = {
-          markdown = function(_ctx)
-            if require("blink-cmp-skkeleton").is_enabled() then
-              return { "skkeleton", "lsp" }
-            else
-              return { 'lsp', 'snippets', 'path', 'claude_slash', 'claude_at' }
-            end
-          end,
-          patto = function(_ctx)
-            if require("blink-cmp-skkeleton").is_enabled() then
-              return { "skkeleton", "lsp" }
-            else
-              return { 'lsp', 'snippets', 'path', 'claude_slash', 'claude_at' }
-            end
-          end,
-        },
         providers = {
           skkeleton = { name = 'skkeleton', module = 'blink-cmp-skkeleton' },
           claude_slash = { name = 'claude_slash', module = 'blink.compat.source', score_offset = 20 },
