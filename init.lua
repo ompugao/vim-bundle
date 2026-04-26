@@ -138,11 +138,11 @@ require('lazy').setup({
         return require('luasnip').expand_or_jumpable() and '<Plug>luasnip-expand-or-jump' or '<Tab>'
       end, mode = 'i', expr = true, silent = true },
       { '<C-k>', function()
-        return require('luasnip').expand_or_jumpable() and '<Plug>luasnip-expand-or-jump' or '<Tab>'
+        return require('luasnip').expand_or_jumpable() and '<Plug>luasnip-expand-or-jump' or '<C-k>'
       end, mode = 'i', expr = true, silent = true },
       { '<S-Tab>', function() require('luasnip').jump(-1) end, mode = 'i', silent = true },
-      { '<C-k>', function() require('luasnip').jump(1) end, mode = 's', silent = true },
       { '<Tab>', function() require('luasnip').jump(1) end, mode = 's', silent = true },
+      { '<C-k>', function() require('luasnip').jump(1) end, mode = 's', silent = true },
       { '<S-Tab>', function() require('luasnip').jump(-1) end, mode = 's', silent = true },
       { '<C-E>', function()
         return require('luasnip').choice_active() and '<Plug>luasnip-next-choice' or '<C-E>'
@@ -152,11 +152,10 @@ require('lazy').setup({
 
   -- Completion
   { 'saghen/blink.cmp',
-    branch = 'main',
-    -- build = 'cargo +nightly b -r',
-    build = function() require('blink.cmp').build():wait(60000) end,
+    version = '1.*',
+    build = 'cargo +nightly b -r',
+    -- build = function() require('blink.cmp').build():wait(60000) end,
     dependencies = {
-      'saghen/blink.lib',
       { 'saghen/blink.compat', branch = 'main', opts = {} },
       'Xantibody/blink-cmp-skkeleton',
       { 'biosugar0/cmp-claudecode',
