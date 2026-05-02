@@ -158,7 +158,8 @@ require('lazy').setup({
     dependencies = {
       { 'saghen/blink.compat', branch = 'main', opts = {} },
       'Xantibody/blink-cmp-skkeleton',
-      { 'biosugar0/cmp-claudecode',
+      {
+        'saiashirwad/blink-cmp-claude',
         opts = {
           enabled = { custom = function() return vim.env.EDITPROMPT == '1' end },
         },
@@ -182,16 +183,18 @@ require('lazy').setup({
         default = function(_ctx)
           if require("blink-cmp-skkeleton").is_enabled() then
             return { "skkeleton", "lsp" }
+          elseif vim.bo.filetype == 'markdown' and vim.env.EDITPROMPT == '1' then
+            return { 'lsp', 'snippets', 'path', 'claude_slash', 'claude_files' }
           elseif vim.bo.filetype == 'markdown' or vim.bo.filetype == 'patto' then
-            return { 'lsp', 'snippets', 'path', 'claude_slash', 'claude_at' }
+            return { 'lsp', 'snippets', 'path' }
           else
-            return { 'lsp', 'snippets', 'path', 'buffer', 'claude_slash', 'claude_at' }
+            return { 'lsp', 'snippets', 'path', 'buffer', 'claude_slash', 'claude_files' }
           end
         end,
         providers = {
           skkeleton = { name = 'skkeleton', module = 'blink-cmp-skkeleton' },
-          claude_slash = { name = 'claude_slash', module = 'blink.compat.source', score_offset = 20 },
-          claude_at = { name = 'claude_at', module = 'blink.compat.source', score_offset = 20 },
+          claude_slash = { name = 'claude_slash', module = 'blink-cmp-claude.slash', score_offset = 100 },
+          claude_files = { name = 'claude_files', module = 'blink-cmp-claude.files', score_offset = 90 },
         },
       },
     },
@@ -199,6 +202,15 @@ require('lazy').setup({
       vim.g.skkeleton_blink_mode = false
       local blink = require('blink.cmp')
       blink.setup(opts)
+
+      require('blink-cmp-claude').setup({
+        filetype = 'markdown',
+        patterns = {
+          '.*/CLAUDE_.*',
+          '.*/claude%-prompt%-.*',
+          '.*/.editprompt.*',
+        },
+      })
 
       -- LSP capabilities
       local capabilities = blink.get_lsp_capabilities({
