@@ -55,7 +55,7 @@
     "task": {
         "prefix": "task",
         "body": [
-            "{@task status=${1:todo} due=${2:${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}}}$0"
+            "{@task status=${1:todo} due=${2:${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}} scheduled=${3:${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}}}$0"
         ],
         "description": "Task snippet"
     },
