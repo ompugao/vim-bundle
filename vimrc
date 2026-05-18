@@ -799,4 +799,8 @@ augroup patto-imgpaste
 augroup END
 " }}}
 
+" nerdcommenter {{{{
+let g:NERDCustomDelimiters = { 'patto': { 'left': '[- ', 'right': ']' } }
+" }}}
+
 filetype plugin indent on

@@ -741,7 +741,11 @@ require('lazy').setup({
 
   { 'kshenoy/vim-signature' },
   { 'Shougo/vinarise', cmd = 'Vinarize' },
-  { 'scrooloose/nerdcommenter' },
+  { 'scrooloose/nerdcommenter',
+    config = function()
+      vim.g.NERDCustomDelimiters = { patto = { left = '[- ', right = ']' } } -- commentstring ignores spaces somehow
+    end,
+  },
   { 'mattn/webapi-vim', lazy = true },
 
   { 'tyru/open-browser.vim',
