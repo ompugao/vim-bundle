@@ -516,6 +516,12 @@ require('lazy').setup({
         ft = "patto",
       },
     },
+	config = function ()
+     require("patto.current_task").setup({
+       fidget        = true,    -- shows sticky corner notification via fidget.nvim
+       poll_interval = 60000,   -- re-fetch from LSP every 60s (+ on BufWritePost/InsertLeave)
+     })
+	end
   },
 
   -- Utilities
