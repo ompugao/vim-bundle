@@ -895,7 +895,7 @@ opt.background = 'dark'
 vim.g.tex_conceal = ""
 if vim.fn.has('conceal') == 1 then
   opt.conceallevel = 2
-  opt.concealcursor = 'c'
+  opt.concealcursor = ''
 end
 
 vim.g.markdown_fenced_languages = { 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml' }
