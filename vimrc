@@ -94,6 +94,7 @@ Plug 'preservim/tagbar'
 Plug 'lambdalisue/gina.vim'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+Plug 'mattn/calendar-vim'
 call plug#end()
 "}}}
 
@@ -801,6 +802,41 @@ augroup END
 
 " nerdcommenter {{{{
 let g:NERDCustomDelimiters = { 'patto': { 'left': '[- ', 'right': ']' } }
+" }}}
+
+" calendar-vim {{{
+let g:calendar_no_mappings = 1
+function! CalendarDateAction(day, month, year, week, dir) abort
+  let l:date = printf('%04d-%02d-%02d', a:year, a:month, a:day)
+  wincmd p
+  let l:line = getline('.')
+  let l:col = col('.') - 1
+  let l:date_pat = '\d\{4}-\d\{2}-\d\{2}'
+  let l:start = 0
+  let l:ms = -1
+  let l:me = -1
+  while 1
+    let l:cur_ms = match(l:line, l:date_pat, l:start)
+    let l:cur_me = matchend(l:line, l:date_pat, l:start)
+    if l:cur_ms < 0 | break | endif
+    if l:cur_ms <= l:col && l:col < l:cur_me
+      let l:ms = l:cur_ms
+      let l:me = l:cur_me
+      break
+    endif
+    let l:start = l:cur_ms + 1
+  endwhile
+  if l:ms >= 0
+    call setline('.', strpart(l:line, 0, l:ms) . l:date . strpart(l:line, l:me))
+  else
+    call setline('.', strpart(l:line, 0, l:col) . l:date . strpart(l:line, l:col))
+  endif
+  wincmd p
+  q
+endfunction
+let calendar_action = 'CalendarDateAction'
+nnoremap <leader>cal <cmd>Calendar<CR>
+nnoremap <leader>caL <cmd>CalendarH<CR>
 " }}}
 
 filetype plugin indent on

@@ -38,7 +38,7 @@ require('lazy').setup({
     lazy = false,
     priority = 1000,
     config = function()
-      vim.g.everforest_background = 'medium'
+      vim.g.everforest_background = 'soft'
       vim.g.everforest_transparent_background = 1
       vim.g.everforest_dim_inactive_windows = 1
       vim.o.background = 'dark'
@@ -105,7 +105,13 @@ require('lazy').setup({
     },
   },
 
-  { 'j-hui/fidget.nvim', opts = {} },
+  { 'j-hui/fidget.nvim',
+    opts = {
+	  notification = {
+		override_vim_notify = false,
+	  },
+    },
+  },
 
   { 'shellRaining/hlchunk.nvim',
     event = 'BufReadPost',
@@ -258,10 +264,10 @@ require('lazy').setup({
             vim.keymap.set(mode, lhs, rhs, { buffer = true })
           end
           bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-          bufmap('n', 'gd', '<cmd>Trouble lsp_definitions<cr>')
-          bufmap('n', 'gD', '<cmd>Trouble lsp_declarations<cr>')
-          bufmap('n', 'gi', '<cmd>Trouble lsp_implementations<cr>')
-          bufmap('n', 'go', '<cmd>Trouble lsp_type_definitions<cr>')
+          bufmap('n', 'gd', '<cmd>Trouble lsp_definitions first<cr>')
+          bufmap('n', 'gD', '<cmd>Trouble lsp_declarations first<cr>')
+          bufmap('n', 'gi', '<cmd>Trouble lsp_implementations first<cr>')
+          bufmap('n', 'go', '<cmd>Trouble lsp_type_definitions first<cr>')
           bufmap('n', 'gr', '<cmd>Trouble lsp_references<cr>')
           bufmap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
           bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
@@ -780,6 +786,48 @@ require('lazy').setup({
     end,
   },
 
+  { 'https://github.com/mattn/calendar-vim',
+    init = function()
+      vim.g.calendar_no_mappings = 1
+    end,
+    keys = {
+      { '<leader>cal', '<cmd>Calendar<CR>', desc = 'Open calendar for date insert/edit' },
+      { '<leader>caL', '<cmd>CalendarH<CR>', desc = 'Open calendar (horizontal)' },
+    },
+    config = function()
+      vim.cmd([[
+        function! CalendarDateAction(day, month, year, week, dir) abort
+          let l:date = printf('%04d-%02d-%02d', a:year, a:month, a:day)
+          wincmd p
+          let l:line = getline('.')
+          let l:col = col('.') - 1
+          let l:date_pat = '\d\{4}-\d\{2}-\d\{2}'
+          let l:start = 0
+          let l:ms = -1
+          let l:me = -1
+          while 1
+            let l:cur_ms = match(l:line, l:date_pat, l:start)
+            let l:cur_me = matchend(l:line, l:date_pat, l:start)
+            if l:cur_ms < 0 | break | endif
+            if l:cur_ms <= l:col && l:col < l:cur_me
+              let l:ms = l:cur_ms
+              let l:me = l:cur_me
+              break
+            endif
+            let l:start = l:cur_ms + 1
+          endwhile
+          if l:ms >= 0
+            call setline('.', strpart(l:line, 0, l:ms) . l:date . strpart(l:line, l:me))
+          else
+            call setline('.', strpart(l:line, 0, l:col) . l:date . strpart(l:line, l:col))
+          endif
+          wincmd p
+          q
+        endfunction
+        let calendar_action = 'CalendarDateAction'
+      ]])
+    end,
+  },
   { 'rhysd/vim-clang-format',
     ft = { 'c', 'cpp', 'objc' },
     init = function()
@@ -825,7 +873,31 @@ require('lazy').setup({
 
   { 'preservim/tagbar', cmd = 'TagbarToggle' },
   { 'stefandtw/quickfix-reflector.vim' },
+  {
+  "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      bigfile = { enabled = true },
+      dashboard = { enabled = false },
+      explorer = { enabled = false },
+      indent = { enabled = false },
+      input = { enabled = false },
+      picker = { enabled = false },
+      notifier = { enabled = false },
+      quickfile = { enabled = false },
+      scope = { enabled = false },
+      scroll = { enabled = false },
+      statuscolumn = { enabled = false },
+      words = { enabled = false },
+	  image = { enabled = true }
+    },
+  }
 })
+
+--require("patto_treesitter").setup()
+--require("patto_image").setup()
 
 -- Editor Settings
 local opt = vim.opt
@@ -1167,5 +1239,5 @@ if ok then
     msg = { target = 'cmd', timeout = 3000 },
   })
 end
-
+vim.g.patto_preview_tui_extra_args = {'--protocol', 'sixel'}
 --vim.cmd('filetype plugin indent on')
