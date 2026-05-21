@@ -228,6 +228,7 @@ require('lazy').setup({
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       vim.lsp.config('patto_lsp', {
+        lsp_folding = true,
         on_init = function(client)
           local stp = client.server_capabilities.semanticTokensProvider
           if stp then stp.range = false end
