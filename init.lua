@@ -28,7 +28,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Plugins
 require('lazy').setup({
   -- UI & Appearance
-  { 'stevearc/dressing.nvim', opts = {} },
+  --{ 'stevearc/dressing.nvim', opts = {} },
   { 'nvim-lua/plenary.nvim', lazy = true },
   { 'MunifTanjim/nui.nvim', lazy = true },
   { 'nvim-tree/nvim-web-devicons', lazy = true },
