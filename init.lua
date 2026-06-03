@@ -459,6 +459,12 @@ require('lazy').setup({
     vim.g['mr#mru#predicates'] = { function(filename) return not filename:match('/tmp/editprompt%-prompts') end }
   end },
   { 'tsuyoshicho/ctrlp-mr.vim', dependencies = { 'ctrlpvim/ctrlp.vim', 'lambdalisue/vim-mr' } },
+  { 'ompugao/ctrlp-select.nvim',
+    dependencies = { 'ctrlpvim/ctrlp.vim' },
+    config = function()
+      vim.ui.select = require('ctrlp_select').select
+    end,
+  },
 
   -- Operators & Text Objects
   { 'junegunn/vim-easy-align',
