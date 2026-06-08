@@ -541,6 +541,91 @@ require('lazy').setup({
       { 'g<C-a>', 'g<Plug>(dial-increment)', mode = { 'n', 'v' } },
       { 'g<C-x>', 'g<Plug>(dial-decrement)', mode = { 'n', 'v' } },
     },
+    config = function()
+      local augend = require("dial.augend")
+
+      local patto_task_status = augend.user.new({
+        find = require("dial.augend.common").find_pattern_regex([[\c\V\<\(todo\|doing\|done\|paused\)\>]]),
+        add = function(text, addend, cursor)
+          local current = text:lower()
+          local val = current
+          if addend > 0 then
+            for _ = 1, addend do
+              if val == "todo" then
+                val = "doing"
+              elseif val == "doing" then
+                val = "done"
+              elseif val == "done" then
+                val = "todo"
+              elseif val == "paused" then
+                val = "doing"
+              end
+            end
+          elseif addend < 0 then
+            for _ = 1, -addend do
+              if val == "done" then
+                val = "doing"
+              elseif val == "doing" then
+                val = "paused"
+              elseif val == "paused" then
+                val = "todo"
+              elseif val == "todo" then
+                val = "done"
+              end
+            end
+          end
+
+          -- Preserve case
+          local new_text
+          if text:upper() == text then
+            new_text = val:upper()
+          elseif text:sub(1,1):upper() .. text:sub(2):lower() == text then
+            new_text = val:sub(1,1):upper() .. val:sub(2):lower()
+          else
+            new_text = val:lower()
+          end
+
+          return { text = new_text, cursor = #new_text }
+        end
+      })
+
+      require("dial.config").augends:register_group({
+        default = {
+          augend.integer.alias.decimal,
+          augend.integer.alias.hex,
+          augend.date.new({
+            pattern = "%Y/%m/%d",
+            default_kind = "day",
+            only_valid = true,
+          }),
+          augend.date.new({
+            pattern = "%Y-%m-%d",
+            default_kind = "day",
+            only_valid = true,
+          }),
+          augend.constant.alias.bool,
+          patto_task_status,
+        },
+      })
+
+      require("dial.config").augends:on_filetype({
+        patto = {
+          patto_task_status,
+          augend.integer.alias.decimal,
+          augend.integer.alias.hex,
+          augend.date.new({
+            pattern = "%Y/%m/%d",
+            default_kind = "day",
+            only_valid = true,
+          }),
+          augend.date.new({
+            pattern = "%Y-%m-%d",
+            default_kind = "day",
+            only_valid = true,
+          }),
+        }
+      })
+    end,
   },
 
   { 'Shougo/vimproc', build = 'make' },
@@ -1175,3 +1260,4 @@ if ok then
 end
 
 --vim.cmd('filetype plugin indent on')
+
