@@ -578,7 +578,7 @@ let g:ctrlp_key_loop = 0
 let g:ctrlp_funky_sort_reverse=1
 let g:ctrlp_smarttabs_modify_tabline = 1
 let g:ctrlp_tjump_only_silent = 1
-let g:ctrlp_user_command_async = 1
+let g:ctrlp_user_command_async = 0
 if exists('*matchfuzzy')
     let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 endif
