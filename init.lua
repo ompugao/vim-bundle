@@ -628,6 +628,7 @@ require('lazy').setup({
     end,
   },
 
+  { 'lambdalisue/vim-suda' },
   { 'Shougo/vimproc', build = 'make' },
 
   { 'thinca/vim-quickrun',
