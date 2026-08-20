@@ -294,6 +294,10 @@ require('lazy').setup({
         mixing_color = "Normal",
       },
     },
+    config = function()
+      require("tiny-inline-diagnostic").setup()
+      vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
+    end,
   },
 
   -- Git
