@@ -923,8 +923,8 @@ local opt = vim.opt
 
 opt.autoindent = true
 opt.backup = true
-opt.backupdir = vim.fn.expand('~/.nvimbackup')
-opt.directory = vim.fn.expand('~/.nvimswap')
+opt.backupdir = vim.fn.expand('~/.cache/nvimbackup')
+opt.directory = vim.fn.expand('~/.cache/nvimswap')
 opt.diffopt:append('vertical')
 
 for _, dir in ipairs({ vim.o.backupdir, vim.o.directory }) do
@@ -938,7 +938,7 @@ vim.api.nvim_create_autocmd('SwapExists', {
 })
 
 if vim.fn.has('persistent_undo') == 1 then
-  opt.undodir = vim.fn.expand('~/.nvimundo')
+  opt.undodir = vim.fn.expand('~/.cache/nvimundo')
   if vim.fn.isdirectory(vim.o.undodir) == 0 then
     vim.fn.mkdir(vim.o.undodir, 'p')
   end
