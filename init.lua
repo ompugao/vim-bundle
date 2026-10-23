@@ -921,6 +921,31 @@ require('lazy').setup({
 
   { 'preservim/tagbar', cmd = 'TagbarToggle' },
   { 'stefandtw/quickfix-reflector.vim' },
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      bigfile = { enabled = false },
+      dashboard = { enabled = false },
+      explorer = { enabled = false },
+      indent = { enabled = true },
+      input = { enabled = false },
+      image = { enabled = true },
+      picker = { enabled = false },
+      notifier = { enabled = false },
+      quickfile = { enabled = false },
+      scope = { enabled = false },
+      scroll = { enabled = false },
+      statuscolumn = { enabled = false },
+      words = { enabled = true },
+    },
+    doc = {
+      max_width = 60,
+      max_height = 30,
+	}
+  }
 })
 
 -- Editor Settings
