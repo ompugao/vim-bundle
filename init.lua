@@ -294,6 +294,10 @@ require('lazy').setup({
         mixing_color = "Normal",
       },
     },
+    config = function()
+      require("tiny-inline-diagnostic").setup()
+      vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
+    end,
   },
 
   -- Git
@@ -386,7 +390,7 @@ require('lazy').setup({
       vim.g.ctrlp_funky_sort_reverse = 1
       vim.g.ctrlp_smarttabs_modify_tabline = 1
       vim.g.ctrlp_tjump_only_silent = 1
-      vim.g.ctrlp_user_command_async = 1
+      vim.g.ctrlp_user_command_async = 0
       vim.g.ctrlp_tjump_shortener = { '/home/[^/]*/', '~/' }
       if vim.fn.exists('*matchfuzzy') == 1 then
         vim.g.ctrlp_match_func = { match = 'ctrlp_matchfuzzy#matcher' }
@@ -628,6 +632,7 @@ require('lazy').setup({
     end,
   },
 
+  { 'lambdalisue/vim-suda' },
   { 'Shougo/vimproc', build = 'make' },
 
   { 'thinca/vim-quickrun',
