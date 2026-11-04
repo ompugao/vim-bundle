@@ -371,7 +371,7 @@ require('lazy').setup({
       vim.g.ctrlp_cmd = 'CtrlP'
       vim.g.ctrlp_use_caching = 1
       if vim.fn.executable('rg') == 1 then
-        vim.g.ctrlp_user_command = 'rg --hidden --files %s | rg -v -e "\\.git/" -e "\\.exe\\$" -e "\\.so\\$" -e "\\.dll\\$" -e "\\.db\\$" -e "\\.o\\$" -e "\\.a\\$" -e "\\.pyc\\$" -e "\\.pyo\\$" -e "\\.pdf\\$" -e "\\.dvi\\$" -e "\\.zip\\$" -e "\\.rar\\$" -e "\\.tgz\\$" -e "\\.gz\\$" -e "\\.tar\\$" -e "\\.png\\$" -e "\\.jpg\\$" -e "\\.JPG\\$" -e "\\.gif\\$" -e "\\.mpg\\$" -e "\\.mp4\\$" -e "\\.mp3\\$" -e "\\.bag\\$"'
+        vim.g.ctrlp_user_command = 'rg --hidden --files %s | rg -v -e "\\.git/" -e "\\.exe\\$" -e "\\.so\\$" -e "\\.dll\\$" -e "\\.db\\$" -e "\\.o\\$" -e "\\.a\\$" -e "\\.pyc\\$" -e "\\.pyo\\$" -e "\\.pdf\\$" -e "\\.dvi\\$" -e "\\.zip\\$" -e "\\.rar\\$" -e "\\.tgz\\$" -e "\\.gz\\$" -e "\\.tar\\$" -e "\\.png\\$" -e "\\.jpg\\$" -e "\\.JPG\\$" -e "\\.gif\\$" -e "\\.mpg\\$" -e "\\.mp4\\$" -e "\\.mp3\\$" -e "\\.bag\\$" -e "fsc/fsm"'
       end
       vim.g.ctrlp_max_files = 0
       vim.g.ctrlp_show_hidden = 1
@@ -944,7 +944,7 @@ require('lazy').setup({
     doc = {
       max_width = 60,
       max_height = 30,
-	}
+    }
   }
 })
 
@@ -1290,4 +1290,3 @@ if ok then
 end
 
 --vim.cmd('filetype plugin indent on')
-
