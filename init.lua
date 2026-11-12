@@ -1280,6 +1280,18 @@ if osc52_supported() then
   }
 end
 
+-- herdr-nvim integration
+if vim.env.HERDR_NO_EXPLORER then
+  -- herdr-nvim has no option to skip opening an explorer with tree = "nvim"
+  vim.api.nvim_create_autocmd("VimEnter", {
+    once = true,
+    callback = function()
+      local ok, app = pcall(require, "herdr-nvim.app")
+      if ok then app.explore_on_ui = function() return 1 end end
+    end,
+  })
+end
+
 -- extui (if available)
 local ok, extui = pcall(require, 'vim._extui')
 if ok then
