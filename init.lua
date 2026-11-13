@@ -946,7 +946,8 @@ require('lazy').setup({
       }
     },
     config = function(_, opts)
-      if vim.env.HC_TERMINAL_SOCKET then
+      -- herdr-nvim's sidebar runs nvim in its own pty without the HC_* variables.
+      if vim.env.HC_TERMINAL_SOCKET or vim.env.HERDR_NVIM_HOST == 'app' then
         -- Pretend to be remote so snacks sends image bytes (t=d); herdr ignores file-path transmission (t=f).
         vim.env.SNACKS_SSH = vim.env.SNACKS_SSH or '1'
         local terminal = require('snacks.image.terminal')
