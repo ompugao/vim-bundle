@@ -940,11 +940,33 @@ require('lazy').setup({
       scroll = { enabled = false },
       statuscolumn = { enabled = false },
       words = { enabled = true },
+      doc = {
+        max_width = 60,
+        max_height = 30,
+      }
     },
-    doc = {
-      max_width = 60,
-      max_height = 30,
-    }
+    config = function(_, opts)
+      if vim.env.HC_TERMINAL_SOCKET then
+        -- Pretend to be remote so snacks sends image bytes (t=d); herdr ignores file-path transmission (t=f).
+        vim.env.SNACKS_SSH = vim.env.SNACKS_SSH or '1'
+        local terminal = require('snacks.image.terminal')
+        local original_size = terminal.size
+        terminal.size = function()
+          local s = original_size()
+          if s.cell_width == 0 or s.cell_height == 0 then
+            local cell_w, cell_h = 9, 18
+            s.cell_width, s.cell_height = cell_w, cell_h
+            s.width, s.height = s.columns * cell_w, s.rows * cell_h
+            s.scale = cell_w / 8
+          end
+          return s
+        end
+        -- herdr draws 1px gaps between rows of unicode placeholder cells. Forcing
+        -- placeholders = false removes them, but patto then falls back to a hover float
+        -- instead of inline images, so we keep placeholders and accept the gaps.
+      end
+      require('snacks').setup(opts)
+    end,
   }
 })
 
