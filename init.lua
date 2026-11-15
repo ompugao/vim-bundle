@@ -950,6 +950,7 @@ require('lazy').setup({
       if vim.env.HC_TERMINAL_SOCKET or vim.env.HERDR_NVIM_HOST == 'app' then
         -- Pretend to be remote so snacks sends image bytes (t=d); herdr ignores file-path transmission (t=f).
         vim.env.SNACKS_SSH = vim.env.SNACKS_SSH or '1'
+        vim.env.SNACKS_GHOSTTY = vim.env.SNACKS_GHOSTTY or '1'
         local terminal = require('snacks.image.terminal')
         local original_size = terminal.size
         terminal.size = function()
